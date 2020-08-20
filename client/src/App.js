@@ -12,6 +12,7 @@ function App() {
         </p>
         <h1>BIENVENIDOS</h1>
         <h2>WP02-ECOMMERCE-G1</h2>
+        <h3>TEST</h3>
         <a
           className="App-link"
           href="https://reactjs.org"
