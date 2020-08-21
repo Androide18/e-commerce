@@ -4,9 +4,7 @@ const { DataTypes, DATEONLY } = require('sequelize');
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('product', {
-    id: {
-      
-    },
+    
     name: {
       type: DataTypes.STRING,
       allowNull: false,
