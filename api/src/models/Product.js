@@ -21,16 +21,18 @@ module.exports = (sequelize) => {
     },
     stock: {
       type: DataTypes.STRING,
-      allowNull: null
+      allowNull: false
     },
-    categori: {
+    category: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    image: {
-      type: DataTypes.image,
-      allowNull: false
-    }
+    image: { 
+      type: DataTypes.BLOB,
+    },
+    createdAt: DataTypes.DATE,
+    updatedAt: DataTypes.DATE,
   });
 };
- 
+
+
