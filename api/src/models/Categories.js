@@ -3,32 +3,16 @@ const { DataTypes } = require('sequelize');
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
   // defino el modelo
-  sequelize.define('product', {
+  sequelize.define('categories', {
     name: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM('Abrigos', 'Pantalones', 'Camisas', 'Remeras', 'Accesorios'),
       allowNull: false,
     },
     description: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    price: {
-      type: DataTypes.STRING,
-      allowNull:false
-    },
-    stock: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    category: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    image: { 
-      type: DataTypes.BLOB,
-    },
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE,
   });
 };
-
