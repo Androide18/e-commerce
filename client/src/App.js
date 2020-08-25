@@ -3,19 +3,20 @@ import logo from './logo.svg';
 import './App.css';
 import {Home} from '../src/components/Home';
 import {Products} from '../src/components/Products';
-import {SearchBar} from '../src/components/SearchBar';
+// import {SearchBar} from '../src/components/SearchBar';
+import {ProductCard} from '../src/components/ProductCard';
+import AppBar from '../src/components/AppBar';
 
 
 function App() {
   return (
-    <div className="container">
-      <div>
-      <SearchBar/>
-      </div>
-      <div>
-       <Home/>
-      </div>
-      <div>
+    <div>
+   
+      <AppBar/>
+    
+     <div className="container">
+      <ProductCard/>
+     
       <Products/>
       </div>
     </div>
