@@ -9,5 +9,7 @@ const router = Router();
 // i.e: router.use('/auth', authRouter);
 // router.use('/auth', authRouter);
 router.use('/products', productRouter);
+router.use('/products/new', productRouter);
+router.use('/products/:id', productRouter);
 
 module.exports = router;
