@@ -16,7 +16,16 @@ function App() {
     
      <div className="container">
       <ProductCard/>
-     
+      <div className="container">
+        <form action="/images/upload" method="POST" enctype="multipart/form-data">
+            <input type="file" name="image"/>
+            <button type="submit">
+                Save
+            </button>
+        </form>
+  
+     </div>
+   
       <Products/>
       </div>
     </div>
