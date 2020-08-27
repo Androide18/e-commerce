@@ -6,6 +6,7 @@ import {Products} from '../src/components/Products';
 // import {SearchBar} from '../src/components/SearchBar';
 import {ProductCard} from '../src/components/ProductCard';
 import AppBar from '../src/components/AppBar';
+import CRUD from '../src/components/CRUD';
 
 
 function App() {
@@ -15,9 +16,10 @@ function App() {
       <AppBar/>
     
      <div className="container">
-      <ProductCard/>
-     
-      <Products/>
+    
+      <CRUD/>
+
+
       </div>
     </div>
   );
