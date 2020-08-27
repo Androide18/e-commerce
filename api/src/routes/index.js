@@ -14,11 +14,7 @@ const path = require('path');
 router.use('/products', productRouter);
 router.use('/products/new', productRouter);
 router.use('/products/:id', productRouter);
-router.use('/upload', productRouter);
+router.use('/uploads', productRouter);
 
-// // MIDDLEWARE
-// router.use(multer({
-//     dest: path.join(__dirname, 'public/uploads')
-// }).single('images'));
 
 module.exports = router;

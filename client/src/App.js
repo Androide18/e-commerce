@@ -6,7 +6,7 @@ import {Products} from '../src/components/Products';
 // import {SearchBar} from '../src/components/SearchBar';
 import {ProductCard} from '../src/components/ProductCard';
 import AppBar from '../src/components/AppBar';
-
+import UploadForm from '../src/components/UploadForm';
 
 function App() {
   return (
@@ -16,15 +16,8 @@ function App() {
     
      <div className="container">
       <ProductCard/>
-      <div className="container">
-        <form action="/images/upload" method="POST" enctype="multipart/form-data">
-            <input type="file" name="image"/>
-            <button type="submit">
-                Save
-            </button>
-        </form>
-  
-     </div>
+      
+      <UploadForm/>
    
       <Products/>
       </div>
