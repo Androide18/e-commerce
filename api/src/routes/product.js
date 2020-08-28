@@ -51,7 +51,7 @@ server.get('/:id', (req, res) => {
 server.get('/:id', (req, res) => {
     console.log(req.params.id);
     const catName = req.params.id;
-    Product.findAll( {where: {category: catName}})
+    Product.findAll( {where: {Category: catName}})
     .then( result => {
         res.send({result})
     })
@@ -73,13 +73,13 @@ server.get('/', (req, res) => {
 // S25
 
 server.post('/', (req, res) => {
-    const { name, description, price, stock, category } = req.body;
+    const { Name, Description, Price, Stock, Category } = req.body;
     Product.create({
-        name: name,
-        description: description,
-        price: price,
-        stock: stock,
-        category: category,
+        Name: Name,
+        Description: Description,
+        Price: Price,
+        Stock: Stock,
+        Category: Category,
     }).then(result => {
         res.send('Se creo el producto')
     })
