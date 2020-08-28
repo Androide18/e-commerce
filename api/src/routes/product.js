@@ -1,8 +1,19 @@
 const server = require('express').Router();
 const { Product } = require('../db.js');
 
+const multer = require('multer');
+const path = require('path');
+ var upload = multer({ dest: 'uploads/' })
 
 // RUTAS A CREAR
+
+
+	
+	// POST IMAGE CON MULTER
+	 server.post('/', upload.single('image'), (req, res) => {
+		res.send('HOLA')
+		console.log(req.file, req.body);
+	});
 
 // S14 and S21 - CREAR RUTA A CATALOGO / HOME PAGE      ok
 // S15 and S24 - CREAR RUTA PARA VER PRODUCTO POR ID    ok
@@ -15,8 +26,6 @@ const { Product } = require('../db.js');
 
 // Comments: como funciona el query realmente???
  // Como comprobamos el error al modificar un producto.            
-
-
 
 
 // S14 and S21

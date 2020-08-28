@@ -10,15 +10,20 @@ import NotFound from '../src/pages/NotFound.js'
 import './App.css';
 import FormIngresos from './pages/FormIngresos.js';
 import AppBar from '../src/components/AppBar';
+
+import UploadForm from '../src/components/UploadForm';
+
 import Rights from '../src/components/Rights';
 
 function App() {
   return (
     <React.StrictMode>
       <AppBar/>
+
       <Home/>
       <Guest/>
         <AllProductsCRUD/>
+         <UploadForm/>
       <BrowserRouter>
         <Switch>
           <Route exact path="/home" component={Guest} />
