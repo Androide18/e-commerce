@@ -24,10 +24,10 @@ server.get('/', (req, res) => {
 //S18
 
 server.post('/', (req, res) => {
-    const { name, description } = req.body;
+    const { Name, Description } = req.body;
     Categories.create({
-        name: name,
-        description: description,
+        Name: Name,
+        Description: Description,
     }).then(result => {
         res.send('Se creo una nueva categoria')
     })
