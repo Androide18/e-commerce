@@ -35,9 +35,10 @@
   to {
     transform: rotate(360deg);
   }
+
 }
 
-
+// VER ESTO
 .center{
   margin-top: 200px;
 }
@@ -46,4 +47,5 @@
   position: relative;
   float: right;
   margin-bottom: 20px;
+
 }
