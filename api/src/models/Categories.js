@@ -5,7 +5,7 @@ module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('categories', {
     name: {
-      type: DataTypes.ENUM('Abrigos', 'Pantalones', 'Camisas', 'Remeras', 'Accesorios'),
+      type: DataTypes.STRING,
       allowNull: false,
     },
     description: {
