@@ -1,6 +1,7 @@
 const { Router } = require('express');
 // import all routers;
 const productRouter = require('./product.js');
+const categoryRouter = require('./category');
 
 
 const router = Router();
@@ -12,9 +13,10 @@ const path = require('path');
 // i.e: router.use('/auth', authRouter);
 // router.use('/auth', authRouter);
 router.use('/products', productRouter);
-router.use('/products/new', productRouter);
-router.use('/products/:id', productRouter);
+
+// PRUEBA DE CARGA DE IMAGEN CON MULTER
 router.use('/uploads', productRouter);
 
+router.use('/category', categoryRouter);
 
 module.exports = router;
