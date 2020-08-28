@@ -4,19 +4,17 @@ const { Product } = require('../db.js');
 
 // RUTAS A CREAR
 
-// S14 and S21 - CREAR RUTA A CATALOGO / HOME PAGE
-// S15 and S24 - CREAR RUTA PARA VER PRODUCTO POR ID
-// S22 - CREAR RUTA QUE DEVUELTA PROD. POR CAT. 
-// S23 - CREAR RUTA QUE BUSQUE PROD. POR KEYWORD
-// S25 - CREAR RUTA PARA CREAR PRODUCTO
-// S26 - CREAR UNA RUTA PARA MODIFICAR UN PRODUCTO 
-// S27 - CREAR UNA RUTA PARA ELIMINAR UN PRODUCTO
-// S16 - CREAR RUTA PARA CATEG. EN CATALOGO
-// S17 - CREAR RUTA PARA ELIMINAR CATEGORIA
-// S18 and S19 - CREAR RUTA PARA CREAR CATEGORIA
-// S20 - CREAR RUTA PARA MODIFICAR CATEGORIA
+// S14 and S21 - CREAR RUTA A CATALOGO / HOME PAGE      ok
+// S15 and S24 - CREAR RUTA PARA VER PRODUCTO POR ID    ok
+// S22 - CREAR RUTA QUE DEVUELTA PROD. POR CAT.         ok
+// S23 - CREAR RUTA QUE BUSQUE PROD. POR KEYWORD        ok --
+// S25 - CREAR RUTA PARA CREAR PRODUCTO                 ok
+// S26 - CREAR UNA RUTA PARA MODIFICAR UN PRODUCTO      ok --
+// S27 - CREAR UNA RUTA PARA ELIMINAR UN PRODUCTO       ok
 
 
+// Comments: como funciona el query realmente???
+ // Como comprobamos el error al modificar un producto.            
 
 
 
@@ -47,9 +45,10 @@ server.get('/:id', (req, res) => {
     
 })
 
+
 // S22
 
-server.get('/category/:id', (req, res) => {
+server.get('/:id', (req, res) => {
     console.log(req.params.id);
     const catName = req.params.id;
     Product.findAll( {where: {category: catName}})
@@ -59,7 +58,16 @@ server.get('/category/:id', (req, res) => {
 })
 
 
+// S23
 
+server.get('/', (req, res) => {
+    const cuery = req.query.category;
+    console.log(req.query)
+    // Product.findAll({ where: { category: cuery}})
+    // .then(result => {
+    //     res.send(result)
+    // })
+})
 
 
 // S25
@@ -75,22 +83,44 @@ server.post('/', (req, res) => {
     }).then(result => {
         res.send('Se creo el producto')
     })
+    .catch(err => {
+        res.send(err)
+    })
 });
 
 
+// S26
 
-// // MODIFICAR
-// server.put('/', (req, res, next) => {
-//  res.send(' PUT /productos/:id')
-// });
+server.put('/:id', (req, res) => {
+    const productId = req.params.id;
+    const newData = req.body;
+    Product.findOne({ where: { id: productId}})
+    .then(result => {
+        result.update(newData),
+        res.send(200, result)
+    })
+    .catch( err => {
+        res.send(err)
+    })
+});
 
-// // ELIMINAR
-// server.delete('/', (req, res, next) => {
-//  res.send(' DELETE /productos/:id')
-// });
+
+// Modifica el producto con id: id. Retorna 400 si los campos enviados no son correctos.
+
+// Retorna 200 si se modificó con exito, y retorna los datos del producto modificado.
 
 
 
+
+//S27
+
+server.delete('/:id', (req, res) => {
+    const productId = req.params.id;
+    Product.destroy({ where: { id: productId}})
+    .then(resolve => {
+        res.status(200).send('Se elimino el producto con exito')
+    })
+})
 
 
 module.exports = server;
