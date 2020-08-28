@@ -1,0 +1,13 @@
+.containerCard{
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(209, 192, 201);
+}
+.card{
+    width: 18rem;
+    display: flex;
+    justify-content: space-around;
+}
+Card {
+    display: inline-flex;
+}
