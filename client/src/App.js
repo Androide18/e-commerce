@@ -1,4 +1,7 @@
 import React from 'react';
+import { AllProductsCRUD } from './components/AllProductsCRUD';
+
+
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import {Home} from '../src/components/Home';
 import Guest from '../src/pages/Guest.js';
@@ -15,6 +18,7 @@ function App() {
       <AppBar/>
       <Home/>
       <Guest/>
+        <AllProductsCRUD/>
       <BrowserRouter>
         <Switch>
           <Route exact path="/home" component={Guest} />
