@@ -20,7 +20,7 @@ function App() {
           <Route exact path="/home" component={Guest} />
           <Route path="/producto" component={ProductComplete} />
           <Route path='/formulario' component={FormIngresos} />
-          <Route component={NotFound} />
+          <Route path= '*' component={NotFound} />
         </Switch>
       </BrowserRouter>
       <Rights/>
