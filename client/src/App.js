@@ -8,6 +8,8 @@ import './App.css';
 import FormIngresos from './pages/FormIngresos.js';
 import AppBar from '../src/components/AppBar';
 import Rights from '../src/components/Rights';
+import CRUD from '../src/components/CRUD';
+
 
 function App() {
   return (
@@ -23,6 +25,7 @@ function App() {
           <Route path= '*' component={NotFound} />
         </Switch>
       </BrowserRouter>
+      <CRUD/>
       <Rights/>
     </React.StrictMode>
   );

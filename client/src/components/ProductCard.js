@@ -3,7 +3,7 @@ import { MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBToolt
 import { Component } from 'react';
 
 
-export class ProductCard extends Component {
+export default class ProductCard extends Component {
   render() {
     return (
       <MDBCard className="m-2" style={{ width: "22rem" }} cascade ecommerce wide>
