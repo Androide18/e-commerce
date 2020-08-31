@@ -4,26 +4,26 @@ const { DataTypes, DATEONLY } = require('sequelize');
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('product', {
-    Name: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Description: {
+    description: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    Price: {
+    price: {
       type: DataTypes.STRING,
       allowNull:false
     },
-    Stock: {
+    stock: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    Image: { 
+    image: { 
       type: DataTypes.BLOB,
     },
-    Category: {
+    category: {
       type: DataTypes.STRING
     },
     createdAt: DataTypes.DATE,

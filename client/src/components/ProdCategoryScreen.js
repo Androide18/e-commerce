@@ -10,7 +10,7 @@ function ProdCategoryScreen(props) {
 
     const [infoProd, setInfoProd] = useState([])
 
-    const catFilt = infoProd.filter(el => el.Category === matchCategory)
+    const catFilt = infoProd.filter(el => el.category === matchCategory)
 
     console.log(catFilt);
 

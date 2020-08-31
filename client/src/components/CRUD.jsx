@@ -18,7 +18,7 @@ export default class CRUD extends Component {
     this.state = {
       id: null,
       name: "",
-      description: "", 
+      description: "",
       price: "",
       stock: "",
       category: "",
@@ -64,7 +64,7 @@ export default class CRUD extends Component {
       image: `${e.target.value} + .jpg`
     });
   }
-  
+
   saveProduct() {
     var data = {
       name: this.state.name,
@@ -76,23 +76,23 @@ export default class CRUD extends Component {
 
     };
     console.log(data);
-}
+  }
 
-//     ProductDataService.create(data)
-//       .then(response => {
-//         this.setState({
-//           id: response.data.id,
-//           name: response.data.name,
-//           description: response.data.description,
-//           published: response.data.published,
-//           submitted: true
-//         });
-//         console.log(response.data);
-//       })
-//       .catch(e => {
-//         console.log(e);
-//       });
-   
+  //     ProductDataService.create(data)
+  //       .then(response => {
+  //         this.setState({
+  //           id: response.data.id,
+  //           name: response.data.name,
+  //           description: response.data.description,
+  //           published: response.data.published,
+  //           submitted: true
+  //         });
+  //         console.log(response.data);
+  //       })
+  //       .catch(e => {
+  //         console.log(e);
+  //       });
+
 
   newProduct() {
     this.setState({
@@ -111,98 +111,100 @@ export default class CRUD extends Component {
 
   render() {
     return (
-      <div className="submit-form">
-        {this.state.submitted ? (
-          <div>
-            <h4>You submitted successfully!</h4>
-            <button className="btn btn-success" onClick={this.newProduct}>
-              Add
-            </button>
-          </div>
-        ) : (
-          <div>
-            <div className="form-group">
-              <label htmlFor="name">name</label>
-              <input
-                type="text"
-                className="form-control"
-                id="name"
-                required
-                value={this.state.name}
-                onChange={this.onChangename}
-                name="name"
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="description">Description</label>
-              <input
-                type="text"
-                className="form-control"
-                id="description"
-                required
-                value={this.state.description}
-                onChange={this.onChangeDescription}
-                name="description"
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="price">Price</label>
-              <input
-                type="text"
-                className="form-control"
-                id="price"
-                required
-                value={this.state.price}
-                onChange={this.onChangePrice}
-                name="price"
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="stock">Stock</label>
-              <input
-                type="text"
-                className="form-control"
-                id="stock"
-                required
-                value={this.state.stock}
-                onChange={this.onChangeStock}
-                name="stock"
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="category">Category</label>
-              <input
-                type="text"
-                className="form-control"
-                id="category"
-                required
-                value={this.state.category}
-                onChange={this.onChangeCategory}
-                name="category"
-              />
-            </div>
-
+      <div className="center right">
+        <div className="submit-form">
+          {this.state.submitted ? (
             <div>
-              
-              <input
-                type="file"
-                id="image"
-                required
-                value={this.state.image}
-                onChange={this.onChangeImage}
-                name="image"
-              />
-            </div>
-
-            <button onClick={this.saveProduct} className="btn btn-success">
-              Crear Producto
+              <h4>You submitted successfully!</h4>
+              <button className="btn btn-success" onClick={this.newProduct}>
+                Add
             </button>
-          </div>
-        )}
+            </div>
+          ) : (
+              <div>
+                <div className="form-group">
+                  <label htmlFor="name">name</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="name"
+                    required
+                    value={this.state.name}
+                    onChange={this.onChangename}
+                    name="name"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="description">Description</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="description"
+                    required
+                    value={this.state.description}
+                    onChange={this.onChangeDescription}
+                    name="description"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="price">Price</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="price"
+                    required
+                    value={this.state.price}
+                    onChange={this.onChangePrice}
+                    name="price"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="stock">Stock</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="stock"
+                    required
+                    value={this.state.stock}
+                    onChange={this.onChangeStock}
+                    name="stock"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="category">Category</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="category"
+                    required
+                    value={this.state.category}
+                    onChange={this.onChangeCategory}
+                    name="category"
+                  />
+                </div>
+
+                <div>
+
+                  <input
+                    type="file"
+                    id="image"
+                    required
+                    value={this.state.image}
+                    onChange={this.onChangeImage}
+                    name="image"
+                  />
+                </div>
+
+                <button onClick={this.saveProduct} className="btn btn-success">
+                  Crear Producto
+            </button>
+              </div>
+            )}
+        </div>
       </div>
     );
   }
@@ -232,7 +234,7 @@ export default class CRUD extends Component {
 //                         <div className="input-button">
 
 //                         <div className="square-box" style={styles1}>
-                       
+
 //                             <input type="text"/>
 //                             <button className="btn btn-success" type="submit">Crear Producto</button>
 //                             <button className="btn btn-warning" type="submit">Editar</button>

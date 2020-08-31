@@ -23,18 +23,18 @@ function ProductsScreen(props) {
       .catch()
   }, [])
 
-  function createProd() {
-    axios.post('http://localhost:3001/products', {
-      Name: 'Musculosa',
-      Description: 'Musculosa multiples colorres',
-      Price: 700,
-      Stock: 12,
-      Category: 'Remeras'
-    })
-    .then(res => {
-      console.log(res, 'se creo el producto')
-    })
-  }
+  // function createProd() {
+  //   axios.post('http://localhost:3001/products', {
+  //     Name: 'Musculosa',
+  //     Description: 'Musculosa multiples colorres',
+  //     Price: 700,
+  //     Stock: 12,
+  //     Category: 'Remeras'
+  //   })
+  //   .then(res => {
+  //     console.log(res, 'se creo el producto')
+  //   })
+  // }
 
   return (
     <div className="content content-margined">
@@ -116,7 +116,7 @@ function ProductsScreen(props) {
               ></textarea>
             </li>
             <li>
-              <button type="submit" className="button primary" onClick={() => createProd()}>
+              <button type="submit" className="button primary">
                 Crear Producto
               </button>
             </li>
@@ -140,17 +140,16 @@ function ProductsScreen(props) {
             {infoProd.map((product) => (
               <tr key={product.id}>
                 <td>{product.id}</td>
-                <td>{product.Stock}</td>
-                <td>{product.Price}</td>
-                <td>{product.Category}</td>
-                <td>{product.Name}</td>
+                <td>{product.stock}</td>
+                <td>{product.price}</td>
+                <td>{product.category}</td>
+                <td>{product.name}</td>
                 <td>
                   <button className="button">
                     Edit
                   </button>{' '}
                   <button
-                    className="button"
-                  >
+                    className="button">
                     Delete
                   </button>
                 </td>

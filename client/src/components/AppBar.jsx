@@ -7,32 +7,8 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Divider from '@material-ui/core/Divider';
 
 
-
-export default function Appbar() {
-  const [infoCat, setInfoCat] = useState([])
-  
-  useEffect(() => {
-    axios.get('http://localhost:3001/category')
-      .then(res => {
-        setInfoCat(res.data)
-        console.log(res.data);
-      })
-      .catch()
-  }, [])
-
-
-
-  return (
-    <div>
-      
-      
-<!--
-
-ESTO ES EL MASTER !! 
-
 import {Link}  from 'react-router-dom';
 import StyleSheet from './StyleSheet.css';
-
 
 
 export default function Appbar() {
@@ -111,10 +87,8 @@ export default function Appbar() {
             />
           </IconButton>
         </Toolbar>
-      </AppBar> */
--->
 
-      <Drawer
+        <Drawer
         anchor={anchor}
         open={open}
         onClose={() => setOpen(false)}
@@ -126,7 +100,7 @@ export default function Appbar() {
               <Divider />
               {
                 infoCat.map(cat => (
-                <li>{cat.Name}</li>
+                <li>{cat.name}</li>
                 ))
               }
             </div>
@@ -140,6 +114,11 @@ export default function Appbar() {
           }
         </div>
       </Drawer>
+      </AppBar> 
+
+      
+
+     
     </div>
   );
 }

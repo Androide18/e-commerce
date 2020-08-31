@@ -132,10 +132,10 @@ function ProductsScreen(props) {
             {infoProd.map((product) => (
               <tr key={product._id}>
                 <td>{product.id}</td>
-                <td>{product.Stock}</td>
-                <td>{product.Price}</td>
-                <td>{product.Category}</td>
-                <td>{product.Name}</td>
+                <td>{product.stock}</td>
+                <td>{product.price}</td>
+                <td>{product.category}</td>
+                <td>{product.name}</td>
                 <td>
                   <button className="button">
                     Edit
