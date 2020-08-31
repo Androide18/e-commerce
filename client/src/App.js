@@ -61,7 +61,8 @@ function App() {
       </nav>
       <React.StrictMode>
       <BrowserRouter>
-      <header> <AppBar/> 
+      <header> 
+      <AppBar/> 
       <Home/>
       </header>
       <main>

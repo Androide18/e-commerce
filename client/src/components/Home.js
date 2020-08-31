@@ -7,7 +7,7 @@ export class Home extends Component {
     render(){
         return(
             <div className="Home">
-            <h3>Welcome to E-commerce!</h3>
+            <h3 className="Welcome">Welcome to E-commerce!</h3>
                 <div>
                 <Carousel className="Carousel">
                     <Carousel.Item>
