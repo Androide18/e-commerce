@@ -4,26 +4,33 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 
-function Home() {
+function ProdCategoryScreen(props) {
 
-    const [infoProducts, setInfoProducts] = useState([])
+    let matchCategory = props.match.params.id; 
 
+    const [infoProd, setInfoProd] = useState([])
+
+    const catFilt = infoProd.filter(el => el.Category === matchCategory)
+
+    console.log(catFilt);
 
     useEffect(() => {
         axios.get('http://localhost:3001/products')
             .then(res => {
-                setInfoProducts(res.data)
+                setInfoProd(res.data)
             })
             .catch()
     }, [])
 
-
+    
+    
 
     return (
+        
         <div>
             <ul className="products">
                 {
-                    infoProducts.map(el => (
+                    catFilt.map(el => (
 
                         <li key={el.id}>
                             <div className="product">
@@ -44,4 +51,5 @@ function Home() {
     )
 }
 
-export default Home;
+export default ProdCategoryScreen;
+
