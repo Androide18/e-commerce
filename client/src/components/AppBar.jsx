@@ -5,6 +5,31 @@ import { Menu, AccountCircle } from "@material-ui/icons"
 import SearchIcon from '@material-ui/icons/Search';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Divider from '@material-ui/core/Divider';
+
+
+
+export default function Appbar() {
+  const [infoCat, setInfoCat] = useState([])
+  
+  useEffect(() => {
+    axios.get('http://localhost:3001/category')
+      .then(res => {
+        setInfoCat(res.data)
+        console.log(res.data);
+      })
+      .catch()
+  }, [])
+
+
+
+  return (
+    <div>
+      
+      
+<!--
+
+ESTO ES EL MASTER !! 
+
 import {Link}  from 'react-router-dom';
 import StyleSheet from './StyleSheet.css';
 
@@ -86,7 +111,8 @@ export default function Appbar() {
             />
           </IconButton>
         </Toolbar>
-      </AppBar>
+      </AppBar> */
+-->
 
       <Drawer
         anchor={anchor}

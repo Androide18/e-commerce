@@ -81,21 +81,21 @@ server.get('/', (req, res) => {
 
 // S25
 
-server.post('/', (req, res) => {
-    const { Name, Description, Price, Stock, Category } = req.body;
-    Product.create({
-        Name: Name,
-        Description: Description,
-        Price: Price,
-        Stock: Stock,
-        Category: Category,
-    }).then(result => {
-        res.send('Se creo el producto')
-    })
-    .catch(err => {
-        res.send(err)
-    })
-});
+// server.post('/', (req, res) => {
+//     const { Name, Description, Price, Stock, Category } = req.body;
+//     Product.create({
+//         Name: Name,
+//         Description: Description,
+//         Price: Price,
+//         Stock: Stock,
+//         Category: Category,
+//     }).then(result => {
+//         res.send('Se creo el producto')
+//     })
+//     .catch(err => {
+//         res.send(err)
+//     })
+// });
 
 
 // S26
