@@ -25,7 +25,7 @@ function Categories() {
                 {
                     infoCat.map(cat => (
                         <li key={cat.id}>
-                            <Link to={'/category/' + cat.Name}>{cat.Name}</Link>
+                            <Link to={'/category/' + cat.name}>{cat.name}</Link>
                         </li>
                     ))
                 }

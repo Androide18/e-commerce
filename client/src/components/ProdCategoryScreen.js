@@ -10,7 +10,7 @@ function ProdCategoryScreen(props) {
 
     const [infoProd, setInfoProd] = useState([])
 
-    const catFilt = infoProd.filter(el => el.Category === matchCategory)
+    const catFilt = infoProd.filter(el => el.category === matchCategory)
 
     console.log(catFilt);
 
@@ -35,11 +35,11 @@ function ProdCategoryScreen(props) {
                         <li key={el.id}>
                             <div className="product">
                                 <ProductCard
-                                    name={el.Name}
-                                    price={el.Price}
-                                    stock={el.Stock}
-                                    description={el.Description}
-                                    category={el.Category}
+                                    name={el.name}
+                                    price={el.price}
+                                    stock={el.stock}
+                                    description={el.description}
+                                    category={el.category}
                                     id={el.id}
                                 />
                             </div>

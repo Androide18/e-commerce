@@ -16,7 +16,7 @@ function ProductCard(props) {
           />
           </Link>
         <MDBCardBody cascade className="text-center">
-          <MDBCardTitle tag="h5">{props.category}</MDBCardTitle>
+          <MDBCardTitle tag="h5">{props.brand}</MDBCardTitle>
           <MDBCardTitle>
             <Link to={'/products/' + props.id}>
               <strong>{props.name}</strong>

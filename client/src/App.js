@@ -8,6 +8,7 @@ import ProductScreen from './components/ProductScreen';
 import Categories from './components/Categories';
 import ProdCategoryScreen from './components/ProdCategoryScreen';
 import CreateProductScreen from './components/CreateProductScreen';
+import CreateCategoryScreen from './components/CreateCategoryScreen';
 
 
 function App() {
@@ -29,23 +30,23 @@ function App() {
             <Link to="/">E-commerce</Link>
           </div>
           <div className="header-links">
-            <a href="cart.html">Crear categoria</a>
+            <Link to="/category/create">Cargar categoria</Link>
             <Link to="/products/create">Cargar producto</Link>
           </div>
         </header>
         <main className="main">
           <Route path="/" exact={true} component={Home} />
           <Route path="/category/:id" component={ProdCategoryScreen} />
-          <Route path="/products/:id" component={ProductScreen}/>
-          <Route path="/products/create" component={CreateProductScreen}/>
-          <Route path="/category/create" component={CreateProductScreen}/>
+          <Route path="/products/:id" component={ProductScreen} />
+          <Route path="/products/create" component={CreateProductScreen} />
+          <Route path="/category/create" component={CreateCategoryScreen} />
         </main>
         <aside className="sidebar">
           <h3>Categorias</h3>
           <button className="sidebar-close-button" onClick={closeMenu}>
             x
           </button>
-          <Categories/>
+          <Categories />
         </aside>
         <footer className="footer">
           <Rights />

@@ -221,14 +221,22 @@ a > .rating > span:last-child {
   border-radius: 0.5rem;
   cursor: pointer;
 }
+.button-create{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .button:hover {
   border: 0.1rem #404040 solid;
 }
 .button.primary {
-  background-color: #f0c040;
+  background-color: #028c0d;
+}
+.button.primary2 {
+  background-color: #f4f42b;
 }
 .button.secondary {
-  background-color: #f0f0f0;
+  background-color: #f02f2f;
 }
 .text-center {
   text-align: center;

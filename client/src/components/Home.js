@@ -28,12 +28,13 @@ function Home() {
                         <li key={el.id}>
                             <div className="product">
                                 <ProductCard
-                                    name={el.Name}
-                                    price={el.Price}
-                                    stock={el.Stock}
-                                    description={el.Description}
-                                    category={el.Category}
+                                    name={el.name}
+                                    price={el.price}
+                                    stock={el.stock}
+                                    description={el.description}
+                                    category={el.category}
                                     id={el.id}
+                                    brand={el.brand}
                                 />
                             </div>
                         </li>
