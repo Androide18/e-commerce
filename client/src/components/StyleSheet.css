@@ -39,6 +39,10 @@
     background-color: #1b2938;
   }
 
+  .dark-mode .card-body{
+    color:  #1b2938;
+  }
+
   nav {
     width: 100%;
     display: flex;
@@ -119,3 +123,5 @@
     font-size: 30px;
     text-align: center;
   }
+
+  

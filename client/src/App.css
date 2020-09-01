@@ -38,9 +38,19 @@
 
 }
 
-// VER ESTO
+
+/*  revisar esto   */
+
 .center{
-  margin-top: 200px;
+  margin-top: 50px;
+ 
+  display: flex;
+  justify-content: center;
+}
+
+Form {
+  margin: 10px;
+  vertical-align: center;
 }
 
 .right{

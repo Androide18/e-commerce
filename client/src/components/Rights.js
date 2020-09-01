@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import StyleSheet from './StyleSheet.css';
+// import StyleSheet from './StyleSheet.css';
 
 export default class Rights extends Component {
     render(){

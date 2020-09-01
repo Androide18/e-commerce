@@ -5,9 +5,10 @@ import { Menu, AccountCircle } from "@material-ui/icons"
 import SearchIcon from '@material-ui/icons/Search';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Divider from '@material-ui/core/Divider';
+
+
 import {Link}  from 'react-router-dom';
 import StyleSheet from './StyleSheet.css';
-
 
 
 export default function Appbar() {
@@ -86,9 +87,8 @@ export default function Appbar() {
             />
           </IconButton>
         </Toolbar>
-      </AppBar>
 
-      <Drawer
+        <Drawer
         anchor={anchor}
         open={open}
         onClose={() => setOpen(false)}
@@ -100,7 +100,7 @@ export default function Appbar() {
               <Divider />
               {
                 infoCat.map(cat => (
-                <li>{cat.Name}</li>
+                <li>{cat.name}</li>
                 ))
               }
             </div>
@@ -119,6 +119,11 @@ export default function Appbar() {
           }
         </div>
       </Drawer>
+      </AppBar> 
+
+      
+
+     
     </div>
   );
 }
