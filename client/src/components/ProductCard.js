@@ -29,8 +29,7 @@ function ProductCard(props) {
           <MDBCardFooter>
             <span className="float-left">${props.price}</span>
 
-    
-    /*
+{/*     
     ESTO ES LA RAMA MASTER
     
 import { MDBRow, MDBContainer,MDBCol, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBTooltip, MDBCardFooter, MDBIcon, MDBBtn } from "mdbreact";
@@ -101,7 +100,7 @@ export default class ProductCard extends Component {
           <MDBCardFooter>
             <span className="float-left">$49</span>
       
-      */
+    */ }
 
             <span className="float-right">
               <MDBTooltip placement="top">

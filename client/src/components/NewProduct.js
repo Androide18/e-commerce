@@ -3,6 +3,7 @@ import { Form, Button, Col} from 'react-bootstrap';
 export default class NewProduct extends Component{
     render(){
         return(
+            <div className="center">
             <Form>
                 <Form.Row>
                     <Form.Group as={Col} controlId="formGridEmail">
@@ -43,6 +44,7 @@ export default class NewProduct extends Component{
                     Submit
                 </Button>
             </Form>
+            </div>
         )
     }
 }

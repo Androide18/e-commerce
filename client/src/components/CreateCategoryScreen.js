@@ -103,6 +103,7 @@ class CreateCategoryScreen extends Component {
             </tr>
           </thead>
           <tbody>
+
             {this.state.data.map(cat => {
               return (
                 <tr>

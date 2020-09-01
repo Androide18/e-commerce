@@ -4,6 +4,7 @@ import { Form, Button, Col} from 'react-bootstrap';
 export default class Login extends Component{
     render(){
         return(
+            <div className="center">
             <Form>
                 <Form.Group controlId="formGridAddress1">
                     <Form.Label>Correo electronico/ Nombre de Usuario</Form.Label>
@@ -17,6 +18,7 @@ export default class Login extends Component{
                     Submit
                 </Button>
             </Form>
+            </div>
         )
     }
 }
