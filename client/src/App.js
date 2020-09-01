@@ -51,6 +51,51 @@ function App() {
 
     return window.matchMedia("(prefers-color-scheme: dark)").matches;
   }
+  
+  /*
+  return (
+    <div className={darkMode ? "dark-mode" : "light-mode"}>
+      <nav>
+        <div className="toggle-container">
+          <span style={{ color: darkMode ? "grey" : "yellow" }}>☀︎</span>
+          <span className="toggle">
+            <input
+              checked={darkMode}
+              onChange={() => setDarkMode(prevMode => !prevMode)}
+              id="checkbox"
+              className="checkbox"
+              type="checkbox"
+            />
+            <label htmlFor="checkbox" />
+          </span>
+          <span style={{ color: darkMode ? "slateblue" : "grey" }}>☾</span>s
+        </div>
+      </nav>
+      <React.StrictMode>
+      <BrowserRouter>
+      <header> 
+      <AppBar/> 
+      <Home/>
+      </header>
+      <main>
+      
+      <Switch>
+          <Route exact path="/" component={Guest} />
+          <Route exact path="/producto" component={ProductComplete} />
+          <Route exact path='/formulario' component={FormIngresos} />
+          <Route exact path='/registro' component={Registro} />
+          <Route exact path='/login' component={Login} />
+          <Route path='*' component={NotFound} />
+      </Switch>
+      </main>
+      <footer><Rights/></footer>
+      </BrowserRouter>
+    </React.StrictMode>
+    </div>
+  );
+}
+export default App;
+*/
 
 
 
@@ -147,4 +192,5 @@ function App() {
      */}
     
  // TODO LO QUE ESTA DEBAJO ES LA RAMA MASTER!!!
+
 

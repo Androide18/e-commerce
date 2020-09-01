@@ -52,7 +52,7 @@ export default function Appbar() {
           </Typography>
           <SearchIcon />
           <InputBase
-            placeholder="Busca tu producto.."
+            placeholder="Busca tu producto"
             inputProps={{ 'aria-label': 'search' }}
           />
           <Button variant="contained" color="primary">
@@ -106,10 +106,15 @@ export default function Appbar() {
             </div>
             :
             <div>
-              <h5>Login</h5>
+              <h5>Mi Perfil</h5>
               <Divider />
-              <li>Usuario</li>
-              <li>Administrador</li>
+              <li>Configuración de perfil</li>
+              <li>Historial de pedidos</li>
+              <li>Preguntas</li>
+              <li>Reclamos</li>
+              <li>Seguridad</li>
+              <li>Alertas de búsqueda</li>
+              <li>Salir</li>
             </div>
           }
         </div>
