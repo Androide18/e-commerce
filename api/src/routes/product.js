@@ -9,11 +9,11 @@ const path = require('path');
 
 
 	
-	// POST IMAGE CON MULTER
-	 server.post('/', upload.single('image'), (req, res) => {
-		res.send('HOLA')
-		console.log(req.file, req.body);
-	});
+	// // POST IMAGE CON MULTER
+	//  server.post('/', upload.single('image'), (req, res) => {
+	// 	res.send('HOLA')
+	// 	console.log(req.file, req.body);
+	// });
 
 // S14 and S21 - CREAR RUTA A CATALOGO / HOME PAGE      ok
 // S15 and S24 - CREAR RUTA PARA VER PRODUCTO POR ID    ok
@@ -72,30 +72,31 @@ server.get('/:id', (req, res) => {
 server.get('/', (req, res) => {
     const cuery = req.query.category;
     console.log(req.query)
-    // Product.findAll({ where: { category: cuery}})
-    // .then(result => {
-    //     res.send(result)
-    // })
+    Product.findAll({ where: { category: cuery}})
+    .then(result => {
+        res.send(result)
+    })
 })
 
 
 // S25
 
-// server.post('/', (req, res) => {
-//     const { Name, Description, Price, Stock, Category } = req.body;
-//     Product.create({
-//         Name: Name,
-//         Description: Description,
-//         Price: Price,
-//         Stock: Stock,
-//         Category: Category,
-//     }).then(result => {
-//         res.send('Se creo el producto')
-//     })
-//     .catch(err => {
-//         res.send(err)
-//     })
-// });
+server.post('/', (req, res) => {
+    const { name, description, price, stock, category, brand } = req.body;
+    Product.create({
+        name: name,
+        description: description,
+        brand: brand,
+        price: price,
+        stock: stock,
+        category: category,
+    }).then(result => {
+        res.send('Se creo el producto')
+    })
+    .catch(err => {
+        res.send(err)
+    })
+});
 
 
 // S26

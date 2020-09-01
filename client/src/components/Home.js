@@ -34,6 +34,7 @@ function Home() {
                                     description={el.description}
                                     category={el.category}
                                     id={el.id}
+                                    brand={el.brand}
                                 />
                             </div>
                         </li>
