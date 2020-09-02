@@ -7,7 +7,7 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Divider from '@material-ui/core/Divider';
 
 
-import {Link}  from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import StyleSheet from './StyleSheet.css';
 
 
@@ -26,7 +26,7 @@ export default function Appbar() {
     setAnchor('right')
     setOpen(true)
   }
-  
+
   useEffect(() => {
     axios.get('http://localhost:3001/category')
       .then(res => {
@@ -42,12 +42,9 @@ export default function Appbar() {
     <div>
       <AppBar position='static'>
         <Toolbar>
-          <IconButton onClick={handleDrawer} color='inherit' edge='start' aria-label='menu'>
-            <Menu />
-          </IconButton>
           <Typography variant='h6' style={{ flexGrow: 1 }}>
-          <Link className='link' to='/'>
-            E-COMMERCE
+            <Link className='link' to='/'>
+              E-COMMERCE
           </Link>
           </Typography>
           <SearchIcon />
@@ -59,24 +56,24 @@ export default function Appbar() {
             Buscar
           </Button>
           <Button color='inherit'>
-            <Link className='link' to='/'>
-            Catalogo
+            <Link className='link' to='/product/new'>
+              Nuevo Producto
             </Link>
           </Button>
 
           <Button color='inherit'>
-            <Link className='link' to='/formulario'>
-            Nueva Categoria
+            <Link className='link' to='/category/new'>
+              Nueva Categoria
             </Link>
           </Button>
           <Button color='inherit'>
-          <Link className='link' to='/login'>
-            Login
+            <Link className='link' to='/login'>
+              Login
           </Link>
           </Button>
           <Button color='inherit'>
-          <Link className='link' to='/registro'>
-            Registrarse
+            <Link className='link' to='/registro'>
+              Registrarse
           </Link>
           </Button>
           <IconButton onClick={handleAccount} color='inherit' aria-label='account'>
@@ -89,41 +86,41 @@ export default function Appbar() {
         </Toolbar>
 
         <Drawer
-        anchor={anchor}
-        open={open}
-        onClose={() => setOpen(false)}
-      >
-        <div style={{ height: '100%', padding: "20px" }}>
-          {anchor === 'left' ?
-            <div>
-              <h5>Categorias</h5>
-              <Divider />
-              {
-                infoCat.map(cat => (
-                <li>{cat.name}</li>
-                ))
-              }
-            </div>
-            :
-            <div>
-              <h5>Mi Perfil</h5>
-              <Divider />
-              <li>Configuración de perfil</li>
-              <li>Historial de pedidos</li>
-              <li>Preguntas</li>
-              <li>Reclamos</li>
-              <li>Seguridad</li>
-              <li>Alertas de búsqueda</li>
-              <li>Salir</li>
-            </div>
-          }
-        </div>
-      </Drawer>
-      </AppBar> 
+          anchor={anchor}
+          open={open}
+          onClose={() => setOpen(false)}
+        >
+          <div style={{ height: '100%', padding: "20px" }}>
+            {anchor === 'left' ?
+              <div>
+                <h5>Categorias</h5>
+                <Divider />
+                {
+                  infoCat.map(cat => (
+                    <li>{cat.name}</li>
+                  ))
+                }
+              </div>
+              :
+              <div>
+                <h5>Mi Perfil</h5>
+                <Divider />
+                <li>Configuración de perfil</li>
+                <li>Historial de pedidos</li>
+                <li>Preguntas</li>
+                <li>Reclamos</li>
+                <li>Seguridad</li>
+                <li>Alertas de búsqueda</li>
+                <li>Salir</li>
+              </div>
+            }
+          </div>
+        </Drawer>
+      </AppBar>
 
-      
 
-     
+
+
     </div>
   );
 }

@@ -145,7 +145,7 @@ class CreateProductsScreen extends Component {
           <ModalBody>
             <div className="form-group">
               <label htmlFor="id">ID</label>
-              <input className="form-control" type="text" name="id" id="id" readOnly onChange={this.handleChange} value={form ? form.id : this.state.data.length + 1} />
+              <input className="form-control" type="text" name="id" id="id" readOnly onChange={this.handleChange} value={form ? form.id : this.state.data.length} />
               <br />
               <label htmlFor="name">Nombre</label>
               <input className="form-control" type="text" name="name" id="name" onChange={this.handleChange} value={form ? form.name : ''} />

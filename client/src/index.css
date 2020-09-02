@@ -26,14 +26,9 @@ button {
   grid-template-rows: 5rem 1fr 5rem;
   height: 100%;
 }
-.header {
-  grid-area: header;
-  background-color: #3a83cb;
-  color: #ffffff;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem;
+
+.carrusel{
+  padding: 5rem;
 }
 .brand a {
   color: #ffffff;
@@ -56,11 +51,12 @@ button {
 }
 .footer {
   grid-area: footer;
-  background-color: #3a83cb;
+  background-color: #3f51b5;
   color: #ffffff;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 1.2rem;
 }
 a {
   text-decoration: none;

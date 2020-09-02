@@ -1,23 +1,30 @@
 .Welcome{
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    font-weight: bold;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-weight: bold;
 }
 
 .Home {
-  text-align: center;
-  margin-bottom: 20px;
+text-align: center;
+margin-bottom: 20px;
 }
 
-.Carousel{       
-    width: 50%; 
-    margin: auto;
- }
+.Carousel{
+  width: 70%; 
+  margin: auto;
+}
 
- .font{
-    font-size: 12px;
-    text-align: center;
+.home-container{
+  padding-top: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.font{
+  font-size: 12px;
+  text-align: center;
 }
 
 .light-mode {
@@ -123,5 +130,7 @@
     font-size: 30px;
     text-align: center;
   }
-
-  
+/* 
+  .footer {
+    bottom: 0px;
+  } */

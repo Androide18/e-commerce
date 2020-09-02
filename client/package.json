@@ -17,13 +17,9 @@
     "react": "^16.13.1",
     "react-bootstrap": "^1.3.0",
     "react-dom": "^16.13.1",
-<<<<<<< HEAD
     "react-scripts": "^3.4.3",
-    "reactstrap": "^8.5.1"
-=======
-    "react-router": "^5.2.0",
-    "react-scripts": "^3.4.3"
->>>>>>> b2f88b9e6d5561d2f7227f0a937c6c93d33e9da2
+    "reactstrap": "^8.5.1",
+    "react-router": "^5.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
