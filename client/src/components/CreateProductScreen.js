@@ -21,6 +21,7 @@ class CreateProductsScreen extends Component {
       description: '',
       category: '',
       brand: '',
+      image: '',
       tipoModal: ''
     }
   }
@@ -29,6 +30,7 @@ class CreateProductsScreen extends Component {
     axios.get(url).then(res => {
       console.log(res);
       this.setState({ data: res.data });
+      
     }).catch(err => {
       console.log(err.message);
     })
@@ -75,6 +77,7 @@ class CreateProductsScreen extends Component {
         stock: prod.stock,
         description: prod.description,
         category: prod.category,
+        image: prod.image,
       }
     })
   }
@@ -100,7 +103,7 @@ class CreateProductsScreen extends Component {
     return (
       <div className="App">
         <br /><br /><br />
-        <button className="btn btn-success" onClick={() => { this.setState({ form: null, tipoModal: 'insertar' }); this.modalInsertar() }}>Agregar Producto</button>
+        <button className="btn btn-success" action='/uploads' method='POST' encType='multipart/form-data' onClick={() => { this.setState({ form: null, tipoModal: 'insertar' }); this.modalInsertar() }}>Agregar Producto</button>
         <br /><br />
         <table className="table ">
           <thead>
@@ -112,6 +115,8 @@ class CreateProductsScreen extends Component {
               <th>Stock</th>
               <th>Descripcion</th>
               <th>Categoria</th>
+              {/* <th>Image</th> */}
+              
             </tr>
           </thead>
           <tbody>
@@ -125,6 +130,7 @@ class CreateProductsScreen extends Component {
                   <td>{prod.stock}u</td>
                   <td>{prod.description}</td>
                   <td>{prod.category}</td>
+                  {/* <td>{prod.image}</td> */}
                   <td>
                     <button className="btn btn-primary" onClick={() => { this.selecProduct(prod); this.modalInsertar() }}><FontAwesomeIcon icon={faEdit} /></button>
                     {"   "}
@@ -143,6 +149,7 @@ class CreateProductsScreen extends Component {
             <span style={{ float: 'right' }} onClick={() => this.modalInsertar()}>x</span>
           </ModalHeader>
           <ModalBody>
+            <form action='/uploads' method='POST' encType='multipart/form-data' >
             <div className="form-group">
               <label htmlFor="id">ID</label>
               <input className="form-control" type="text" name="id" id="id" readOnly onChange={this.handleChange} value={form ? form.id : this.state.data.length} />
@@ -165,7 +172,11 @@ class CreateProductsScreen extends Component {
               <label htmlFor="description">Descripcion</label>
               <input className="form-control" type="text" name="description" id="description" onChange={this.handleChange} value={form ? form.description : ''} />
               <br />
+              <label htmlFor="image">Imagen</label>
+              <input  type="file" name="image" id="image" onChange={this.handleChange} value={form ? form.image : ''} />
+              <br />
             </div>
+            </form>
           </ModalBody>
 
           <ModalFooter>

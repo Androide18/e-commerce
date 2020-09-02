@@ -15,7 +15,7 @@ const path = require('path');
 router.use('/products', productRouter);
 
 // PRUEBA DE CARGA DE IMAGEN CON MULTER
-router.use('/uploads', productRouter);
+//router.use('/uploads', productRouter);
 
 router.use('/category', categoryRouter);
 
