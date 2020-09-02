@@ -11,10 +11,6 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        phone: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
         address: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -38,7 +34,8 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        createdAt: DataTypes.DATE,
-        updatedAt: DataTypes.DATE,
-    });
+        
+    },
+    {timestamp:false}
+    );
 };
