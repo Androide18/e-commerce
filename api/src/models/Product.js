@@ -25,12 +25,14 @@ module.exports = (sequelize) => {
       allowNull: false
     },
     image: { 
-      type: DataTypes.BLOB,
+      type: DataTypes.STRING,
     },
     category: {
       type: DataTypes.STRING
     },
-    createdAt: DataTypes.DATE,
-    updatedAt: DataTypes.DATE,
-  });
+  },
+  {
+    timestamps:false
+  }
+  );
 };
