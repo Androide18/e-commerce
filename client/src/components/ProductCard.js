@@ -12,7 +12,7 @@ function ProductCard(props) {
             <MDBCardImage
             cascade
             top  // AQUI SE DEBE REEMPLAZAR POR PROPS.IMAGE
-            src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/shoes%20(2).jpg"
+            src= 'D:\\SoyHenry\\Henry\\wp02-ecommerce-g1\\api\\public\\cualquiera.jpg'
             waves
           />
           </Link>

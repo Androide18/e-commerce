@@ -48,6 +48,7 @@ function Home() {
                                     description={el.description}
                                     category={el.category}
                                     id={el.id}
+                                    image={el.image}
                                 />
                             </div>
                         </li>
