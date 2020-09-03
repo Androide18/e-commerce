@@ -10,10 +10,11 @@ var upload = multer({ dest: 'uploads/' })
 // NUEVO MULTER
 
 const storage = multer.diskStorage({
-	destination: path.join(__dirname, '/uploads'),
+	destination: path.join(__dirname, '../../public'),
 	filename: (req, file, cb) => {
-		cb(null, file.originalname);
+		cb(null, 'cualquiera.jpg');
 	}
+
 })
 
 const uploadImage = multer({
@@ -72,13 +73,28 @@ server.get('/:id', (req, res) => {
 // S22
 
 server.get('/:id', (req, res) => {
-	console.log(req.params.id);
-	const catName = req.params.id;
-	Product.findAll({ where: { Category: catName } })
-		.then(result => {
-			res.send({ result })
-		})
+    console.log(req.params.id);
+    const catName = req.params.id;
+    Product.findAll( {where: {Category: catName}})
+    .then( result => {
+        res.send({result})
+    })
 })
+
+server.post('/:idproducto/category/:idcategoria', (req, res) => {
+    const { idproducto, idcategoria } = req.params;
+    const results = Promise.all([
+        Product.findByPk(idproducto),
+        Category.findByPk(idcategoria)
+    ]).then(results => {
+        return results[0].addCategory(results[1])
+    }).then(productAssociated => {
+        res.json(productAssociated)
+    })
+        .catch(err => {
+            res.send(err)
+        })
+});
 
 
 // S23
@@ -110,18 +126,9 @@ server.get('/', (req, res) => {
 
 // S25
 
-server.post('/',upload.single('image'), (req, res) => {
+server.post('/',uploadImage, (req, res) => {
 	console.log(req.file);
-	const { name, description, price, stock, category, brand, image } = req.body;
-
-	// uploadImage(req, res, (err) => {
-	// 			if (err) {
-	// 				err.message = 'Ta re pesada la imagen amigx!';
-	// 				return res.send(err);
-	// 			}
-	// 			console.log(req.file);
-	// 			res.send('La imagen se subio bien !');
-	// 		});
+	const { name, description, price, stock, category, brand } = req.body;
 
 	
 	Product.create({
@@ -131,7 +138,7 @@ server.post('/',upload.single('image'), (req, res) => {
 		price: price,
 		stock: stock,
 		category: category,
-		image: image,
+		image: req.file.filename,
 	}).then(result => {
 		res.send('Se creo el producto')
 	})
@@ -144,16 +151,16 @@ server.post('/',upload.single('image'), (req, res) => {
 // S26
 
 server.put('/:id', (req, res) => {
-	const productId = req.params.id;
-	const newData = req.body;
-	Product.findOne({ where: { id: productId } })
-		.then(result => {
-			result.update(newData),
-				res.send(200, result)
-		})
-		.catch(err => {
-			res.send(err)
-		})
+    const productId = req.params.id;
+    const newData = req.body;
+    Product.findOne({ where: { id: productId } })
+        .then(result => {
+            result.update(newData),
+                res.send(200, result)
+        })
+        .catch(err => {
+            res.send(err)
+        })
 });
 
 

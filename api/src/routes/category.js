@@ -1,5 +1,5 @@
 const server = require('express').Router();
-const { Categories } = require('../db.js');
+const { Category } = require('../db.js');
 
 // S19 - CREAR RUTA PARA ELIMINAR CATEGORIA             ok
 // S18 - CREAR RUTA PARA CREAR CATEGORIA                ok
@@ -11,7 +11,7 @@ const { Categories } = require('../db.js');
 
 
 server.get('/', (req, res) => {
-    Categories.findAll()
+    Category.findAll()
         .then(category => {
             res.send(category);
         })
@@ -25,7 +25,7 @@ server.get('/', (req, res) => {
 
 server.post('/', (req, res) => {
     const { name, description } = req.body;
-    Categories.create({
+    Category.create({
         name: name,
         description: description,
     }).then(result => {
@@ -43,7 +43,7 @@ server.put('/:id', (req, res) => {
     const categoryId = req.params.id;
     const newData = req.body;
     console.log('info enviara', newData);
-    Categories.findOne({ where: { id: categoryId}})
+    Category.findOne({ where: { id: categoryId}})
     .then(result => {
         result.update(newData),
         res.send(200, result)
@@ -58,7 +58,7 @@ server.put('/:id', (req, res) => {
 
 server.delete('/:id', (req, res) => {
     const categoryId = req.params.id;
-    Categories.destroy({ where: { id: categoryId}})
+    Category.destroy({ where: { id: categoryId}})
     .then(resolve => {
         res.status(200).send('Se elimino la categoria con exito')
     })

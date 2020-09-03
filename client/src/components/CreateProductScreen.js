@@ -30,15 +30,41 @@ class CreateProductsScreen extends Component {
     axios.get(url).then(res => {
       console.log(res);
       this.setState({ data: res.data });
-      
+
+      console.log('este',res.data);
+
+
     }).catch(err => {
       console.log(err.message);
     })
   }
 
+
+
+
+  // var imagefile = document.querySelector('#file');
+  // formData.append("image", imagefile.files[0]);
+  // axios.post('upload_file', formData, {
+  //     headers: {
+  //       'Content-Type': 'multipart/form-data'
+  //     }
+  // })
+
   peticionPost = async () => {
     delete this.state.form.id;
-    await axios.post(url, this.state.form).then(res => {
+    const formData = Object.entries(this.state.form).reduce((formData, [key, value]) => {
+      formData.append(key, value);
+      return formData;
+    }, new FormData());
+
+    console.log(formData, this.state.form);
+    await axios.post(url, formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+    ).then(res => {
       this.modalInsertar();
       this.peticionGet();
     }).catch(error => {
@@ -70,7 +96,7 @@ class CreateProductsScreen extends Component {
     this.setState({
       tipoModal: 'actualizar',
       form: {
-        id:prod.id,
+        id: prod.id,
         name: prod.name,
         brand: prod.brand,
         price: prod.price,
@@ -78,6 +104,7 @@ class CreateProductsScreen extends Component {
         description: prod.description,
         category: prod.category,
         image: prod.image,
+        
       }
     })
   }
@@ -88,6 +115,19 @@ class CreateProductsScreen extends Component {
       form: {
         ...this.state.form,
         [e.target.name]: e.target.value
+      }
+    });
+    console.log(this.state.form);
+  }
+
+
+  handleFileChange = async e => {
+    e.persist();
+    await this.setState({
+      form: {
+        ...this.state.form,
+        [e.target.name]: e.target.files[0]
+
       }
     });
     console.log(this.state.form);
@@ -115,8 +155,8 @@ class CreateProductsScreen extends Component {
               <th>Stock</th>
               <th>Descripcion</th>
               <th>Categoria</th>
-              {/* <th>Image</th> */}
-              
+               <th>Image</th>
+
             </tr>
           </thead>
           <tbody>
@@ -150,34 +190,37 @@ class CreateProductsScreen extends Component {
           </ModalHeader>
           <ModalBody>
             <form action='/uploads' method='POST' encType='multipart/form-data' >
-            <div className="form-group">
-              <label htmlFor="id">ID</label>
-              <input className="form-control" type="text" name="id" id="id" readOnly onChange={this.handleChange} value={form ? form.id : this.state.data.length} />
-              <br />
-              <label htmlFor="name">Nombre</label>
-              <input className="form-control" type="text" name="name" id="name" onChange={this.handleChange} value={form ? form.name : ''} />
-              <br />
-              <label htmlFor="brand">Marca</label>
-              <input className="form-control" type="text" name="brand" id="brand" onChange={this.handleChange} value={form ? form.brand : ''} />
-              <br />
-              <label htmlFor="price">Precio</label>
-              <input className="form-control" type="text" name="price" id="price" onChange={this.handleChange} value={form ? form.price : ''} />
-              <br />
-              <label htmlFor="stock">Stock</label>
-              <input className="form-control" type="text" name="stock" id="stock" onChange={this.handleChange} value={form ? form.stock : ''} />
-              <br />
-              <label htmlFor="category">Categoria</label>
-              <input className="form-control" type="text" name="category" id="category" onChange={this.handleChange} value={form ? form.category : ''} />
-              <br />
-              <label htmlFor="description">Descripcion</label>
-              <input className="form-control" type="text" name="description" id="description" onChange={this.handleChange} value={form ? form.description : ''} />
-              <br />
-              <label htmlFor="image">Imagen</label>
-              <input  type="file" name="image" id="image" onChange={this.handleChange} value={form ? form.image : ''} />
-              <br />
-            </div>
+              <div className="form-group">
+                <label htmlFor="id">ID</label>
+                <input className="form-control" type="text" name="id" id="id" readOnly onChange={this.handleChange} value={form ? form.id : this.state.data.length} />
+                <br />
+                <label htmlFor="name">Nombre</label>
+                <input className="form-control" type="text" name="name" id="name" onChange={this.handleChange} value={form ? form.name : ''} />
+                <br />
+                <label htmlFor="brand">Marca</label>
+                <input className="form-control" type="text" name="brand" id="brand" onChange={this.handleChange} value={form ? form.brand : ''} />
+                <br />
+                <label htmlFor="price">Precio</label>
+                <input className="form-control" type="text" name="price" id="price" onChange={this.handleChange} value={form ? form.price : ''} />
+                <br />
+                <label htmlFor="stock">Stock</label>
+                <input className="form-control" type="text" name="stock" id="stock" onChange={this.handleChange} value={form ? form.stock : ''} />
+                <br />
+                <label htmlFor="category">Categoria</label>
+                <input className="form-control" type="text" name="category" id="category" onChange={this.handleChange} value={form ? form.category : ''} />
+                <br />
+                <label htmlFor="description">Descripcion</label>
+                <input className="form-control" type="text" name="description" id="description" onChange={this.handleChange} value={form ? form.description : ''} />
+                <br />
+                <label htmlFor="image">Imagen</label>
+                <input type="file" name="image" id="image" onChange={this.handleFileChange}  />
+                <br />
+              </div>
             </form>
           </ModalBody>
+
+
+
 
           <ModalFooter>
             {this.state.tipoModal == 'insertar' ?
