@@ -1,5 +1,5 @@
 import Redux from 'redux';
-import {...} from 'react-redux';
+//import {...} from 'react-redux';
 
 
 import Home from '../../components/Home';

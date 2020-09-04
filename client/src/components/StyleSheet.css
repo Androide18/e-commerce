@@ -130,7 +130,12 @@ margin-bottom: 20px;
     font-size: 30px;
     text-align: center;
   }
-/* 
-  .footer {
-    bottom: 0px;
-  } */
+
+  .lista{
+    color: black;
+    font-size: 9px;
+  }
+
+  .lista:hover{
+    color: black;
+  }
