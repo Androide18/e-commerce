@@ -42,7 +42,7 @@ Product.belongsToMany(Category, {through: ProductCategory})
 Category.belongsToMany(Product, {through: ProductCategory});
 Cartorder.belongsTo(User);
 User.hasMany(Cartorder);
-Orderline.belongsTo(Product);
+Orderline.belongsTo(Product); //Orderline.hasMany(Product);
 Orderline.belongsTo(Cartorder);
 
 module.exports = {
