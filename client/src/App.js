@@ -9,8 +9,7 @@ import CreateProductScreen from './components/CreateProductScreen';
 import AppBar from '../src/components/AppBar';
 import Registro from '../src/components/Registro';
 import Login from '../src/components/Login';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+
 
 
 function App() {

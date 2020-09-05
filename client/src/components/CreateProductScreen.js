@@ -4,13 +4,15 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
+import { Modal, ModalBody, ModalFooter, ModalHeader, FormGroup, Label, Input } from 'reactstrap';
 
 const url = "http://localhost:3001/products/";
+const urlCat = "http://localhost:3001/products/category/";
 
 class CreateProductsScreen extends Component {
   state = {
     data: [],
+    dataCat: [],
     modalInsertar: false,
     modalEliminar: false,
     form: {
@@ -26,29 +28,28 @@ class CreateProductsScreen extends Component {
     }
   }
 
+  componentDidMount() {
+    this.peticionGet();
+    this.peticionGetCat();
+  }
+
   peticionGet = () => {
     axios.get(url).then(res => {
-      console.log(res);
       this.setState({ data: res.data });
-
-      console.log('este',res.data);
-
-
+      console.log('productos', res.data);
     }).catch(err => {
       console.log(err.message);
     })
   }
 
-
-
-
-  // var imagefile = document.querySelector('#file');
-  // formData.append("image", imagefile.files[0]);
-  // axios.post('upload_file', formData, {
-  //     headers: {
-  //       'Content-Type': 'multipart/form-data'
-  //     }
-  // })
+  peticionGetCat = () => {
+    axios.get(urlCat).then(res => {
+      this.setState({ dataCat: res.data });
+      console.log('categorias', res.data);
+    }).catch(err => {
+      console.log(err.message);
+    })
+  }
 
   peticionPost = async () => {
     delete this.state.form.id;
@@ -104,7 +105,6 @@ class CreateProductsScreen extends Component {
         description: prod.description,
         category: prod.category,
         image: prod.image,
-        
       }
     })
   }
@@ -133,17 +133,20 @@ class CreateProductsScreen extends Component {
     console.log(this.state.form);
   }
 
-  componentDidMount() {
-    this.peticionGet();
-  }
-
 
   render() {
     const { form } = this.state;
     return (
       <div className="App">
         <br /><br /><br />
-        <button className="btn btn-success" action='/uploads' method='POST' encType='multipart/form-data' onClick={() => { this.setState({ form: null, tipoModal: 'insertar' }); this.modalInsertar() }}>Agregar Producto</button>
+        <button className="btn btn-success"
+          action='/uploads'
+          method='POST'
+          encType='multipart/form-data'
+          onClick={() => {
+            this.setState({ form: null, tipoModal: 'insertar' });
+            this.modalInsertar()
+          }}>Agregar Producto</button>
         <br /><br />
         <table className="table ">
           <thead>
@@ -155,8 +158,7 @@ class CreateProductsScreen extends Component {
               <th>Stock</th>
               <th>Descripcion</th>
               <th>Categoria</th>
-               <th>Image</th>
-
+              <th>Image</th>
             </tr>
           </thead>
           <tbody>
@@ -172,9 +174,17 @@ class CreateProductsScreen extends Component {
                   <td>{prod.category}</td>
                   {/* <td>{prod.image}</td> */}
                   <td>
-                    <button className="btn btn-primary" onClick={() => { this.selecProduct(prod); this.modalInsertar() }}><FontAwesomeIcon icon={faEdit} /></button>
+                    <button className="btn btn-primary"
+                      onClick={() => {
+                        this.selecProduct(prod);
+                        this.modalInsertar()
+                      }}><FontAwesomeIcon icon={faEdit} /></button>
                     {"   "}
-                    <button className="btn btn-danger" onClick={() => { this.selecProduct(prod); this.setState({ modalEliminar: true }) }}><FontAwesomeIcon icon={faTrashAlt} /></button>
+                    <button className="btn btn-danger"
+                      onClick={() => {
+                        this.selecProduct(prod);
+                        this.setState({ modalEliminar: true })
+                      }}><FontAwesomeIcon icon={faTrashAlt} /></button>
                   </td>
                 </tr>
               )
@@ -182,72 +192,90 @@ class CreateProductsScreen extends Component {
           </tbody>
         </table>
 
-
-
         <Modal isOpen={this.state.modalInsertar}>
           <ModalHeader style={{ display: 'block' }}>
             <span style={{ float: 'right' }} onClick={() => this.modalInsertar()}>x</span>
           </ModalHeader>
           <ModalBody>
-            <form action='/uploads' method='POST' encType='multipart/form-data' >
+            <form action='/uploads'
+              method='POST' encType='multipart/form-data' >
               <div className="form-group">
                 <label htmlFor="id">ID</label>
-                <input className="form-control" type="text" name="id" id="id" readOnly onChange={this.handleChange} value={form ? form.id : this.state.data.length} />
+                <input className="form-control"
+                  type="text" name="id" id="id"
+                  readOnly onChange={this.handleChange}
+                  value={form ? form.id : this.state.data.length + 1} />
                 <br />
                 <label htmlFor="name">Nombre</label>
-                <input className="form-control" type="text" name="name" id="name" onChange={this.handleChange} value={form ? form.name : ''} />
+                <input className="form-control"
+                  type="text" name="name" id="name"
+                  onChange={this.handleChange} value={form ? form.name : ''} />
                 <br />
                 <label htmlFor="brand">Marca</label>
-                <input className="form-control" type="text" name="brand" id="brand" onChange={this.handleChange} value={form ? form.brand : ''} />
+                <input className="form-control"
+                  type="text" name="brand" id="brand"
+                  onChange={this.handleChange} value={form ? form.brand : ''} />
                 <br />
                 <label htmlFor="price">Precio</label>
-                <input className="form-control" type="text" name="price" id="price" onChange={this.handleChange} value={form ? form.price : ''} />
+                <input className="form-control"
+                  type="text" name="price" id="price"
+                  onChange={this.handleChange} value={form ? form.price : ''} />
                 <br />
                 <label htmlFor="stock">Stock</label>
-                <input className="form-control" type="text" name="stock" id="stock" onChange={this.handleChange} value={form ? form.stock : ''} />
+                <input className="form-control"
+                  type="text" name="stock" id="stock"
+                  onChange={this.handleChange} value={form ? form.stock : ''} />
                 <br />
-                <label htmlFor="category">Categoria</label>
-                <input className="form-control" type="text" name="category" id="category" onChange={this.handleChange} value={form ? form.category : ''} />
+                <FormGroup>
+                  <Label for="exampleSelect">Categorias</Label>
+                  <Input type="select" name="category" id="category"
+                    onChange={this.handleChange}
+                    value={form ? form.category : ''}>
+                    {
+                      this.state.dataCat.map(e => {
+                        return <option className='' key={e.id}>{e.name}</option>
+                      })
+                    }
+                  </Input>
+                </FormGroup>
                 <br />
                 <label htmlFor="description">Descripcion</label>
-                <input className="form-control" type="text" name="description" id="description" onChange={this.handleChange} value={form ? form.description : ''} />
+                <input className="form-control"
+                  type="text" name="description" id="description"
+                  onChange={this.handleChange} value={form ? form.description : ''} />
                 <br />
                 <label htmlFor="image">Imagen</label>
-                <input type="file" name="image" id="image" onChange={this.handleFileChange}  />
+                <input type="file" name="image" id="image"
+                  onChange={this.handleFileChange} />
                 <br />
               </div>
             </form>
           </ModalBody>
 
-
-
-
           <ModalFooter>
-            {this.state.tipoModal == 'insertar' ?
-              <button className="btn btn-success" onClick={() => this.peticionPost()}>
-                Insertar
-                  </button> : <button className="btn btn-primary" onClick={() => this.peticionPut()}>
-                Actualizar
-                  </button>
+            {this.state.tipoModal === 'insertar' ?
+              <button className="btn btn-success"
+                onClick={() => this.peticionPost()}>Insertar
+                  </button> : <button className="btn btn-primary"
+                onClick={() => this.peticionPut()}>Actualizar</button>
             }
-            <button className="btn btn-danger" onClick={() => this.modalInsertar()}>Cancelar</button>
+            <button className="btn btn-danger"
+              onClick={() => this.modalInsertar()}>Cancelar</button>
           </ModalFooter>
         </Modal>
-
 
         <Modal isOpen={this.state.modalEliminar}>
           <ModalBody>
             Estás seguro que deseas eliminar el producto {form && form.name}
           </ModalBody>
           <ModalFooter>
-            <button className="btn btn-danger" onClick={() => this.peticionDelete()}>Sí</button>
-            <button className="btn btn-secundary" onClick={() => this.setState({ modalEliminar: false })}>No</button>
+            <button className="btn btn-danger"
+              onClick={() => this.peticionDelete()}>Sí</button>
+            <button className="btn btn-secundary"
+              onClick={() => this.setState({ modalEliminar: false })}>No</button>
           </ModalFooter>
         </Modal>
       </div>
-
-
-
     );
   }
 }

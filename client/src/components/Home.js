@@ -21,11 +21,11 @@ function Home() {
             })
     }, [])
 
-    const handleChange = async (e) => {
-        e.persist();
-        await setSearch({ search: e.target.value});
-        console.log(search);
-      }
+    // const handleChange = async (e) => {
+    //     e.persist();
+    //     await setSearch({ search: e.target.value});
+    //     console.log(search);
+    //   }
 
     return (
         <div className='Home'>

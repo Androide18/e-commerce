@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import axios from 'axios';
+import React, { useState } from "react";
 import { AppBar, Toolbar, IconButton, Typography, Button, InputBase, Drawer } from '@material-ui/core'
 import { AccountCircle } from "@material-ui/icons"
 import SearchIcon from '@material-ui/icons/Search';
@@ -18,11 +17,12 @@ export default function Appbar() {
   const [anchor, setAnchor] = useState('left')
   const [infoCat, setInfoCat] = useState([])
   const [busqueda, setBusqueda] = useState("")
-  console.log(busqueda);
+ 
 
-  
+
   const onChangeBusqueda = (event) => {
-    setBusqueda(event.currentTarget.value)
+    setBusqueda(event.currentTarget.value);
+    console.log('busqueda', busqueda);
   }
 
   const handleAccount = () => {
@@ -30,14 +30,17 @@ export default function Appbar() {
     setOpen(true)
   }
 
-  useEffect(() => {
-    axios.get('http://localhost:3001/category')
-      .then(res => {
-        setInfoCat(res.data)
-        console.log(res.data);
-      })
-      .catch()
-  }, [])
+  const filtrarBuscqueda = () => {
+
+  }
+  // useEffect(() => {
+  //   axios.get('http://localhost:3001/category')
+  //     .then(res => {
+  //       setInfoCat(res.data)
+  //       console.log(res.data);
+  //     })
+  //     .catch()
+  // }, [])
 
 
 
@@ -54,19 +57,28 @@ export default function Appbar() {
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
-            <InputBase
-              placeholder="Busca tu producto"
-              inputProps={{ 'aria-label': 'search' }}
-              onChange={onChangeBusqueda}
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-            />
-          </div>
-          <Button variant="contained" color="primary">
-            Buscar
+            <form action="/search">
+              <InputBase
+                type='search'
+                name='query'
+                placeholder="Busca tu producto"
+                inputProps={{ 'aria-label': 'search' }}
+                onChange={onChangeBusqueda}
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+              />
+              <Button type='submit' 
+              value='Buscar' 
+              variant="contained" 
+              color="primary"
+              onClick={() => filtrarBuscqueda()}
+              >
+                Buscar
           </Button>
+            </form>
+          </div>
           <Button color='inherit'>
             <Link className='link' to='/product/new'>
               Nuevo Producto
