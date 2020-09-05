@@ -127,7 +127,8 @@ server.get('/', (req, res) => {
 // S25
 
 server.post('/',uploadImage, (req, res) => {
-	console.log(req.file);
+	console.log('LEER ESTO:');
+	console.log(req.file.filename);
 	const { name, description, price, stock, category, brand } = req.body;
 
 	
@@ -138,9 +139,10 @@ server.post('/',uploadImage, (req, res) => {
 		price: price,
 		stock: stock,
 		category: category,
-		image: req.file.filename,
+		image: req.file,
 	}).then(result => {
 		res.send('Se creo el producto')
+		
 	})
 		.catch(err => {
 			res.send(err)

@@ -4,17 +4,21 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Carrusel from './Carrusel.jsx'
 import "../index.css";
+import { connect } from 'react-redux';
+import { traerInfoProducts } from '../store/action-creators/index';
 
 
 function Home() {
 
     const [infoProducts, setInfoProducts] = useState([])
     // const [search, setSearch] = useState('')
-
     useEffect(() => {
         axios.get('http://localhost:3001/products')
             .then(res => {
                 setInfoProducts(res.data)
+                
+console.log('MIRAR ESTO!!!');
+console.log(res.data)
             })
             .catch(err => {
                 console.log(err.message);
@@ -58,6 +62,29 @@ function Home() {
 
         </div>
     )
+
+    
 }
 
-export default Home;
+
+
+
+
+
+function mapStateToProps(state) {
+    return {
+        infoProducts: state.infoProducts
+        
+    }
+}
+// console.log(infoProducts);
+function mapDispatchToProps(dispatch){
+    return {
+        traerInfoProducts: (id) => dispatch(traerInfoProducts(id))
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
+
+

@@ -1,13 +1,16 @@
-import Redux from 'redux';
-//import {...} from 'react-redux';
+const initialState = {
+    infoProducts: []
+  };
 
 
-import Home from '../../components/Home';
-import CreateCategoryScreen from '../../components/CreateCategoryScreen';
-import CreateProductScreen from '../../components/CreateProductScreen';
-import AppBar from '../../components/AppBar';
-import Registro from '../../components/Registro';
-import Login from '../../components/Login';
-import MisOrdenes from '../../components/MisOrdenes';
-import Orden from '../../components/Orden';
-
+  function mainReducer(state = initialState, action) {
+    if (action.type === "TRAER_INFO_PRODUCT") {
+        return {
+          ...state,  // hago una copia del estado, porque sino piso el producto anterior.
+          infoProducts: state.infoProducts.concat(action.payload)
+        }
+    }
+    return state;
+  }
+  
+  export default mainReducer;

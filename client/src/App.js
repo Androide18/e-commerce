@@ -12,6 +12,9 @@ import Login from '../src/components/Login';
 import Checkout from './components/Checkout';
 import Orden from './components/Orden';
 import MisOrdenes from './components/MisOrdenes';
+import {Provider} from 'react-redux';
+import store from "./store/index";
+
 
 function App() {
 
@@ -49,6 +52,7 @@ function App() {
   }
 
   return (
+    <Provider store={store}>
     <BrowserRouter>
       <div className="grid-container">
           <AppBar />
@@ -69,6 +73,7 @@ function App() {
         <footer className="footer">All right reserved</footer>
       </div>
     </BrowserRouter>
+    </Provider>
   );
 }
 
