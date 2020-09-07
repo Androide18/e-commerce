@@ -19,6 +19,22 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
+        city: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        state: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        country: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        zip: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
         role: {
             type: DataTypes.ENUM('admin', 'guest', 'logged'),
             allowNull: false,
@@ -37,8 +53,7 @@ module.exports = (sequelize) => {
         password: {
             type: DataTypes.STRING,
             allowNull: false,
-        },
-        
+        },  
     },
     {timestamp:false}
     );

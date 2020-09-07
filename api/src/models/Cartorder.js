@@ -19,11 +19,22 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        paymentId: {
+        cardName: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        
+        cardNumber: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        expDate: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        cvv: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },        
     },
     {timestamp:false}
     );
