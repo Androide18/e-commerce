@@ -130,25 +130,41 @@ const uploadImage = multer({
 
 // S25
 
-server.post('/',uploadImage, (req, res) => {
-	console.log('soy el file', req.file);
-	const { name, description, price, stock, category, brand } = req.body;
-	Product.create({
-		name: name,
-		description: description,
-		brand: brand,
-		price: price,
-		stock: stock,
-		category: category,
-		image: req.file.path,
-	}).then(result => {
-		res.send('Se creo el producto')
-	})
-		.catch(err => {
-			res.send(err)
-		})
-});
+// server.post('/',uploadImage, (req, res) => {
+// 	const { name, description, price, stock, category, brand } = req.body;
+// 	Product.create({
+// 		name: name,
+// 		description: description,
+// 		brand: brand,
+// 		price: price,
+// 		stock: stock,
+// 		category: category,
+// 		image: req.file.path,
+// 	}).then(result => {
+// 		res.send('Se creo el producto')
+// 	})
+// 		.catch(err => {
+// 			res.send(err, 'Hubo un error. No se creo el producto')
+// 		})
+// });
 
+server.post('/', (req, res) => {
+    const { name, description, price, stock, category, brand, image } = req.body;
+    Product.create({
+        name: name,
+        description: description,
+        brand: brand,
+        price: price,
+        stock: stock,
+		category: category,
+		//image: image
+    }).then(result => {
+        res.send('Se creo el producto')
+    })
+        .catch(err => {
+            res.send(err)
+        })
+});
 
 
 // S26

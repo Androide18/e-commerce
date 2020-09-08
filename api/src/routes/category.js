@@ -60,6 +60,9 @@ server.delete('/:id', (req, res) => {
     .then(resolve => {
         res.status(200).send('Se elimino la categoria con exito')
     })
+    .catch(err => {
+        res.send(err.mnessage)
+    })
 })
 
 

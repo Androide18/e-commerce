@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 
-const url = "http://localhost:3001/categories";
+const url = "http://localhost:3001/categories/";
 
 class CreateCategoryScreen extends Component {
   state = {
@@ -20,6 +20,12 @@ class CreateCategoryScreen extends Component {
       tipoModal: ''
     }
   }
+
+
+  componentDidMount() {
+    this.peticionGet();
+  }
+
 
   peticionGet = () => {
     axios.get(url).then(res => {
@@ -49,11 +55,12 @@ class CreateCategoryScreen extends Component {
   }
 
   peticionDelete = () => {
-    axios.delete(url + this.state.form.id).then(res => {
-      this.setState({ modalEliminar: false });
-      this.peticionGet();
-      console.log(res);
-    })
+    axios.delete(url + this.state.form.id)
+      .then(res => {
+        this.setState({ modalEliminar: false });
+        this.peticionGet();
+        console.log(res);
+      })
   }
 
   modalInsertar = () => {
@@ -82,9 +89,6 @@ class CreateCategoryScreen extends Component {
     console.log(this.state.form);
   }
 
-  componentDidMount() {
-    this.peticionGet();
-  }
 
 
   render() {
@@ -165,8 +169,9 @@ class CreateCategoryScreen extends Component {
           <ModalFooter>
             {this.state.tipoModal === 'insertar' ?
               <button className="btn btn-success"
-                onClick={() => this.peticionPost()}>Insertar</button> : <button className="btn btn-primary"
-                  onClick={() => this.peticionPut()}>Actualizar</button>
+                onClick={() => this.peticionPost()}>Insertar
+                </button> : <button className="btn btn-primary"
+                onClick={() => this.peticionPut()}>Actualizar</button>
             }
             <button className="btn btn-danger"
               onClick={() => this.modalInsertar()}>Cancelar</button>
