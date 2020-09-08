@@ -1,28 +1,11 @@
 const server = require('express').Router();
-const { Product } = require('../db.js');
+const { Product, Category } = require('../db.js');
 
 const multer = require('multer');
 const path = require('path');
 var upload = multer({ dest: 'uploads/' })
 
 // RUTAS A CREAR
-
-// NUEVO MULTER
-
-const storage = multer.diskStorage({
-	destination: path.join(__dirname, '../../public'),
-	filename: (req, file, cb) => {
-		cb(null, 'cualquiera.jpg');
-	}
-
-})
-
-const uploadImage = multer({
-	storage,
-	limits: {fileSize: 1000000}
-}).single('image');
-
-
 
 // // POST IMAGE CON MULTER
 //  server.post('/', upload.single('image'), (req, res) => {
@@ -53,6 +36,13 @@ server.get('/', (req, res) => {
 		.catch();
 });
 
+server.get('/category', (req, res) => {
+	Category.findAll()
+		.then(categories => {
+			res.send(categories);
+		})
+		.catch();
+});
 
 // S15 and S24
 
@@ -97,40 +87,52 @@ server.post('/:idproducto/category/:idcategoria', (req, res) => {
 });
 
 
-// S23
+// // S23
 
-server.get('/', (req, res) => {
-	const cuery = req.query.category;
-	console.log(req.query)
-	Product.findAll({ where: { category: cuery } })
-		.then(result => {
-			res.send(result)
-		})
+// server.get('/', (req, res) => {
+// 	const cuery = req.query.category;
+// 	console.log(req.query)
+// 	Product.findAll({ where: { category: cuery } })
+// 		.then(result => {
+// 			res.send(result)
+// 		})
+// })
+
+
+// server.get('/search', (req, res) => {
+//     const { query } = req.query;
+//     console.log(req.query)
+//     Product.findAll({ where: { Product: { [Op.like]: '%' + query + '%' } } })
+//         .then(result => {
+//             res.send(result)
+//         })
+//         .catch(err => {
+//             console.log(err, message);
+//         })
+// })
+
+
+// MULTER
+
+const storage = multer.diskStorage({
+	destination: path.join(__dirname, '../../public'),
+	filename: (req, file, cb) => {
+		cb(null, 'cualquiera.jpg');
+	}
+
 })
 
-
-
-//+ MULTER
-
-// server.post('/', (req, res) => {
-// 	uploadImage(req, res, (err) => {
-// 		if (err) {
-// 			err.message = 'Ta re pesada la imagen amigx!';
-// 			return res.send(err);
-// 		}
-// 		console.log(req.file);
-// 		res.send('La imagen se subio bien !');
-// 	});
-// });
+const uploadImage = multer({
+	storage,
+	limits: {fileSize: 1000000}
+}).single('image');
 
 
 // S25
 
 server.post('/',uploadImage, (req, res) => {
-	console.log(req.file);
+	console.log('soy el file', req.file);
 	const { name, description, price, stock, category, brand } = req.body;
-
-	
 	Product.create({
 		name: name,
 		description: description,
@@ -138,7 +140,7 @@ server.post('/',uploadImage, (req, res) => {
 		price: price,
 		stock: stock,
 		category: category,
-		image: req.file.filename,
+		image: req.file.path,
 	}).then(result => {
 		res.send('Se creo el producto')
 	})
@@ -146,6 +148,7 @@ server.post('/',uploadImage, (req, res) => {
 			res.send(err)
 		})
 });
+
 
 
 // S26
@@ -167,8 +170,6 @@ server.put('/:id', (req, res) => {
 // Modifica el producto con id: id. Retorna 400 si los campos enviados no son correctos.
 
 // Retorna 200 si se modificó con exito, y retorna los datos del producto modificado.
-
-
 
 
 //S27

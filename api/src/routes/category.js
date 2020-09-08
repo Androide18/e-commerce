@@ -19,8 +19,6 @@ server.get('/', (req, res) => {
 });
 
 
-
-
 //S18
 
 server.post('/', (req, res) => {
