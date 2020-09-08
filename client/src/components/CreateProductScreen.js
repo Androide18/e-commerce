@@ -260,7 +260,7 @@ class CreateProductsScreen extends Component {
                 <input className="form-control" type="text" name="description" id="description" onChange={this.handleChange} value={form ? form.description : ''} />
                 <br />
                 <label htmlFor="image">Imagen</label>
-                <input type="file" name="image" id="image" onChange={this.handleFileChange} ref={ref => this.imageRef = ref} />
+                <input type="file" name="image" id="image" onChange={this.handleFileChange} ref={ref => this.imageRef = ref}   />
                 <br />
               </div>
             </form>

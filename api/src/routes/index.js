@@ -2,6 +2,7 @@ const { Router } = require('express');
 // import all routers;
 const productRouter = require('./product.js');
 const categoryRouter = require('./category');
+const express = require('express');
 
 
 const router = Router();
@@ -17,6 +18,7 @@ router.use('/products', productRouter);
 // PRUEBA DE CARGA DE IMAGEN CON MULTER
 //router.use('/uploads', productRouter);
 
+//router.use(express.static('public'));
 router.use('/category', categoryRouter);
 
 module.exports = router;
