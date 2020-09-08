@@ -6,8 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { Modal, ModalBody, ModalFooter, ModalHeader, FormGroup, Label, Input } from 'reactstrap';
 
-const url = "http://localhost:3001/products";
-const urlCat = "http://localhost:3001/categories";
+const url = "http://localhost:3001/products/";
+const urlCat = "http://localhost:3001/categories/";
 
 class CreateProductsScreen extends Component {
   state = {
@@ -33,9 +33,9 @@ class CreateProductsScreen extends Component {
     this.peticionGetCat();
   }
 
-  peticionPost() {
-    props.addProduct(form)
-  }
+  // peticionPost() {
+  //   props.addProduct(form)
+  // }
 
   peticionGet = () => {
     axios.get(url)
@@ -59,26 +59,58 @@ class CreateProductsScreen extends Component {
     })
   }
 
+  // peticionPost = async () => {
+  //   delete this.state.form.id;
+  //   const formData = Object.entries(this.state.form).reduce((formData, [key, value]) => {
+  //     formData.append(key, value);
+  //     return formData;
+  //   }, new FormData());
+  //   console.log(formData, this.state.form);
+  //   await axios.post(url, formData,
+  //     {
+  //       headers: {
+  //         'Content-Type': 'multipart/form-data'
+  //       }
+  //     }
+  //   ).then(res => {
+  //     this.modalInsertar();
+  //     this.peticionGet();
+  //   }).catch(error => {
+  //     console.log(error.message);
+  //   })
+  // }
+
   peticionPost = async () => {
     delete this.state.form.id;
-    const formData = Object.entries(this.state.form).reduce((formData, [key, value]) => {
-      formData.append(key, value);
-      return formData;
-    }, new FormData());
-    console.log(formData, this.state.form);
-    await axios.post(url, formData,
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      }
-    ).then(res => {
+    await axios.post(url, this.state.form).then(res => {
       this.modalInsertar();
       this.peticionGet();
     }).catch(error => {
       console.log(error.message);
     })
   }
+  
+  uploadImage = async e => {
+    console.log(e.target.files);
+    const file = e.target.files[0];
+    const base64 = await this.convertBase64(file)
+    this.setState({ form: { image: base64 } })
+  }
+
+  convertBase64 = (file) => {
+    return new Promise((res, rej) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = () => {
+        res(fileReader.result)
+      };
+
+      fileReader.onerror = (error) => {
+        rej(error);
+      };
+    });
+  };
 
   peticionPut = () => {
     axios.put(url + this.state.form.id, this.state.form)
@@ -173,7 +205,7 @@ class CreateProductsScreen extends Component {
           <tbody>
             {this.state.data.map(prod => {
               return (
-                <tr>
+                <tr key={prod.id}>
                   <td>{prod.id}</td>
                   <td>{prod.name}</td>
                   <td>{prod.brand}</td>
@@ -255,7 +287,9 @@ class CreateProductsScreen extends Component {
                 <br />
                 <label htmlFor="image">Imagen</label>
                 <input type="file" name="image" id="image"
-                  onChange={this.handleFileChange} />
+                  onChange={this.handleFileChange} value=''
+                  //onChange={(e) => {this.uploadImage(e)}}
+                  />
                 <br />
               </div>
             </form>
