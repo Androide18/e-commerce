@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 import './App.css';
 import './index.css';
 import Home from './components/Home';
@@ -9,7 +9,9 @@ import Login from '../src/components/Login';
 import ProductScreen from './components/ProductScreen';
 import CreateCategoryScreen from './components/CreateCategoryScreen';
 import CreateProductScreen from './components/CreateProductScreen';
-
+import Checkout from './components/Checkout';
+import Orden from './components/Orden';
+import MisOrdenes from './components/MisOrdenes';
 
 
 function App() {
@@ -55,10 +57,13 @@ function App() {
           <div>
             <Route exact path="/" component={Home} />
             <Route  path="/producto/:id" component={ProductScreen} />
-            <Route  path="/product/new" component={CreateProductScreen} />
-            <Route  path='/category/new' component={CreateCategoryScreen} />
-            <Route  path='/registro' component={Registro} />
-            <Route  path='/login' component={Login} />
+            <Route path="/product/new" component={CreateProductScreen} />
+            <Route path='/category/new' component={CreateCategoryScreen} />
+            <Route path='/registro' component={Registro} />
+            <Route path='/login' component={Login} />
+            <Route path='/carrito' component={Checkout} />
+            <Route path='/orden' component={Orden} />
+            <Route path='/misordenes' component={MisOrdenes} />
             {/* <Route path='*' component={NotFound} /> */}
           </div>
         </main>
@@ -72,3 +77,41 @@ export default App;
 
 
 
+
+
+{/* <nav>
+      className={darkMode ? "dark-mode" : "light-mode"}
+        <div className="toggle-container">
+          <span style={{ color: darkMode ? "grey" : "yellow" }}>☀︎</span>
+          <span className="toggle">
+            <input
+              checked={darkMode}
+              onChange={() => setDarkMode(prevMode => !prevMode)}
+              id="checkbox"
+              className="checkbox"
+              type="checkbox"
+            />
+            <label htmlFor="checkbox" />
+          </span>
+          <span style={{ color: darkMode ? "slateblue" : "grey" }}>☾</span>s
+          </div>
+      </nav> */}
+
+
+
+      // div>
+      // <header>
+      //     <AppBar />
+      //   </header>
+      //   <main className="main">
+      //     <div>
+      //       <Route exact path="/" component={Home} />
+      //       <Route exact path="/producto" component={ProductComplete} />
+      //       <Route exact path='/formulario' component={FormIngresos} />
+      //       <Route exact path='/registro' component={Registro} />
+      //       <Route exact path='/login' component={Login} />
+      //       <Route path='*' component={NotFound} />
+      //     </div>
+      //   </main>
+      //   <footer className="footer">All Rights Reserved</footer>
+      // </div>

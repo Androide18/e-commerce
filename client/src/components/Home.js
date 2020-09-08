@@ -10,6 +10,7 @@ import { getCategories, getProducts } from '../actions';
 
 function Home(props) {
 
+
     // const [infoProducts, setInfoProducts] = useState([])
     // const [search, setSearch] = useState('')
 
@@ -24,10 +25,19 @@ function Home(props) {
     //         })
     // }, [])
 
+
     useEffect(() => {
         props.getProducts()
         props.getCategories()
     }, [])
+
+  
+    // const handleChange = async (e) => {
+    //     e.persist();
+    //     await setSearch({ search: e.target.value});
+    //     console.log(search);
+    //   }
+
 
     return (
         <div className='Home'>
