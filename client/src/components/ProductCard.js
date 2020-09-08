@@ -5,6 +5,9 @@ import { MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBToolt
 
 
 function ProductCard(props) {
+
+console.log(props.image);
+
   return (
     <div>
       <MDBCard className="m-2" style={{ width: "22rem" }} cascade ecommerce wide>
@@ -12,7 +15,7 @@ function ProductCard(props) {
             <MDBCardImage
             cascade
             top  // AQUI SE DEBE REEMPLAZAR POR PROPS.IMAGE
-            src= 'D:\\SoyHenry\\Henry\\wp02-ecommerce-g1\\api\\public\\cualquiera.jpg'
+            src= {props.image}
             waves
           />
           </Link>

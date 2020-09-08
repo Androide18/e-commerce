@@ -8,7 +8,21 @@ import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 
 const url = "http://localhost:3001/products/";
 
+
+function getBase64(file){
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+    reader.readAsDataURL(file);
+  });
+}
+
+
+
 class CreateProductsScreen extends Component {
+ 
   state = {
     data: [],
     modalInsertar: false,
@@ -25,20 +39,23 @@ class CreateProductsScreen extends Component {
       tipoModal: ''
     }
   }
-
+  
   peticionGet = () => {
     axios.get(url).then(res => {
-      console.log(res);
+      
+      // console.log(res);
       this.setState({ data: res.data });
-
-      console.log('este',res.data);
+      console.log('QUE TRAE IMAGE');
+      console.log(this.state.image);
+      // console.log('este',res.data);
 
 
     }).catch(err => {
-      console.log(err.message);
+      // console.log(err.message);
     })
   }
 
+  
 
 
 
@@ -55,9 +72,14 @@ class CreateProductsScreen extends Component {
     const formData = Object.entries(this.state.form).reduce((formData, [key, value]) => {
       formData.append(key, value);
       return formData;
+      
     }, new FormData());
-
-    console.log(formData, this.state.form);
+    console.log('QUE TRAE IMAGE');
+      console.log(this.state.image);
+    console.log('QUESESTO?');
+     console.log(formData, this.state.form);
+     console.log('QUESESTOLA IMAGEN?');
+     console.log(this.state.form.image);
     await axios.post(url, formData,
       {
         headers: {
@@ -117,21 +139,45 @@ class CreateProductsScreen extends Component {
         [e.target.name]: e.target.value
       }
     });
-    console.log(this.state.form);
+    // console.log(this.state.form);
   }
 
 
   handleFileChange = async e => {
     e.persist();
+
+    let image;
+      if (this.imageRef.files.length > 0 ) {
+      const file = this.imageRef.files[0];
+      image = await getBase64(file);
+
+      console.log('file');
+     console.log(file);
+    // console.log(this.state.form.image);
+    console.log('image');
+    console.log(image);
+    }
+
+    console.log('QUE HAY');
+    console.log(e.target.files[0]);
+    console.log('target name');
+    console.log(e.target.name);
+    
+    
     await this.setState({
       form: {
         ...this.state.form,
-        [e.target.name]: e.target.files[0]
 
+        [e.target.name]: e.target.files[0],  
+         
       }
     });
-    console.log(this.state.form);
+
+    // this.imageRef.value= '';
+    
   }
+
+ 
 
   componentDidMount() {
     this.peticionGet();
@@ -170,7 +216,8 @@ class CreateProductsScreen extends Component {
                   <td>{prod.stock}u</td>
                   <td>{prod.description}</td>
                   <td>{prod.category}</td>
-                  {/* <td>{prod.image}</td> */}
+                  {/* <td><img src={prod.image} /> </td> */}
+                  <td><img src={prod.image} /> </td>
                   <td>
                     <button className="btn btn-primary" onClick={() => { this.selecProduct(prod); this.modalInsertar() }}><FontAwesomeIcon icon={faEdit} /></button>
                     {"   "}
@@ -213,7 +260,7 @@ class CreateProductsScreen extends Component {
                 <input className="form-control" type="text" name="description" id="description" onChange={this.handleChange} value={form ? form.description : ''} />
                 <br />
                 <label htmlFor="image">Imagen</label>
-                <input type="file" name="image" id="image" onChange={this.handleFileChange}  />
+                <input type="file" name="image" id="image" onChange={this.handleFileChange} ref={ref => this.imageRef = ref} />
                 <br />
               </div>
             </form>
