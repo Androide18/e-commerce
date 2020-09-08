@@ -3,12 +3,12 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import './App.css';
 import './index.css';
 import Home from './components/Home';
-import ProductComplete from '../src/pages/ProductComplete.js';
-import CreateCategoryScreen from './components/CreateCategoryScreen';
-import CreateProductScreen from './components/CreateProductScreen';
 import AppBar from '../src/components/AppBar';
 import Registro from '../src/components/Registro';
 import Login from '../src/components/Login';
+import ProductScreen from './components/ProductScreen';
+import CreateCategoryScreen from './components/CreateCategoryScreen';
+import CreateProductScreen from './components/CreateProductScreen';
 
 
 
@@ -54,11 +54,11 @@ function App() {
         <main className="main">
           <div>
             <Route exact path="/" component={Home} />
-            <Route exact path="/producto" component={ProductComplete} />
-            <Route exact path="/product/new" component={CreateProductScreen} />
-            <Route exact path='/category/new' component={CreateCategoryScreen} />
-            <Route exact path='/registro' component={Registro} />
-            <Route exact path='/login' component={Login} />
+            <Route  path="/producto/:id" component={ProductScreen} />
+            <Route  path="/product/new" component={CreateProductScreen} />
+            <Route  path='/category/new' component={CreateCategoryScreen} />
+            <Route  path='/registro' component={Registro} />
+            <Route  path='/login' component={Login} />
             {/* <Route path='*' component={NotFound} /> */}
           </div>
         </main>

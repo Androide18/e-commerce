@@ -17,6 +17,6 @@ router.use('/products', productRouter);
 // PRUEBA DE CARGA DE IMAGEN CON MULTER
 //router.use('/uploads', productRouter);
 
-router.use('/category', categoryRouter);
+router.use('/categories', categoryRouter);
 
 module.exports = router;

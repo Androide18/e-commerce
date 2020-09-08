@@ -10,16 +10,14 @@ function ProductScreen(props) {
 
     const [infoProd, setInfoProd] = useState([])
 
-    const prodFilt = infoProd.filter(el => el.id === matchId)
-    
-    const nombre = prodFilt.name
-
     useEffect(() => {
         axios.get('http://localhost:3001/products')
             .then(res => {
                 setInfoProd(res.data)
             })
-            .catch()
+            .catch(err => {
+                console.log(err.message)
+            })
     }, [])
 
     
@@ -30,7 +28,7 @@ function ProductScreen(props) {
         <div>
             <ul className="products">
                 {
-                    prodFilt.map(el => (
+                    infoProd.map(el => (
 
                         <li key={el.id}>
                             <div className="product">

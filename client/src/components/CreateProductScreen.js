@@ -6,8 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { Modal, ModalBody, ModalFooter, ModalHeader, FormGroup, Label, Input } from 'reactstrap';
 
-const url = "http://localhost:3001/products/";
-const urlCat = "http://localhost:3001/products/category/";
+const url = "http://localhost:3001/products";
+const urlCat = "http://localhost:3001/categories";
 
 class CreateProductsScreen extends Component {
   state = {
@@ -33,20 +33,28 @@ class CreateProductsScreen extends Component {
     this.peticionGetCat();
   }
 
+  peticionPost() {
+    props.addProduct(form)
+  }
+
   peticionGet = () => {
-    axios.get(url).then(res => {
+    axios.get(url)
+    .then(res => {
       this.setState({ data: res.data });
       console.log('productos', res.data);
-    }).catch(err => {
+    })
+    .catch(err => {
       console.log(err.message);
     })
   }
 
   peticionGetCat = () => {
-    axios.get(urlCat).then(res => {
+    axios.get(urlCat)
+    .then(res => {
       this.setState({ dataCat: res.data });
       console.log('categorias', res.data);
-    }).catch(err => {
+    })
+    .catch(err => {
       console.log(err.message);
     })
   }
@@ -57,7 +65,6 @@ class CreateProductsScreen extends Component {
       formData.append(key, value);
       return formData;
     }, new FormData());
-
     console.log(formData, this.state.form);
     await axios.post(url, formData,
       {
@@ -74,7 +81,8 @@ class CreateProductsScreen extends Component {
   }
 
   peticionPut = () => {
-    axios.put(url + this.state.form.id, this.state.form).then(res => {
+    axios.put(url + this.state.form.id, this.state.form)
+    .then(res => {
       this.modalInsertar();
       this.peticionGet();
       console.log(res);
@@ -82,7 +90,8 @@ class CreateProductsScreen extends Component {
   }
 
   peticionDelete = () => {
-    axios.delete(url + this.state.form.id).then(res => {
+    axios.delete(url + this.state.form.id)
+    .then(res => {
       this.setState({ modalEliminar: false });
       this.peticionGet();
       console.log(res);
