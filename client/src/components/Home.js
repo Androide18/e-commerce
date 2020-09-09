@@ -20,7 +20,6 @@ function Home(props) {
         props.getCategories()
     }, [])
 
-
     return (
     //{loading ? (<div>Loading...</div>) : error ? (<div>{error}</div>) : (
      
