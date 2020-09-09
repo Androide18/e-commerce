@@ -14,8 +14,8 @@ console.log(props.image);
           <Link to={'/products/' + props.id}>
             <MDBCardImage
             cascade
-            top  // AQUI SE DEBE REEMPLAZAR POR PROPS.IMAGE
-            src= {props.image}
+            top
+            src= {`http://localhost:3001/static/${props.image}`} 
             waves
           />
           </Link>

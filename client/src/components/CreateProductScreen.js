@@ -9,20 +9,9 @@ import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 const url = "http://localhost:3001/products/";
 
 
-function getBase64(file){
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = (error) => reject(error);
-    reader.readAsDataURL(file);
-  });
-}
-
-
 
 class CreateProductsScreen extends Component {
- 
+
   state = {
     data: [],
     modalInsertar: false,
@@ -39,15 +28,12 @@ class CreateProductsScreen extends Component {
       tipoModal: ''
     }
   }
-  
+
   peticionGet = () => {
     axios.get(url).then(res => {
-      
-      // console.log(res);
       this.setState({ data: res.data });
-      console.log('QUE TRAE IMAGE');
-      console.log(this.state.data[0]);
-      // console.log('este',res.data);
+      // console.log('QUE TRAE IMAGE');
+      // console.log(this.state.data[0]);
     }).catch(err => {
       console.log(err.message);
     })
@@ -58,14 +44,8 @@ class CreateProductsScreen extends Component {
     const formData = Object.entries(this.state.form).reduce((formData, [key, value]) => {
       formData.append(key, value);
       return formData;
-      
     }, new FormData());
-    console.log('QUE TRAE IMAGE');
-      console.log(this.state.image);
-    console.log('QUESESTO?');
-     console.log(formData, this.state.form);
-     console.log('QUESESTOLA IMAGEN?');
-     console.log(this.state.form.image);
+
     await axios.post(url, formData,
       {
         headers: {
@@ -112,7 +92,6 @@ class CreateProductsScreen extends Component {
         description: prod.description,
         category: prod.category,
         image: prod.image,
-        
       }
     })
   }
@@ -125,57 +104,30 @@ class CreateProductsScreen extends Component {
         [e.target.name]: e.target.value
       }
     });
-    // console.log(this.state.form);
   }
 
 
   handleFileChange = async e => {
     e.persist();
 
-    let image;
-      if (this.imageRef.files.length > 0 ) {
-      const file = this.imageRef.files[0];
-      image = await getBase64(file);
-
-      console.log('file');
-     console.log(file);
-    // console.log(this.state.form.image);
-    console.log('image');
-    console.log(image);
-    }
-
-    console.log('QUE HAY');
-    console.log(e.target.files[0]);
-    console.log('target name');
-    console.log(e.target.name);
-    
-    
     this.setState({
       form: {
         ...this.state.form,
-
-        [e.target.name]: e.target.files[0],  
-         
+        [e.target.name]: e.target.files[0],
       }
     });
-
-    // this.imageRef.value= '';
-    
   }
-
- 
 
   componentDidMount() {
     this.peticionGet();
   }
-
 
   render() {
     const { form } = this.state;
     return (
       <div className="App">
         <br /><br /><br />
-        <button className="btn btn-success" action='/uploads' method='POST' encType='multipart/form-data' onClick={() => { this.setState({ form: null, tipoModal: 'insertar' }); this.modalInsertar() }}>Agregar Producto</button>
+        <button className="btn btn-success" onClick={() => { this.setState({ form: null, tipoModal: 'insertar' }); this.modalInsertar() }}>Agregar Producto</button>
         <br /><br />
         <table className="table ">
           <thead>
@@ -187,7 +139,7 @@ class CreateProductsScreen extends Component {
               <th>Stock</th>
               <th>Descripcion</th>
               <th>Categoria</th>
-               <th>Image</th>
+              <th>Image</th>
 
             </tr>
           </thead>
@@ -202,8 +154,7 @@ class CreateProductsScreen extends Component {
                   <td>{prod.stock}u</td>
                   <td>{prod.description}</td>
                   <td>{prod.category}</td>
-                  <td><img src={`http://localhost:3001/static/${prod.image}`} /> </td>
-                  {/* <td><img src="http://localhost:3001/static/cualquiera.jpg" /> </td> */}
+                  <td><img src={`http://localhost:3001/static/${prod.image}`} class="image-thumbnail" /></td>
                   <td>
                     <button className="btn btn-primary" onClick={() => { this.selecProduct(prod); this.modalInsertar() }}><FontAwesomeIcon icon={faEdit} /></button>
                     {"   "}
@@ -222,7 +173,7 @@ class CreateProductsScreen extends Component {
             <span style={{ float: 'right' }} onClick={() => this.modalInsertar()}>x</span>
           </ModalHeader>
           <ModalBody>
-            <form action='/uploads' method='POST' encType='multipart/form-data' >
+           
               <div className="form-group">
                 <label htmlFor="id">ID</label>
                 <input className="form-control" type="text" name="id" id="id" readOnly onChange={this.handleChange} value={form ? form.id : this.state.data.length} />
@@ -246,10 +197,10 @@ class CreateProductsScreen extends Component {
                 <input className="form-control" type="text" name="description" id="description" onChange={this.handleChange} value={form ? form.description : ''} />
                 <br />
                 <label htmlFor="image">Imagen</label>
-                <input type="file" name="image" id="image" onChange={this.handleFileChange} ref={ref => this.imageRef = ref}   />
+                <input type="file" name="image" id="image" onChange={this.handleFileChange} ref={ref => this.imageRef = ref} />
                 <br />
               </div>
-            </form>
+         
           </ModalBody>
 
 
