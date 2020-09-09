@@ -1,37 +1,76 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card, Button } from 'react-bootstrap';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 import { MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBTooltip, MDBCardFooter, MDBIcon, MDBBtn } from "mdbreact";
+import IconButton from '@material-ui/core/IconButton';
+import AddShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import { useSelector, useDispatch } from 'react-redux';
+import { detailsProduct } from '../actions/productActions';
 
 
-const ProductCard = (props) => {
+function ProductCard(props) {
+const [qty, setQty] = useState (1);
+const productDetails = useSelector(state => state.productDetails);
+const {product, loading, error} = productDetails;
+const dispatch = useDispatch();
+
+ useEffect(() => {
+   dispatch(detailsProduct(props.match.params.id));
+   return () => {
+     //
+   };
+ }, [])
+
+ const handleAddtoCart = () =>{
+   props.history.push("/carrito/" + props.match.params.id + "?qty=" + qty)
+ }
+
   return (
     <div>
-      <MDBCard className="m-2" style={{ width: "22rem" }} cascade ecommerce wide>
-        <Link to={'/products/' + props.id}>
+      {loading ? <div>Cargando...</div>:
+      error ? <div>{error}</div>:
+      (
+        <MDBCard className="m-2" style={{ width: "22rem" }} cascade ecommerce wide>
+        <Link to={'/products/' + props.products.id}>
           <MDBCardImage
             cascade
             top  // AQUI SE DEBE REEMPLAZAR POR PROPS.IMAGE
+<<<<<<< HEAD
             src= {`http://localhost:3001/static/${props.image}`}
+=======
+            src={props.products.image}
+
+>>>>>>> 19e065073f0a5c2220db8445be7555c055a3ecc8
             waves
           />
         </Link>
         <MDBCardBody cascade className="text-center">
-          <MDBCardTitle tag="h5">{props.brand}</MDBCardTitle>
+          <MDBCardTitle tag="h5">{props.product.brand}</MDBCardTitle>
           <MDBCardTitle>
-            <Link to={'/products/' + props.id}>
-              <strong>{props.name}</strong>
+            <Link to={'/products/' + porops.products.id}>
+              <strong>{props.products.name}</strong>
             </Link>
           </MDBCardTitle>
           <MDBCardText>
-            {props.description}
+            {product.description}
           </MDBCardText>
           <MDBCardFooter>
-            <span className="float-left">${props.price}</span>
-
-
+            <span className="float-left">${props.products.price}</span>
+            <li>
+              Qty: <select value={qty} onChange={(e) => {setQty(e.target.value)}}>
+              {[Array(props.products.countInStock).keys()].map(x=>
+              <option value={x+1}>{x+1}</option>
+              )}
+              </select>
+            </li>
             <span className="float-right">
+              <IconButton color="primary" aria-label="add to shopping cart">
+                <AddShoppingCartIcon /> 
+                {props.products.countInStock > 0 ? <button onClick={handleAddtoCart}/>
+                :
+                <div>Sin Stock</div> }
+              </IconButton>
               <MDBTooltip placement="top">
                 <MDBBtn tag="a" href="https://mdbootstrap.com" target="_blank" color="transparent" size="lg" className="p-1 m-0 mr-2 z-depth-0" >
                   <MDBIcon icon="share-alt" />
@@ -48,10 +87,11 @@ const ProductCard = (props) => {
           </MDBCardFooter>
         </MDBCardBody>
       </MDBCard>
+      )
+    }
     </div>
   )
 }
-
 export default ProductCard;
 
 
