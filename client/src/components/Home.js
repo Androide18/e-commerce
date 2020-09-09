@@ -12,7 +12,7 @@ import { listProducts, detailsProduct } from '../actions/productActions';
 function Home(props) {
     //const [infoProducts, setInfoProducts] = useState([]);
     const productList = useSelector(state => state.productList);
-    const {products, loading, error} = productList;
+    //const {products, loading, error} = productList;
     const dispatch = useDispatch();
 
  useEffect(() => {
@@ -22,7 +22,7 @@ function Home(props) {
 
 
     return (
-    {loading ? (<div>Loading...</div>) : error ? (<div>{error}</div>) : (
+    //{loading ? (<div>Loading...</div>) : error ? (<div>{error}</div>) : (
      
      <div className='Home'>
             <br />
@@ -54,8 +54,6 @@ function Home(props) {
         </div>
      
      )
-        
-    )
 }
 
 function mapStateToProps(state) {

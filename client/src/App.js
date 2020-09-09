@@ -66,8 +66,6 @@ function App() {
             <Route  path='/carrito/:id?' component={Carrito} />
             <Route  path='/orden' component={Orden} />
             <Route  path='/misordenes' component={MisOrdenes} />
-
-            {/* <Route path='*' component={NotFound} /> */}
           </div>
         </main>
         <footer className="footer">All right reserved</footer>
