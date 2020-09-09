@@ -59,30 +59,20 @@ class CreateProductsScreen extends Component {
     })
   }
 
-  // peticionPost = async () => {
-  //   delete this.state.form.id;
-  //   const formData = Object.entries(this.state.form).reduce((formData, [key, value]) => {
-  //     formData.append(key, value);
-  //     return formData;
-  //   }, new FormData());
-  //   console.log(formData, this.state.form);
-  //   await axios.post(url, formData,
-  //     {
-  //       headers: {
-  //         'Content-Type': 'multipart/form-data'
-  //       }
-  //     }
-  //   ).then(res => {
-  //     this.modalInsertar();
-  //     this.peticionGet();
-  //   }).catch(error => {
-  //     console.log(error.message);
-  //   })
-  // }
-
   peticionPost = async () => {
     delete this.state.form.id;
-    await axios.post(url, this.state.form).then(res => {
+    const formData = Object.entries(this.state.form).reduce((formData, [key, value]) => {
+      formData.append(key, value);
+      return formData;
+    }, new FormData());
+
+    await axios.post(url, formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+    ).then(res => {
       this.modalInsertar();
       this.peticionGet();
     }).catch(error => {
@@ -146,6 +136,7 @@ class CreateProductsScreen extends Component {
         description: prod.description,
         category: prod.category,
         image: prod.image,
+        //revisar la imagen 
       }
     })
   }
@@ -213,7 +204,7 @@ class CreateProductsScreen extends Component {
                   <td>{prod.stock}u</td>
                   <td>{prod.description}</td>
                   <td>{prod.category}</td>
-                  {/* <td>{prod.image}</td> */}
+                  <td><img src={`http://localhost:3001/static/${prod.image}`} class="image-thumbnail" /></td>
                   <td>
                     <button className="btn btn-primary"
                       onClick={() => {

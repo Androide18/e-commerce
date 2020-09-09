@@ -3,15 +3,9 @@ const { Product, Category } = require('../db.js');
 
 const multer = require('multer');
 const path = require('path');
-var upload = multer({ dest: 'uploads/' })
+
 
 // RUTAS A CREAR
-
-// // POST IMAGE CON MULTER
-//  server.post('/', upload.single('image'), (req, res) => {
-// 	res.send('HOLA')
-// 	console.log(req.file, req.body);
-// });
 
 // S14 and S21 - CREAR RUTA A CATALOGO / HOME PAGE      ok
 // S15 and S24 - CREAR RUTA PARA VER PRODUCTO POR ID    ok
@@ -117,7 +111,7 @@ server.post('/:idproducto/category/:idcategoria', (req, res) => {
 const storage = multer.diskStorage({
 	destination: path.join(__dirname, '../../public'),
 	filename: (req, file, cb) => {
-		cb(null, 'cualquiera.jpg');
+		cb(null, `img${Date.now()}.jpg`);
 	}
 
 })
@@ -130,41 +124,24 @@ const uploadImage = multer({
 
 // S25
 
-// server.post('/',uploadImage, (req, res) => {
-// 	const { name, description, price, stock, category, brand } = req.body;
-// 	Product.create({
-// 		name: name,
-// 		description: description,
-// 		brand: brand,
-// 		price: price,
-// 		stock: stock,
-// 		category: category,
-// 		image: req.file.path,
-// 	}).then(result => {
-// 		res.send('Se creo el producto')
-// 	})
-// 		.catch(err => {
-// 			res.send(err, 'Hubo un error. No se creo el producto')
-// 		})
-// });
-
-server.post('/', (req, res) => {
-    const { name, description, price, stock, category, brand, image } = req.body;
-    Product.create({
-        name: name,
-        description: description,
-        brand: brand,
-        price: price,
-        stock: stock,
+server.post('/',uploadImage, (req, res) => {
+	const { name, description, price, stock, category, brand } = req.body;
+	Product.create({
+		name: name,
+		description: description,
+		brand: brand,
+		price: price,
+		stock: stock,
 		category: category,
-		//image: image
-    }).then(result => {
-        res.send('Se creo el producto')
-    })
-        .catch(err => {
-            res.send(err)
-        })
+		image: req.file.filename,
+	}).then(result => {
+		res.send('Se creo el producto')
+	})
+		.catch(err => {
+			res.send(err, 'Hubo un error. No se creo el producto')
+		})
 });
+
 
 
 // S26

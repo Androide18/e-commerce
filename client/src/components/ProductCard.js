@@ -13,7 +13,7 @@ const ProductCard = (props) => {
           <MDBCardImage
             cascade
             top  // AQUI SE DEBE REEMPLAZAR POR PROPS.IMAGE
-            src="./public/cualquiera.jpg"
+            src= {`http://localhost:3001/static/${props.image}`}
             waves
           />
         </Link>
