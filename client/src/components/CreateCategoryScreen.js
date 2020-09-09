@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 
-const url = "http://localhost:3001/category/";
+const url = "http://localhost:3001/categories/";
 
 class CreateCategoryScreen extends Component {
   state = {
@@ -20,6 +20,12 @@ class CreateCategoryScreen extends Component {
       tipoModal: ''
     }
   }
+
+
+  componentDidMount() {
+    this.peticionGet();
+  }
+
 
   peticionGet = () => {
     axios.get(url).then(res => {
@@ -49,11 +55,12 @@ class CreateCategoryScreen extends Component {
   }
 
   peticionDelete = () => {
-    axios.delete(url + this.state.form.id).then(res => {
-      this.setState({ modalEliminar: false });
-      this.peticionGet();
-      console.log(res);
-    })
+    axios.delete(url + this.state.form.id)
+      .then(res => {
+        this.setState({ modalEliminar: false });
+        this.peticionGet();
+        console.log(res);
+      })
   }
 
   modalInsertar = () => {
@@ -64,7 +71,7 @@ class CreateCategoryScreen extends Component {
     this.setState({
       tipoModal: 'actualizar',
       form: {
-        id:cat.id,
+        id: cat.id,
         name: cat.name,
         description: cat.description,
       }
@@ -82,9 +89,6 @@ class CreateCategoryScreen extends Component {
     console.log(this.state.form);
   }
 
-  componentDidMount() {
-    this.peticionGet();
-  }
 
 
   render() {
@@ -92,7 +96,11 @@ class CreateCategoryScreen extends Component {
     return (
       <div className="App">
         <br /><br /><br />
-        <button className="btn btn-success" onClick={() => { this.setState({ form: null, tipoModal: 'insertar' }); this.modalInsertar() }}>Agregar Cateforia</button>
+        <button className="btn btn-success"
+          onClick={() => {
+            this.setState({ form: null, tipoModal: 'insertar' });
+            this.modalInsertar()
+          }}>Agregar Cateforia</button>
         <br /><br />
         <table className="table ">
           <thead>
@@ -103,17 +111,24 @@ class CreateCategoryScreen extends Component {
             </tr>
           </thead>
           <tbody>
-
             {this.state.data.map(cat => {
               return (
-                <tr>
+                <tr key={cat.id}>
                   <td>{cat.id}</td>
                   <td>{cat.name}</td>
                   <td>{cat.description}</td>
                   <td>
-                    <button className="btn btn-primary" onClick={() => { this.selecCat(cat); this.modalInsertar() }}><FontAwesomeIcon icon={faEdit} /></button>
+                    <button className="btn btn-primary"
+                      onClick={() => {
+                        this.selecCat(cat);
+                        this.modalInsertar()
+                      }}><FontAwesomeIcon icon={faEdit} /></button>
                     {"   "}
-                    <button className="btn btn-danger" onClick={() => { this.selecCat(cat); this.setState({ modalEliminar: true }) }}><FontAwesomeIcon icon={faTrashAlt} /></button>
+                    <button className="btn btn-danger"
+                      onClick={() => {
+                        this.selecCat(cat);
+                        this.setState({ modalEliminar: true })
+                      }}><FontAwesomeIcon icon={faTrashAlt} /></button>
                   </td>
                 </tr>
               )
@@ -130,26 +145,36 @@ class CreateCategoryScreen extends Component {
           <ModalBody>
             <div className="form-group">
               <label htmlFor="id">ID</label>
-              <input className="form-control" type="text" name="id" id="id" readOnly onChange={this.handleChange} value={form ? form.id : this.state.data.length + 1} />
+              <input className="form-control"
+                type="text" name="id" id="id"
+                readOnly onChange={this.handleChange}
+                value={form ? form.id : this.state.data.length + 1} />
               <br />
               <label htmlFor="name">Nombre</label>
-              <input className="form-control" type="text" name="name" id="name" onChange={this.handleChange} value={form ? form.name : ''} />
+              <input className="form-control"
+                type="text" name="name" id="name"
+                onChange={this.handleChange}
+                value={form ? form.name : ''} />
               <br />
               <label htmlFor="description">Descripcion</label>
-              <input className="form-control" type="text" name="description" id="description" onChange={this.handleChange} value={form ? form.description : ''} />
+              <input className="form-control"
+                type="text" name="description"
+                id="description"
+                onChange={this.handleChange}
+                value={form ? form.description : ''} />
               <br />
             </div>
           </ModalBody>
 
           <ModalFooter>
-            {this.state.tipoModal == 'insertar' ?
-              <button className="btn btn-success" onClick={() => this.peticionPost()}>
-                Insertar
-                  </button> : <button className="btn btn-primary" onClick={() => this.peticionPut()}>
-                Actualizar
-                  </button>
+            {this.state.tipoModal === 'insertar' ?
+              <button className="btn btn-success"
+                onClick={() => this.peticionPost()}>Insertar
+                </button> : <button className="btn btn-primary"
+                onClick={() => this.peticionPut()}>Actualizar</button>
             }
-            <button className="btn btn-danger" onClick={() => this.modalInsertar()}>Cancelar</button>
+            <button className="btn btn-danger"
+              onClick={() => this.modalInsertar()}>Cancelar</button>
           </ModalFooter>
         </Modal>
 
@@ -159,8 +184,10 @@ class CreateCategoryScreen extends Component {
             Estás seguro que deseas eliminar la categoria {form && form.name}
           </ModalBody>
           <ModalFooter>
-            <button className="btn btn-danger" onClick={() => this.peticionDelete()}>Sí</button>
-            <button className="btn btn-secundary" onClick={() => this.setState({ modalEliminar: false })}>No</button>
+            <button className="btn btn-danger"
+              onClick={() => this.peticionDelete()}>Sí</button>
+            <button className="btn btn-secundary"
+              onClick={() => this.setState({ modalEliminar: false })}>No</button>
           </ModalFooter>
         </Modal>
       </div>

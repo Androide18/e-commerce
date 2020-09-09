@@ -19,8 +19,6 @@ server.get('/', (req, res) => {
 });
 
 
-
-
 //S18
 
 server.post('/', (req, res) => {
@@ -61,6 +59,9 @@ server.delete('/:id', (req, res) => {
     Category.destroy({ where: { id: categoryId}})
     .then(resolve => {
         res.status(200).send('Se elimino la categoria con exito')
+    })
+    .catch(err => {
+        res.send(err.mnessage)
     })
 })
 

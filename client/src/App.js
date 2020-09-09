@@ -3,16 +3,17 @@ import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 import './App.css';
 import './index.css';
 import Home from './components/Home';
-import ProductComplete from '../src/pages/ProductComplete.js';
-import CreateCategoryScreen from './components/CreateCategoryScreen';
-import CreateProductScreen from './components/CreateProductScreen';
 import AppBar from '../src/components/AppBar';
 import Registro from '../src/components/Registro';
 import Login from '../src/components/Login';
+import ProductScreen from './components/ProductScreen';
+import CreateCategoryScreen from './components/CreateCategoryScreen';
+import CreateProductScreen from './components/CreateProductScreen';
 import Checkout from './components/Checkout';
 import Orden from './components/Orden';
 import MisOrdenes from './components/MisOrdenes';
 import Carrito from './components/Carrito';
+
 
 function App() {
 
@@ -56,7 +57,7 @@ function App() {
         <main className="main">
           <div>
             <Route exact path="/" component={Home} />
-            <Route  path="/producto" component={ProductComplete} />
+            <Route  path="/producto/:id" component={ProductScreen} />
             <Route  path="/product/new" component={CreateProductScreen} />
             <Route  path='/category/new' component={CreateCategoryScreen} />
             <Route  path='/registro' component={Registro} />
@@ -65,6 +66,7 @@ function App() {
             <Route  path='/carrito/:id?' component={Carrito} />
             <Route  path='/orden' component={Orden} />
             <Route  path='/misordenes' component={MisOrdenes} />
+
             {/* <Route path='*' component={NotFound} /> */}
           </div>
         </main>

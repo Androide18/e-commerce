@@ -1,9 +1,9 @@
 import React from 'react';
-import ProductCard from './ProductCard';
-import { useState, useEffect } from 'react';
+// import ProductCard from './ProductCard';
+// import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Carousel } from 'react-bootstrap';
-import { colors } from '@material-ui/core';
+// import { colors } from '@material-ui/core';
 import StyleSheet from './StyleSheet.css';
 
 

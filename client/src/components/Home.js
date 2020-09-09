@@ -4,41 +4,27 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Carrusel from './Carrusel.jsx'
 import "../index.css";
+import { connect } from 'react-redux';
+import { getCategories, getProducts } from '../actions';
 import { useSelector, useDispatch } from 'react-redux';
 import { listProducts, detailsProduct } from '../actions/productActions';
 
-function Home() {
+function Home(props) {
     //const [infoProducts, setInfoProducts] = useState([]);
     const productList = useSelector(state => state.productList);
     const {products, loading, error} = productList;
     const dispatch = useDispatch();
-    // const [search, setSearch] = useState('')
 
-    useEffect(() => {
-        dispatch(listProducts());
-
-        return ()=> {
-
-        };
-        // axios.get('http://localhost:3001/products')
-        //     .then(res => {
-        //         setInfoProducts(res.data)
-        //     })
-        //     .catch(err => {
-        //         console.log(err.message);
-        //     })
+ useEffect(() => {
+        props.getProducts()
+        props.getCategories()
     }, [])
-    
-    // const handleChange = async (e) => {
-    //     e.persist();
-    //     await setSearch({ search: e.target.value});
-    //     console.log(search);
-    //   }
 
-    return loading ? <div>Cargando...</div> :
-    error? <div>Error</div>:
-    (
-        <div className='Home'>
+
+    return (
+    {loading ? (<div>Loading...</div>) : error ? (<div>{error}</div>) : (
+     
+     <div className='Home'>
             <br />
             <br />
             <div className="Carousel">
@@ -46,8 +32,7 @@ function Home() {
             </div>
             <ul className="products">
                 {
-                    products.map(el => (
-
+                    props.products.map(el => (
                         <li key={el.id}>
                             <div className="product">
                                 <ProductCard
@@ -67,7 +52,26 @@ function Home() {
             </ul>
 
         </div>
+     
+     )
+        
     )
 }
 
-export default Home;
+function mapStateToProps(state) {
+    return {
+        products: state.productsLoaded,
+        categories: state.categoriesLoaded,
+        loading: state.loading,
+        error: state.error,
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        getProducts: () => dispatch(getProducts()),
+        getCategories: () => dispatch(getCategories())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -1,0 +1,15 @@
+RUTAS A CREAR
+
+S34 - RUTA PARA CREAR USUARIO                           POST /users
+S35 - RUTA PARA MODIFICAR USUARIO                       PUT /users/:id
+S36 - RUTA QUE RETRORNE TODOS LOS USUARIOS              GET /users
+S37 - RUTA PARA ELIMINAR UN USUARIO                     DELETE /users/:id
+S38 - RUTA PARA AGREGAR ITEM AL CARRO                   POST /users/:idUser/cart
+S39 - RUTA PARA QUE RETORNE TODOS LOS ITEMS DEL CARRO   GET /users/:idUser/cart
+S40 - RUTA PARA VACIAR EL CARRO                         DELETE /users/:idUser/cart
+S41 - RUTA PARA EDITAR LA CANTIDAD DEL CARRO            PUT /users/:idUser/cart
+S44 - RUTA QUE RETORNE TODAS LA ORDENES                 GET /orders
+S45 - RUTA QUE RETORNE LAS ORDENES POR USUARIO          GET /users/:id/orders
+S46 - RUTA QUE RETORNE UNA ORDEN EN PARTICULAR          GET /orders/:id
+S47 - RUTA PARA MODIFICAR ORDEN                         PUT /orders/:id
+S49 - CREAR RUTA PARA ADMINS                            ... /admin 
