@@ -6,41 +6,25 @@ import Carrusel from './Carrusel.jsx'
 import "../index.css";
 import { connect } from 'react-redux';
 import { getCategories, getProducts } from '../actions';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { listProducts, detailsProduct } from '../actions/productActions';
 
 function Home(props) {
+    //const [infoProducts, setInfoProducts] = useState([]);
+    const productList = useSelector(state => state.productList);
+    const {products, loading, error} = productList;
+    const dispatch = useDispatch();
 
-
-    // const [infoProducts, setInfoProducts] = useState([])
-    // const [search, setSearch] = useState('')
-
-    // useEffect(() => {
-    //     axios.get('http://localhost:3001/products')
-    //         .then(res => {
-    //             setInfoProducts(res.data)
-    //             console.log(res);
-    //         })
-    //         .catch(err => {
-    //             console.log(err.message);
-    //         })
-    // }, [])
-
-
-    useEffect(() => {
+ useEffect(() => {
         props.getProducts()
         props.getCategories()
     }, [])
 
-  
-    // const handleChange = async (e) => {
-    //     e.persist();
-    //     await setSearch({ search: e.target.value});
-    //     console.log(search);
-    //   }
-
 
     return (
-        <div className='Home'>
+    {loading ? (<div>Loading...</div>) : error ? (<div>{error}</div>) : (
+     
+     <div className='Home'>
             <br />
             <br />
             <div className="Carousel">
@@ -49,7 +33,6 @@ function Home(props) {
             <ul className="products">
                 {
                     props.products.map(el => (
-
                         <li key={el.id}>
                             <div className="product">
                                 <ProductCard
@@ -69,6 +52,9 @@ function Home(props) {
             </ul>
 
         </div>
+     
+     )
+        
     )
 }
 

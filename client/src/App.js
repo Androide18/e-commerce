@@ -12,6 +12,7 @@ import CreateProductScreen from './components/CreateProductScreen';
 import Checkout from './components/Checkout';
 import Orden from './components/Orden';
 import MisOrdenes from './components/MisOrdenes';
+import Carrito from './components/Carrito';
 
 
 function App() {
@@ -57,13 +58,15 @@ function App() {
           <div>
             <Route exact path="/" component={Home} />
             <Route  path="/producto/:id" component={ProductScreen} />
-            <Route path="/product/new" component={CreateProductScreen} />
-            <Route path='/category/new' component={CreateCategoryScreen} />
-            <Route path='/registro' component={Registro} />
-            <Route path='/login' component={Login} />
-            <Route path='/carrito' component={Checkout} />
-            <Route path='/orden' component={Orden} />
-            <Route path='/misordenes' component={MisOrdenes} />
+            <Route  path="/product/new" component={CreateProductScreen} />
+            <Route  path='/category/new' component={CreateCategoryScreen} />
+            <Route  path='/registro' component={Registro} />
+            <Route  path='/login' component={Login} />
+            <Route  path='/checkout' component={Checkout} />
+            <Route  path='/carrito/:id?' component={Carrito} />
+            <Route  path='/orden' component={Orden} />
+            <Route  path='/misordenes' component={MisOrdenes} />
+
             {/* <Route path='*' component={NotFound} /> */}
           </div>
         </main>
