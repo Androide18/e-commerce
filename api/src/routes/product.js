@@ -3,7 +3,6 @@ const { Product } = require('../db.js');
 
 const multer = require('multer');
 const path = require('path');
-var upload = multer({ dest: 'uploads/' })
 
 // RUTAS A CREAR
 
@@ -12,23 +11,14 @@ var upload = multer({ dest: 'uploads/' })
 const storage = multer.diskStorage({
 	destination: path.join(__dirname, '../../public'),
 	filename: (req, file, cb) => {
-		cb(null, 'cualquiera.jpg');
+		cb(null, `cualquiera_${Date.now()}.jpg`);
 	}
-
 })
 
 const uploadImage = multer({
 	storage,
 	limits: {fileSize: 1000000}
 }).single('image');
-
-
-
-// // POST IMAGE CON MULTER
-//  server.post('/', upload.single('image'), (req, res) => {
-// 	res.send('HOLA')
-// 	console.log(req.file, req.body);
-// });
 
 // S14 and S21 - CREAR RUTA A CATALOGO / HOME PAGE      ok
 // S15 and S24 - CREAR RUTA PARA VER PRODUCTO POR ID    ok
@@ -48,6 +38,7 @@ const uploadImage = multer({
 server.get('/', (req, res) => {
 	Product.findAll()
 		.then(products => {
+			console.log('products', products);
 			res.send(products);
 		})
 		.catch();
@@ -83,7 +74,7 @@ server.get('/:id', (req, res) => {
 
 server.post('/:idproducto/category/:idcategoria', (req, res) => {
     const { idproducto, idcategoria } = req.params;
-    const results = Promise.all([
+    Promise.all([
         Product.findByPk(idproducto),
         Category.findByPk(idcategoria)
     ]).then(results => {
@@ -98,31 +89,16 @@ server.post('/:idproducto/category/:idcategoria', (req, res) => {
 
 
 // S23
-
+// TODO: Esta
 server.get('/', (req, res) => {
 	const cuery = req.query.category;
 	console.log(req.query)
 	Product.findAll({ where: { category: cuery } })
 		.then(result => {
+			console.log('result', result);
 			res.send(result)
 		})
 })
-
-
-
-//+ MULTER
-
-// server.post('/', (req, res) => {
-// 	uploadImage(req, res, (err) => {
-// 		if (err) {
-// 			err.message = 'Ta re pesada la imagen amigx!';
-// 			return res.send(err);
-// 		}
-// 		console.log(req.file);
-// 		res.send('La imagen se subio bien !');
-// 	});
-// });
-
 
 // S25
 
@@ -169,8 +145,6 @@ server.put('/:id', (req, res) => {
 // Modifica el producto con id: id. Retorna 400 si los campos enviados no son correctos.
 
 // Retorna 200 si se modificó con exito, y retorna los datos del producto modificado.
-
-
 
 
 //S27

@@ -46,26 +46,12 @@ class CreateProductsScreen extends Component {
       // console.log(res);
       this.setState({ data: res.data });
       console.log('QUE TRAE IMAGE');
-      console.log(this.state.image);
+      console.log(this.state.data[0]);
       // console.log('este',res.data);
-
-
     }).catch(err => {
-      // console.log(err.message);
+      console.log(err.message);
     })
   }
-
-  
-
-
-
-  // var imagefile = document.querySelector('#file');
-  // formData.append("image", imagefile.files[0]);
-  // axios.post('upload_file', formData, {
-  //     headers: {
-  //       'Content-Type': 'multipart/form-data'
-  //     }
-  // })
 
   peticionPost = async () => {
     delete this.state.form.id;
@@ -164,7 +150,7 @@ class CreateProductsScreen extends Component {
     console.log(e.target.name);
     
     
-    await this.setState({
+    this.setState({
       form: {
         ...this.state.form,
 
@@ -216,8 +202,8 @@ class CreateProductsScreen extends Component {
                   <td>{prod.stock}u</td>
                   <td>{prod.description}</td>
                   <td>{prod.category}</td>
-                  {/* <td><img src={prod.image} /> </td> */}
-                  <td><img src={prod.image} /> </td>
+                  <td><img src={`http://localhost:3001/static/${prod.image}`} /> </td>
+                  {/* <td><img src="http://localhost:3001/static/cualquiera.jpg" /> </td> */}
                   <td>
                     <button className="btn btn-primary" onClick={() => { this.selecProduct(prod); this.modalInsertar() }}><FontAwesomeIcon icon={faEdit} /></button>
                     {"   "}
