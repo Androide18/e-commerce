@@ -229,19 +229,19 @@ class CreateProductsScreen extends Component {
                 <br />
                 <label htmlFor="price">Precio</label>
                 <input className="form-control"
-                  type="text" name="price" id="price"
+                  type="number" name="price" id="price"
                   onChange={this.handleChange} value={form ? form.price : ''} />
                 <br />
                 <label htmlFor="stock">Stock</label>
                 <input className="form-control"
-                  type="text" name="stock" id="stock"
+                  type="number" name="stock" id="stock"
                   onChange={this.handleChange} value={form ? form.stock : ''} />
                 <br />
                 <FormGroup>
                   <Label for="exampleSelect">Categorias</Label>
                   <Input type="select" name="category" id="category"
                     onChange={this.handleChange}
-                    value={form ? form.category : ''}>
+                    value={form && form.category ? form.category : this.state.dataCat[0].name}>
                     {
                       this.state.dataCat.map(e => {
                         return <option className='' key={e.id}>{e.name}</option>
