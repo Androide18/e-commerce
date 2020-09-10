@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -33,94 +34,150 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Registro() {
-  const classes = useStyles();
+export default function Registro(props) {
 
-  return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Registrate
-        </Typography>
-        <form className={classes.form} noValidate>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="fname"
-                name="firstName"
-                variant="outlined"
-                required
-                fullWidth
-                id="firstName"
-                label="Nombre"
-                autoFocus
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="lastName"
-                label="Apellido"
-                name="lastName"
-                autoComplete="lname"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="email"
-                label="Direccion de correo electronico"
-                name="email"
-                autoComplete="email"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="password"
-                label="Contraseña"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="Quiero recibir notificaciones y promociones por correo electronico"
-              />
-            </Grid>
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
+    const [state, setState] = useState({
+      firstname:"", 
+      lastname:"", 
+      phone:"", 
+      address:"", 
+      role:"", 
+      email:"", 
+      password:""
+    });
+
+
+    const handleInputChange = (event) => {
+     setState({
+          ...state,
+          [event.target.name] : event.target.value
+      })
+  }
+  const enviarDatos = (event) => {
+    event.preventDefault();
+
+    const usuario = {
+      firstname: state.name,
+      lastname: state.lastname,
+      email: state.email,
+      password: state.password,
+     
+    };
+    axios({
+      method: 'post',
+      url: 'http://localhost:3001/users',
+      data: usuario
+  })
+  .then(function (response) {
+      console.log(response);
+  })
+  .catch(function (error) {
+      console.log(error);
+  });
+    
+  }
+    
+
+
+  
+    
+    const classes = useStyles();
+    return (
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
             Registrate
-          </Button>
-          <Grid container justify="flex-end">
-            <Grid item>
-              <Link to='/login' href="#" variant="body2">
-                Ya tienes cuenta? Ingresá
-              </Link>
+          </Typography>
+          <form onSubmit={enviarDatos} className={classes.form} noValidate>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  autoComplete="fname"
+                  name="firstName"
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="firstName"
+                  label="Nombre"
+                  autoFocus
+                  onChange={handleInputChange}
+                  
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="lastName"
+                  label="Apellido"
+                  name="lastName"
+                  autoComplete="lname"
+                  onChange={handleInputChange}
+                  
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Direccion de correo electronico"
+                  name="email"
+                  autoComplete="email"
+                  onChange={handleInputChange}
+                  
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Contraseña"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                  onChange={handleInputChange}
+                  
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={<Checkbox value="allowExtraEmails" color="primary" />}
+                  label="Quiero recibir notificaciones y promociones por correo electronico"
+                />
+              </Grid>
             </Grid>
-          </Grid>
-        </form>
-      </div>
-      <Box mt={5}>
-      </Box>
-    </Container>
-  );
-}
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+
+            >
+              Registrate
+            </Button>
+            <Grid container justify="flex-end">
+              <Grid item>
+                <Link to='/login' href="#" variant="body2">
+                  Ya tenés cuenta? Ingresá
+                </Link>
+              </Grid>
+            </Grid>
+          </form>
+        </div>
+        <Box mt={5}>
+        </Box>
+      </Container>
+    )
+  };
+  
+
