@@ -9,20 +9,20 @@ import { getCategories, getProducts } from '../actions';
 import { useSelector, useDispatch } from 'react-redux';
 import { listProducts, detailsProduct } from '../actions/productActions';
 
-function Home(props) {
+function Home({ categories, products, loading, error }) {
     //const [infoProducts, setInfoProducts] = useState([]);
     const productList = useSelector(state => state.productList);
     //const {products, loading, error} = productList;
     const dispatch = useDispatch();
 
+
  useEffect(() => {
-        props.getProducts()
-        props.getCategories()
+        getProducts()
+        getCategories()
     }, [])
 
     return (
-    //{loading ? (<div>Loading...</div>) : error ? (<div>{error}</div>) : (
-     
+    loading ? ( <div>Loading...</div>) : error ? (<div>{error}</div>) : (
      <div className='Home'>
             <br />
             <br />
@@ -31,7 +31,7 @@ function Home(props) {
             </div>
             <ul className="products">
                 {
-                    props.products.map(el => (
+                    products.map(el => (
                         <li key={el.id}>
                             <div className="product">
                                 <ProductCard
@@ -48,11 +48,10 @@ function Home(props) {
                         </li>
                     ))
                 }
-            </ul>
-
+            </ul> 
+            )
         </div>
-     
-     )
+    ))
 }
 
 function mapStateToProps(state) {
