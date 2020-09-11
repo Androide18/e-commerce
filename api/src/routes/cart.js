@@ -3,35 +3,59 @@ const server = require('express').Router();
 const { Cartorder } = require('../db.js');
 const {Product} = require('../db.js');
 const {Orderline} = require('../db.js');
+const {User} = require('../db.js');
+
+// TRAE USUARIO POR ID
 
 
-server.post('/:id/cartorder', (req, res) => {
+server.get('/:id', function(req, res) {
+    const userId = req.params.id;
+	const user = User.findByPk(userId)
+		.then(user => {
+			if (user) {
+				res.send({ user })
+			} else {
+				res.status(404).send({ message: 'user not Found' })
+			};
+		})
+
+})
+
+// EL USUARIO AGRUEGUE UN PRODUCTO AL CARRITO
+
+
+server.post('/:id/cart', (req, res) => {
+	
     // busca si existe una orden con el userid y con state 'Uncreated'
     Cartorder.findOne({
-      where: { state: 'Uncreated', userId: req.body.userId },
+      where: { state: 'Uncreated', userId: req.params.id },
     }).then(cartorder => {
       console.log(cartorder);
       //si no se cumple la condicion del where crea una nueva orden
       if (!cartorder) {
         Cartorder.create({
             state: 'Uncreated',
-          address: 'adress',
-          userId: req.body.userId,
-        }).then(newOrder => {
+		  address: 'adress',
+		  totalPrice: '100',
+		  totalQty: '2',
+		  paymentId: '200',
+          userId: req.params.id,
+		}).then(newOrder => {
           //le agrega una producto a la orden nueva
-          Product.findById(req.body.productId).then(product => {
+          Product.findByPk(req.body.productId).then(product => {
             Orderline.create({
               price: product.price,
               quantity: 1,
               productId: product.id,
               cartorderId: newOrder.id,
-            }).then(orderline => res.json(orderline));
+            }).then(orderline => res.send(orderline));
           });
         });
-      } else {
+	  }
+	   else {
         //si existe una orden uncreated y con el id del user
         // le agrega al order detail de esa orden el id el producto
-        Product.findById(req.body.productId).then(product => {
+        Product.findByPk(req.body.productId).then(product => {
             Orderline.findOne({
             where: { productId: product.id, cartorderId: cartorder.id },
           }).then(orderline => {
@@ -40,7 +64,7 @@ server.post('/:id/cartorder', (req, res) => {
                 price: product.price,
                 productId: product.id,
                 cartorderId: cartorder.id,
-              }).then(orderline => res.json(orderline));
+              }).then(orderline => res.send(orderline));
             } else {
               orderline.update({ quantity: Number(orderline.quantity) + 1 });
             }
