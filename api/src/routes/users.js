@@ -10,6 +10,9 @@ server.get('/', (req, res) => {
 });
 
 
+
+
+
 server.post('/', (req, res) => {
     const { firstname, lastname, phone, address, role, email, password } = req.body;
     User.create({
@@ -21,7 +24,7 @@ server.post('/', (req, res) => {
         email: email,
         password: password,
     }).then(created => {
-        res.send('User created')
+        res.send(created)
         console.log('usuario cargado');
     })
     .catch(err => {
@@ -48,7 +51,7 @@ server.delete('/:id', (req, res) => {
     const usersId = req.params.id;
     User.destroy({ where: { id: usersId}})
     .then(deleted => {
-        res.status(200).send('Se elimino la categoria con exito')
+        res.status(200).send('Se elimino el user con exito')
     })
     .catch(err => {
         res.send(err)
