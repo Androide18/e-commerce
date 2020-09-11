@@ -241,7 +241,7 @@ class CreateProductsScreen extends Component {
                   <Label for="exampleSelect">Categorias</Label>
                   <Input type="select" name="category" id="category"
                     onChange={this.handleChange}
-                    value={form && form.category ? form.category : this.state.dataCat[0].name}>
+                    value={form ? form.category : this.state.dataCat[0].name}>
                     {
                       this.state.dataCat.map(e => {
                         return <option className='' key={e.id}>{e.name}</option>
@@ -249,6 +249,7 @@ class CreateProductsScreen extends Component {
                     }
                   </Input>
                 </FormGroup>
+               
                 <br />
                 <label htmlFor="description">Descripcion</label>
                 <input className="form-control"
