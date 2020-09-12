@@ -1,21 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Card, Button } from 'react-bootstrap';
-import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
-import { MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBTooltip, MDBCardFooter, MDBIcon, MDBBtn } from "mdbreact";
+import { Link } from 'react-router-dom';
+import { MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBTooltip, MDBCardFooter, MDBIcon, MDBBtn } from "mdbreact";
 import IconButton from '@material-ui/core/IconButton';
 import AddShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import { useSelector, useDispatch } from 'react-redux';
-import { detailsProduct } from '../actions/productActions';
+import { useDispatch } from 'react-redux';
 
 
 function ProductCard(props) {
   const [qty, setQty] = useState(1);
-  const productDetails = useSelector(state => state.productDetails);
-  // const {product, loading, error} = productDetails;
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
 
   //  useEffect(() => {
   //    dispatch(detailsProduct(props.match.params.id));

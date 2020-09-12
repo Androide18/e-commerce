@@ -4,15 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link } from '@material-ui/core';
 
 function Carrito(props) {
-  
-  const cart = useSelector(state => {
-    console.log(state);
-    
-    return state.cart;
-
-  });
-  const { cartItems } = cart;
-
+    const cart = useSelector(state=> state.cart);
+    const{cartItems} = cart;
 
   const productId = props.match.params.id;
   const qty = props.location.search ? Number(props.location.search.split("=")[1]) : 1;
