@@ -16,8 +16,6 @@ import Carrito from './components/Carrito';
 
 
 function App() {
-
-
   const [darkMode, setDarkMode] = React.useState(getInitialMode());
 
   React.useEffect(() => {
@@ -25,11 +23,9 @@ function App() {
   }, [darkMode]);
 
   function getInitialMode() {
-
     const isReturningUser = "dark" in localStorage;
     const savedMode = JSON.parse(localStorage.getItem("dark"));
     const userPrefersDark = getPrefColorScheme();
-
 
     // if mode was saved --> dark / light
     if (isReturningUser) {
