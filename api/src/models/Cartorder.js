@@ -4,7 +4,7 @@ module.exports = (sequelize) => {
 
     sequelize.define('cartorder', {
         state: {
-            type: DataTypes.ENUM('cart', 'created', 'processing', 'cancelled', 'completed'),
+            type: DataTypes.ENUM('cart', 'created', 'processing', 'cancelled', 'completed', 'Uncreated'),
             allowNull: false,
         },
         totalPrice: {
@@ -15,14 +15,7 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        address: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        paymentId: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
+        
         
     },
     {timestamp:false}

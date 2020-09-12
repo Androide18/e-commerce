@@ -11,20 +11,7 @@ import "../index.css";
 import { useSelector } from 'react-redux';
 import { listProducts, detailsProduct } from '../actions/productActions';
 
-
-
-function Home({ categories, products, loading, error }) {
-
-    //const [infoProducts, setInfoProducts] = useState([]);
-    //const productList = useSelector(state => state.productList);
-    //const {products, loading, error} = productList;
-    //const dispatch = useDispatch();
-
-
-    // useEffect(() => {
-    //     getProducts()
-    //     getCategories()
-    // }, [])
+function Home() {
 
     const products = useSelector(state => state.product)
     const { productsLoaded, loading, error } = products
@@ -61,6 +48,7 @@ function Home({ categories, products, loading, error }) {
                         }
                     </ul>
 
+
                 </div>
             )}
 
@@ -71,20 +59,3 @@ function Home({ categories, products, loading, error }) {
 export default Home;
 
 
-// function mapStateToProps(state) {
-//     return {
-//         products: state.productsLoaded,
-//         categories: state.categoriesLoaded,
-//         loading: state.loading,
-//         error: state.error,
-//     }
-// }
-
-// function mapDispatchToProps(dispatch) {
-//     return {
-//         getProducts: () => dispatch(getProducts()),
-//         getCategories: () => dispatch(getCategories())
-//     }
-// }
-
-// export default connect(mapStateToProps, mapDispatchToProps)(Home);
