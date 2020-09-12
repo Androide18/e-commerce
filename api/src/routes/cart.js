@@ -25,7 +25,7 @@ server.get('/:id', function(req, res) {
 
 
 server.post('/:id/cart', (req, res) => {
-	
+
     // busca si existe una orden con el userid y con state 'Uncreated'
     Cartorder.findOne({
       where: { state: 'Uncreated', userId: req.params.id },
@@ -35,7 +35,7 @@ server.post('/:id/cart', (req, res) => {
       if (!cartorder) {
         Cartorder.create({
             state: 'Uncreated',
-		  address: 'adress',
+		  address: 'address',
 		  totalPrice: '100',
 		  totalQty: '2',
 		  paymentId: '200',
@@ -54,17 +54,19 @@ server.post('/:id/cart', (req, res) => {
 	  }
 	   else {
         //si existe una orden uncreated y con el id del user
-        // le agrega al order detail de esa orden el id el producto
+        // le agrega al order line de esa orden el id el producto
         Product.findByPk(req.body.productId).then(product => {
             Orderline.findOne({
             where: { productId: product.id, cartorderId: cartorder.id },
           }).then(orderline => {
             if (!orderline) {
                 Orderline.create({
-                price: product.price,
+				price: product.price,
+				quantity: product.quantity,
                 productId: product.id,
                 cartorderId: cartorder.id,
-              }).then(orderline => res.send(orderline));
+			  }).then(orderline => 
+				res.send(orderline));
             } else {
               orderline.update({ quantity: Number(orderline.quantity) + 1 });
             }
@@ -79,18 +81,32 @@ server.post('/:id/cart', (req, res) => {
 
 // 39 - RETORNA TODOS LOS ITEMS DEL CARRITO
 
-server.get('/', (req, res) => {
+server.get('/:id/cart', (req, res) => {
+	Cartorder.findOne({
+		where: { state: 'Uncreated', userId: req.params.id }
+	  }).then(cartorder => {
+		res.send({cartorder})
+	});
 });
-
 
 // 40 - VACIA EL CARRITO
 
-server.delete('/:id', (req, res) => {
+server.delete('/:id/cart', (req, res) => {
+
 });
 
 // 41 - EDITA LAS CANTIDADES DEL CARRITO
 
-server.put('/:id', (req, res) => {
+server.put('/:id/cart', (req, res) => {
+	const userId = req.params.id;
+	const newData = req.body;
+	Cartorder.findOne({where: { id: userId}})
+		.then(result => {
+
+			result.update({ totalQty: newData});
+				res.send(200,result)
+		})
+		
 });
 
 
