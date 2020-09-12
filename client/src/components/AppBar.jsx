@@ -127,7 +127,7 @@ export default function Appbar() {
                   <Link className='lista'>Configuracion</Link>
                 </li>
                 <li>
-                  <Link className='lista' to='/misordenes'>Mis ordenes</Link>
+                  <Link className='lista' to='/carrito'>Mis ordenes</Link>
                 </li>
                 <li>
                   <Link className='lista'>Preguntas</Link>

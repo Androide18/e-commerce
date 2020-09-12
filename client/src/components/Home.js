@@ -49,7 +49,6 @@ function Home({ categories, products, loading, error }) {
                     ))
                 }
             </ul> 
-            )
         </div>
     ))
 }
