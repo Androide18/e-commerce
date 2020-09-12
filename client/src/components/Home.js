@@ -1,12 +1,30 @@
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { connect } from 'react-redux';
+import { getCategories, getProducts } from '../actions/index';
+
+
 import React from 'react';
 import ProductCard from './ProductCard';
 import Carrusel from './Carrusel.jsx'
 import "../index.css";
 import { useSelector } from 'react-redux';
+import { listProducts, detailsProduct } from '../actions/productActions';
 
 
 
 function Home() {
+
+    //const [infoProducts, setInfoProducts] = useState([]);
+    //const productList = useSelector(state => state.productList);
+    //const {products, loading, error} = productList;
+    //const dispatch = useDispatch();
+
+
+    // useEffect(() => {
+    //     getProducts()
+    //     getCategories()
+    // }, [])
 
     const products = useSelector(state => state.product)
     const { productsLoaded, loading, error } = products
@@ -18,7 +36,6 @@ function Home() {
             <br />
             {loading ? (<div>Loading...</div>) : error ? (<div>{error}</div>) : (
                 <div className='Home'>
-
                     <br />
                     <br />
                     <div className="Carousel">
@@ -52,3 +69,22 @@ function Home() {
 }
 
 export default Home;
+
+
+// function mapStateToProps(state) {
+//     return {
+//         products: state.productsLoaded,
+//         categories: state.categoriesLoaded,
+//         loading: state.loading,
+//         error: state.error,
+//     }
+// }
+
+// function mapDispatchToProps(dispatch) {
+//     return {
+//         getProducts: () => dispatch(getProducts()),
+//         getCategories: () => dispatch(getCategories())
+//     }
+// }
+
+// export default connect(mapStateToProps, mapDispatchToProps)(Home);
