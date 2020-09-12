@@ -15,7 +15,9 @@ server.get('/', (req, res) => {
         .then(category => {
             res.send(category);
         })
-        .catch();
+        .catch(error => {
+            res.send(error.mnessage)
+        });
 });
 
 

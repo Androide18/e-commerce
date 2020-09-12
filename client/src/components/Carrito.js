@@ -6,6 +6,7 @@ import { Link } from '@material-ui/core';
 function Carrito(props) {
     const cart = useSelector(state=> state.cart);
     const{cartItems} = cart;
+    console.log(cart);
 
     const productId = props.match.params.id;
     const qty = props.location.search ? Number(props.location.search.split("=") [1]): 1;
