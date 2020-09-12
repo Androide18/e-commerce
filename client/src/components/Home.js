@@ -13,7 +13,7 @@ import { listProducts, detailsProduct } from '../actions/productActions';
 
 
 
-function Home() {
+function Home({ categories, products, loading, error }) {
 
     //const [infoProducts, setInfoProducts] = useState([]);
     //const productList = useSelector(state => state.productList);

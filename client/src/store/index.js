@@ -6,7 +6,7 @@ import Cookie from "js-cookie";
 import thunk from 'redux-thunk';
 import { cartReducer } from './reducers/cartReducers';
 
-const cartItems = Cookie.getJSON('cartItems')  [];
+const cartItems = Cookie.getJSON('cartItems') ||  [];
 const initialState = {
     cart: { cartItems },
 };
