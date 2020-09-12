@@ -40,12 +40,10 @@ const ProductCategory = sequelize.define('product_category', {}, { timestamps: f
 // Product.hasMany(Reviews);
 Product.belongsToMany(Category, {through: ProductCategory})
 Category.belongsToMany(Product, {through: ProductCategory});
- Cartorder.belongsTo(User);
-// User.belongsto(Cartorder); // ver esta
-Orderline.belongsTo(Product); 
-Orderline.belongsTo(Cartorder);
+Cartorder.belongsTo(User);
+Product.belongsToMany(Cartorder, { through: Orderline });
+Cartorder.belongsToMany(Product, { through: Orderline } );
 
-Product.belongsToMany(Cartorder, {through: CartOrder});
 
 
 module.exports = {

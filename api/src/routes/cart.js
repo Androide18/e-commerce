@@ -1,9 +1,12 @@
 const server = require('express').Router();
-const { User } = require('../db.js');
-const { Cartorder } = require('../db.js');
 
+const { Cartorder } = require('../db.js');
+const {Product} = require('../db.js');
+const {Orderline} = require('../db.js');
+const {User} = require('../db.js');
 
 // TRAE USUARIO POR ID
+
 
 server.get('/:id', function(req, res) {
     const userId = req.params.id;
@@ -18,54 +21,95 @@ server.get('/:id', function(req, res) {
 
 })
 
-no tenemos nada en cartorders, no  podemos tener el id
-tenemos que crear si o si un add cart.
+// EL USUARIO AGRUEGUE UN PRODUCTO AL CARRITO
 
-// 38 - AGREGA ITEMS AL CARRITO 
 
-// server.post('/:idUser/cart', (req, res) => {
-//     const { state, totalPrice, totalQty } = req.body;
-//     const { idUser } = req.params.id;
-//     const results = Promise.all([
-//         User.findByPk(idUser),
-//         Product.findByPk(idproducto),
+server.post('/:id/cart', (req, res) => {
 
-//         // Cartorder.create({
-//         // state: state,
-//         // totalPrice: totalPrice,
-//         // totalQty: totalQty,
-//         // address: address,
-//         // paymentId: paymentId,
-      
-//     ]).then(results => {
-//         res.send(results)
-//         console.log('se agrego producto');
-//     })
-//     .catch(err => {
-//         res.send(err)
-//         console.log('hay un puto error')
-//     })
-// });
-
+    // busca si existe una orden con el userid y con state 'Uncreated'
+    Cartorder.findOne({
+      where: { state: 'Uncreated', userId: req.params.id },
+    }).then(cartorder => {
+      console.log(cartorder);
+      //si no se cumple la condicion del where crea una nueva orden
+      if (!cartorder) {
+        Cartorder.create({
+            state: 'Uncreated',
+		  address: 'address',
+		  totalPrice: '100',
+		  totalQty: '2',
+		  paymentId: '200',
+          userId: req.params.id,
+		}).then(newOrder => {
+          //le agrega una producto a la orden nueva
+          Product.findByPk(req.body.productId).then(product => {
+            Orderline.create({
+              price: product.price,
+              quantity: 1,
+              productId: product.id,
+              cartorderId: newOrder.id,
+            }).then(orderline => res.send(orderline));
+          });
+        });
+	  }
+	   else {
+        //si existe una orden uncreated y con el id del user
+        // le agrega al order line de esa orden el id el producto
+        Product.findByPk(req.body.productId).then(product => {
+            Orderline.findOne({
+            where: { productId: product.id, cartorderId: cartorder.id },
+          }).then(orderline => {
+            if (!orderline) {
+                Orderline.create({
+				price: product.price,
+				quantity: product.quantity,
+                productId: product.id,
+                cartorderId: cartorder.id,
+			  }).then(orderline => 
+				res.send(orderline));
+            } else {
+              orderline.update({ quantity: Number(orderline.quantity) + 1 });
+            }
+          });
+        });
+      }
+    });
+  });
 
 
 
 
 // 39 - RETORNA TODOS LOS ITEMS DEL CARRITO
 
-// server.get('/', (req, res) => {
-// });
-
+server.get('/:id/cart', (req, res) => {
+	Cartorder.findOne({
+		where: { state: 'Uncreated', userId: req.params.id }
+	  }).then(cartorder => {
+		res.send({cartorder})
+	});
+});
 
 // 40 - VACIA EL CARRITO
 
-// server.delete('/:id', (req, res) => {
-// });
+server.delete('/:id/cart', (req, res) => {
+
+});
 
 // 41 - EDITA LAS CANTIDADES DEL CARRITO
 
-// server.put('/:id', (req, res) => {
-// });
+server.put('/:id/cart', (req, res) => {
+	const userId = req.params.id;
+	const newData = req.body;
+	Cartorder.findOne({where: { id: userId}})
+		.then(result => {
+
+			result.update({ totalQty: newData});
+				res.send(200,result)
+		})
+		
+});
 
 
 module.exports = server;
+
+
