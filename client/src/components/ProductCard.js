@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -11,16 +11,16 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import lightGreen from '@material-ui/core/colors/lightGreen' //color de la fuente
-
+import { detailsProduct } from '../actions/productActions';
 
 function ProductCard(props) {
-  const [qty, setQty] = useState(1);
-  const productDetails = useSelector(state => state.productDetails);
+  const [quantity, setQuantity] = useState(1);
+  const productDetails = useSelector((state) => state.productDetails);
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
   const dispatch = useDispatch();
 
-
+  
   const useStyles = makeStyles({
     Card: {
       width: 143,
@@ -34,9 +34,17 @@ function ProductCard(props) {
   });
   const classes = useStyles();
 
-  const handleAddtoCart = () => {
-    props.history.push("/carrito/" + props.match.params.id + "?qty=" + qty)
-  }
+  // useEffect(() => {
+  //   dispatch(detailsProduct(props.match.params.id));
+  //   console.log(props.match.params.id);
+  //   return () => {
+  //     //
+  //   };
+  // }, [])
+
+  // const handleAddtoCart = () => {
+  //   props.history.push("/carrito/" + props.match.params.id + "?quantity=" + quantity)
+  // }
 
   return (
     <div className='card'>
@@ -54,7 +62,7 @@ function ProductCard(props) {
             <Link to={'/products/' + props.id}>
               <Typography gutterBottom variant="h5" component="h2">
                 {props.name}
-            </Typography>
+              </Typography>
             </Link>
             <Typography style={{ color: lightGreen['800'] }} variant="body2" color="textPrimary" component="h1">${props.price}</Typography>
           </CardContent>
@@ -62,7 +70,7 @@ function ProductCard(props) {
         <CardActions>
           <Button size="small" color="primary" onm>
             AÑADIR AL CARRITO
-        </Button>
+          </Button>
         </CardActions>
       </Card>
     </div>
