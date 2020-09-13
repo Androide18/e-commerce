@@ -1,5 +1,5 @@
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
-import getCategoriesReducer from '../reducers/C-reducer';
+import {getCategoriesReducer} from '../reducers/C-reducer';
 import { getProductsReducer, deleteProductReducer }  from '../reducers/P-reducer';
 import Cookie from "js-cookie";
 import thunk from 'redux-thunk';

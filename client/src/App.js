@@ -15,6 +15,7 @@ import MisOrdenes from './components/MisOrdenes';
 import Carrito from './components/Carrito';
 import { useDispatch } from 'react-redux';
 import { getProducts } from './actions/ProductsActions';
+import { getCategories } from './actions/CategoryAction'
 
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getProducts())
+    dispatch(getCategories())
   }, [])
 
   return (
