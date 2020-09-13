@@ -1,10 +1,10 @@
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import getCategoriesReducer from '../reducers/C-reducer';
 import { getProductsReducer, deleteProductReducer }  from '../reducers/P-reducer';
-import { productListReducer, productDetailsReducer } from './reducers/productReducers';
 import Cookie from "js-cookie";
 import thunk from 'redux-thunk';
-import { cartReducer } from './reducers/cartReducers';
+import { cartReducer } from '../reducers/cartReducers';
+
 
 const cartItems = Cookie.getJSON('cartItems') ||  [];
 const initialState = {

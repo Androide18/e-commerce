@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { getCategories, getProducts } from '../actions/index';
+
 
 
 import React from 'react';
