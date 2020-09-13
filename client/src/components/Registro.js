@@ -39,9 +39,9 @@ export default function Registro(props) {
     const [state, setState] = useState({
       firstname:"", 
       lastname:"", 
-      phone:"", 
-      address:"", 
-      role:"", 
+      // phone:"", 
+      // address:"", 
+      // role:"", 
       email:"", 
       password:""
     });
@@ -57,7 +57,7 @@ export default function Registro(props) {
     event.preventDefault();
 
     const usuario = {
-      firstname: state.name,
+      firstname: state.firstname,
       lastname: state.lastname,
       email: state.email,
       password: state.password,
@@ -97,11 +97,11 @@ export default function Registro(props) {
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="fname"
-                  name="firstName"
+                  name="firstname"
                   variant="outlined"
                   required
                   fullWidth
-                  id="firstName"
+                  id="firstname"
                   label="Nombre"
                   autoFocus
                   onChange={handleInputChange}
@@ -113,9 +113,9 @@ export default function Registro(props) {
                   variant="outlined"
                   required
                   fullWidth
-                  id="lastName"
+                  id="lastname"
                   label="Apellido"
-                  name="lastName"
+                  name="lastname"
                   autoComplete="lname"
                   onChange={handleInputChange}
                   

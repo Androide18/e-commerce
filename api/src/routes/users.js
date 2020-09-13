@@ -15,9 +15,9 @@ server.post('/', (req, res) => {
     User.create({
         firstname: firstname,
         lastname: lastname,
-        phone: phone,
-        address: address,
-        role: role,
+        // phone: phone,
+        // address: address,
+        // role: role,
         email: email,
         password: password,
     }).then(created => {
