@@ -11,18 +11,18 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        phone: {
-            type: DataTypes.STRING,
-            allowNull: true,
-        },
-        address: {
-            type: DataTypes.STRING,
-            allowNull: true,
-        },
-        role: {
-            type: DataTypes.ENUM('admin', 'guest', 'logged'),
-            allowNull: true,
-        },
+        // phone: {
+        //     type: DataTypes.STRING,
+        //     allowNull: true,
+        // },
+        // address: {
+        //     type: DataTypes.STRING,
+        //     allowNull: true,
+        // },
+        // role: {
+        //     type: DataTypes.ENUM('admin', 'guest', 'logged'),
+        //     allowNull: true,
+        // },
         email: {
             type: DataTypes.STRING,
             allowNull: false,
