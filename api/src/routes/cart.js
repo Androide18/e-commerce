@@ -28,13 +28,13 @@ server.post('/:id/cart', (req, res) => {
 
   // busca si existe una orden con el userid y con state 'Uncreated'
   Cartorder.findOne({
-    where: { state: 'Uncreated', userId: req.params.id },
+    where: { state: 'cart', userId: req.params.id },
   }).then(cartorder => {
     console.log(cartorder);
     //si no se cumple la condicion del where crea una nueva orden
     if (!cartorder) {
       Cartorder.create({
-        state: 'Uncreated',
+        state: 'cart',
         totalPrice: 0,
         totalQty: 0,
         userId: req.params.id,
@@ -60,7 +60,7 @@ server.post('/:id/cart', (req, res) => {
           if (!orderline) {
             Orderline.create({
               price: product.price,
-              quantity: orderline.quantity,
+              quantity: 1,
               productId: product.id,
               cartorderId: cartorder.id,
             }).then(orderline =>
@@ -81,27 +81,49 @@ server.post('/:id/cart', (req, res) => {
 
 server.get('/:id/cart', (req, res) => {
   Cartorder.findOne({
-    where: { state: 'Uncreated', userId: req.params.id }
+    where: { id: req.params.id },
+    include: [{
+      model: Product,
+      as: 'Prods',
+      through: Orderline
+      // required: false,
+      // where: {
+      //   attributes: ['cartorderId']
+      //   // where: { completed: true }
+      }]
   }).then(cartorder => {
     res.send({ cartorder })
+  });
+});
+
+
+// TRAE TODAS LAS ORDERLINES
+
+server.get('/:id/orderlines', (req, res) => {
+  Orderline.findOne({
+    where: { cartorderId: req.params.id }
+  }).then(orderline => {
+    res.send({ orderline })
   });
 });
 
 // 40 - VACIA EL CARRITO
 
 server.delete('/:id/cart', (req, res) => {
+ 
 
 });
+
 
 // 41 - EDITA LAS CANTIDADES DEL CARRITO
 
 server.put('/:id/cart', (req, res) => {
   const userId = req.params.id;
   const newData = req.body;
-  Cartorder.findOne({ where: { id: userId } })
+  Orderline.findOne({ where: { id: userId } })
     .then(result => {
 
-      result.update({ totalQty: newData });
+      result.update({ quantity: newData });
       res.send(200, result)
     })
 
