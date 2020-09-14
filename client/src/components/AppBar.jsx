@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AppBar, Toolbar, IconButton, Typography, Button, InputBase, Drawer } from '@material-ui/core'
 import { AccountCircle } from "@material-ui/icons"
 import SearchIcon from '@material-ui/icons/Search';
@@ -6,10 +6,19 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Divider from '@material-ui/core/Divider';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import StyleSheet from './StyleSheet.css';
+import Badge from '@material-ui/core/Badge';
 import { fade, makeStyles } from "@material-ui/core/styles";
+import { connect } from 'react-redux';
+import { getNumbers } from '../actions/getBasketAction';
 
-export default function Appbar() {
+
+  function Appbar(props) {
+    console.log(props);
+
+    useEffect(() => {
+      getNumbers();
+    }, [])
+
   const [open, setOpen] = useState(false)
   const [anchor, setAnchor] = useState('left')
   const [infoCat, setInfoCat] = useState([])
@@ -53,7 +62,7 @@ export default function Appbar() {
     <div>
       <AppBar position='static'>
         <Toolbar>
-          <Typography variant='h6' style={{ flexGrow: 1 }}>
+          <Typography variant='h4' style={{ flexGrow: 1 }}>
             <Link className='link' to='/'>
               E-COMMERCE
           </Link>
@@ -64,6 +73,7 @@ export default function Appbar() {
             </div>
             <form action="/search">
               <InputBase
+                fontSize="inherit" style={{ fontSize: "15px" }}
                 type='search'
                 name='query'
                 placeholder="Busca tu producto"
@@ -75,6 +85,7 @@ export default function Appbar() {
                 }}
               />
               <Button type='submit'
+                fontSize="inherit" style={{ fontSize: "13px" }}
                 value='Buscar'
                 variant="contained"
                 color="primary"
@@ -85,23 +96,28 @@ export default function Appbar() {
           </Button>
             </form>
           </div>
-          <Button color='inherit'>
+          <Button color='inherit' fontSize="inherit" style={{ fontSize: "12px" }}>
             <Link className='link' to='/product/new'>Nuevo Producto</Link>
           </Button>
-          <Button color='inherit'>
+          <Button color='inherit' fontSize="inherit" style={{ fontSize: "12px" }}>
             <Link className='link' to='/category/new'>Nueva Categoria</Link>
           </Button>
-          <Button color='inherit'>
+          <Button color='inherit'fontSize="inherit" style={{ fontSize: "12px" }}>
             <Link className='link' to='/login'>Login</Link>
           </Button>
-          <Button color='inherit'>
+          <Button color='inherit'fontSize="inherit" style={{ fontSize: "12px" }}>
             <Link className='link' to='/registro'>Registrarse</Link>
           </Button>
           <IconButton onClick={handleAccount} color='inherit' aria-label='account'>
-            <AccountCircle />
+            <AccountCircle fontSize="inherit" style={{ fontSize: "20px" }} />
           </IconButton>
           <IconButton color='inherit'>
-            <Link className='link' to='/carrito'><ShoppingCartIcon /></Link>
+            <Link className='link' to='/carrito'>
+               {/* el badge es la cantidad de items en el carro */}
+              <Badge badgeContent={props.basketProps.basketNumbers} color="secondary"> 
+                <ShoppingCartIcon fontSize="inherit" style={{ fontSize: "20px" }} />
+              </Badge>
+            </Link>
           </IconButton>
         </Toolbar>
 
@@ -127,7 +143,7 @@ export default function Appbar() {
                   <Link className='lista'>Configuracion</Link>
                 </li>
                 <li>
-                  <Link className='lista' to='/misordenes'>Mis ordenes</Link>
+                  <Link className='lista' to='/carrito'>Mis ordenes</Link>
                 </li>
                 <li>
                   <Link className='lista'>Preguntas</Link>
@@ -182,9 +198,9 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
   },
   inputInput: {
-    padding: theme.spacing(1, 1, 1, 0),
+    padding: theme.spacing(0, 1, 1, 0),
     // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    paddingLeft: `calc(1em + ${theme.spacing(2)}px)`,
     transition: theme.transitions.create("width"),
     width: "100%",
     [theme.breakpoints.up("sm")]: {
@@ -195,3 +211,9 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+
+  const mapStateToProps = state => ({
+    basketProps: state.basket
+  })
+
+export default connect(mapStateToProps, { getNumbers })(Appbar);

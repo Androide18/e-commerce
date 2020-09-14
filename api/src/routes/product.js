@@ -30,13 +30,13 @@ server.get('/', (req, res) => {
 		.catch();
 });
 
-server.get('/category', (req, res) => {
-	Category.findAll()
-		.then(categories => {
-			res.send(categories);
-		})
-		.catch();
-});
+// server.get('/category', (req, res) => {
+// 	Category.findAll()
+// 		.then(categories => {
+// 			res.send(categories);
+// 		})
+// 		.catch();
+// });
 
 // S15 and S24
 

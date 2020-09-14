@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { addToCart, removeFromCart } from '../actions/cartActions';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from '@material-ui/core';
@@ -7,25 +7,26 @@ function Carrito(props) {
     const cart = useSelector(state=> state.cart);
     const{cartItems} = cart;
 
-    const productId = props.match.params.id;
-    const qty = props.location.search ? Number(props.location.search.split("=") [1]): 1;
-    const dispatch = useDispatch();
+  const productId = props.match.params.id;
+  const qty = props.location.search ? Number(props.location.search.split("=")[1]) : 1;
+  const dispatch = useDispatch();
 
-    const removeFromCartHandler = (productId) => {
-        dispatch(removeFromCart(productId));
+  const removeFromCartHandler = (productId) => {
+    dispatch(removeFromCart(productId));
+  }
+
+  useEffect(() => {
+    if (productId) {
+      dispatchEvent(addToCart(productId, qty));
     }
+  }, []);
 
-    useEffect(() => {
-        if(productId){
-            dispatchEvent(addToCart(productId, qty));
-        }
-    }, []);
+  const checkoutHandler = () => {
+    props.history.push();
+  }
 
-    const checkoutHandler = () => {
-        props.history.push();
-    }
-
-return <div className="cart">
+  return (
+  <div className="cart">
     <div className="cart-list">
       <ul className="cart-list-container">
         <li>
@@ -42,7 +43,7 @@ return <div className="cart">
               El Carrito está vacio
           </div>
             :
-            cartItems.map(item =>
+            cartItems.map(item => (
               <li>
                 <div className="cart-image">
                   <img src={item.image} alt="product" />
@@ -71,6 +72,7 @@ return <div className="cart">
                 </div>
               </li>
             )
+            )
         }
       </ul>
 
@@ -81,13 +83,16 @@ return <div className="cart">
         :
          $ {cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
       </h3>
+      <Link className='link' to="/checkout">
       <button onClick={checkoutHandler} className="button primary full-width" disabled={cartItems.length === 0}>
         Revisar
       </button>
+      </Link>
 
     </div>
 
   </div>
+  )
 }
 
 export default Carrito;

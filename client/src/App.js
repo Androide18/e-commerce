@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 import './App.css';
 import './index.css';
@@ -13,11 +13,12 @@ import Checkout from './components/Checkout';
 import Orden from './components/Orden';
 import MisOrdenes from './components/MisOrdenes';
 import Carrito from './components/Carrito';
+import { useDispatch } from 'react-redux';
+import { getProducts } from './actions/ProductsActions';
+import { getCategories } from './actions/CategoryAction'
 
 
 function App() {
-
-
   const [darkMode, setDarkMode] = React.useState(getInitialMode());
 
   React.useEffect(() => {
@@ -25,11 +26,9 @@ function App() {
   }, [darkMode]);
 
   function getInitialMode() {
-
     const isReturningUser = "dark" in localStorage;
     const savedMode = JSON.parse(localStorage.getItem("dark"));
     const userPrefersDark = getPrefColorScheme();
-
 
     // if mode was saved --> dark / light
     if (isReturningUser) {
@@ -50,22 +49,29 @@ function App() {
     return window.matchMedia("(prefers-color-scheme: dark)").matches;
   }
 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getProducts())
+    dispatch(getCategories())
+  }, [])
+
   return (
     <BrowserRouter>
       <div className="grid-container">
-          <AppBar />
+        <AppBar />
         <main className="main">
           <div>
             <Route exact path="/" component={Home} />
-            <Route  path="/producto/:id" component={ProductScreen} />
-            <Route  path="/product/new" component={CreateProductScreen} />
-            <Route  path='/category/new' component={CreateCategoryScreen} />
-            <Route  path='/registro' component={Registro} />
-            <Route  path='/login' component={Login} />
-            <Route  path='/checkout' component={Checkout} />
-            <Route  path='/carrito/:id?' component={Carrito} />
-            <Route  path='/orden' component={Orden} />
-            <Route  path='/misordenes' component={MisOrdenes} />
+            <Route path="/producto/:id" component={ProductScreen} />
+            <Route path="/product/new" component={CreateProductScreen} />
+            <Route path='/category/new' component={CreateCategoryScreen} />
+            <Route path='/registro' component={Registro} />
+            <Route path='/login' component={Login} />
+            <Route path='/checkout' component={Checkout} />
+            <Route path='/carrito/:id?' component={Carrito} />
+            <Route path='/orden' component={Orden} />
+            <Route path='/misordenes' component={MisOrdenes} />
           </div>
         </main>
         <footer className="footer">All right reserved</footer>
