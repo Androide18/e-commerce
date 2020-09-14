@@ -42,9 +42,9 @@ function ProductCard(props) {
   //   };
   // }, [])
 
-  // const handleAddtoCart = () => {
-  //   props.history.push("/carrito/" + props.match.params.id + "?quantity=" + quantity)
-  // }
+  const handleAddtoCart = () => {
+    props.history.push("/carrito/" + props.match.params.id + "?quantity=" + quantity)
+  }
 
   return (
     <div className='card'>
@@ -68,7 +68,7 @@ function ProductCard(props) {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size="small" color="primary" onm>
+          <Button onClick={handleAddtoCart} size="small" color="primary" onm>
             AÑADIR AL CARRITO
           </Button>
         </CardActions>
