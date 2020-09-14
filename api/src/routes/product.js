@@ -91,12 +91,19 @@ server.post('/:idproducto/category/:idcategoria', (req, res) => {
 // 			res.send(result)
 // 		})
 // })
+// app.get('/', function(req, res){
+// 	res.send('id: ' + req.query.id);
+//   });
+
+//get query&params in express
+
+//etc. example.com/user/000000?sex=female
 
 
 // server.get('/search', (req, res) => {
-//     const { query } = req.query;
-//     console.log(req.query)
-//     Product.findAll({ where: { Product: { [Op.like]: '%' + query + '%' } } })
+//     const  name  = req.query.name;
+//     console.log(query)
+//     Product.findAll({ where: { name: { [Op.like]: '%' + name + '%' } } })
 //         .then(result => {
 //             res.send(result)
 //         })
@@ -104,6 +111,7 @@ server.post('/:idproducto/category/:idcategoria', (req, res) => {
 //             console.log(err, message);
 //         })
 // })
+
 
 
 // MULTER
