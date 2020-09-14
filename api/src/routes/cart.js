@@ -110,9 +110,26 @@ server.get('/:id/orderlines', (req, res) => {
 // 40 - VACIA EL CARRITO
 
 server.delete('/:id/cart', (req, res) => {
- 
-
+  const userId = req.params.id;
+  Orderline.destroy({
+    where: { cartorderId: userId } })
+    .then(resolve => {
+    res.send('Se vacio el carrito')
+  });
 });
+
+
+//////////////////////////////////////////////
+
+  // server.delete('/:id', (req, res) => {
+  //   const productId = req.params.id;
+  //   Product.destroy({ where: { id: productId } })
+  //     .then(resolve => {
+  //       res.status(200).send('Se elimino el producto con exito')
+  //     })
+  // })
+  
+
 
 
 // 41 - EDITA LAS CANTIDADES DEL CARRITO
