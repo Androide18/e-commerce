@@ -100,17 +100,18 @@ server.post('/:idproducto/category/:idcategoria', (req, res) => {
 //etc. example.com/user/000000?sex=female
 
 
-server.get('/search', (req, res) => {
-    const  query  = req.query.name;
-    console.log(query)
-    Product.findAll({ where: { name: { [Op.like]: '%' + query + '%' } } })
-        .then(result => {
-            res.send(result)
-        })
-        .catch(err => {
-            console.log(err, message);
-        })
-})
+// server.get('/search', (req, res) => {
+//     const  name  = req.query.name;
+//     console.log(query)
+//     Product.findAll({ where: { name: { [Op.like]: '%' + name + '%' } } })
+//         .then(result => {
+//             res.send(result)
+//         })
+//         .catch(err => {
+//             console.log(err, message);
+//         })
+// })
+
 
 
 // MULTER

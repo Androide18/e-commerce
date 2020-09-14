@@ -90,18 +90,18 @@ server.get('/:id/cart', (req, res) => {
       // where: {
       //   attributes: ['cartorderId']
       //   // where: { completed: true }
-      }]
+    }]
   }).then(cartorder => {
     res.send({ cartorder })
   });
 });
 
 
-// TRAE TODAS LAS ORDERLINES
+// TRAE TODAS LAS ORDERLINES DE UN USUARIO
 
-server.get('/:id/orderlines', (req, res) => {
-  Orderline.findOne({
-    where: { cartorderId: req.params.id }
+server.get('/:id/orders', (req, res) => {
+  Orderline.findAll({
+    where: { cartorderId: req.params.id },
   }).then(orderline => {
     res.send({ orderline })
   });
@@ -112,13 +112,14 @@ server.get('/:id/orderlines', (req, res) => {
 server.delete('/:id/cart', (req, res) => {
   const userId = req.params.id;
   Orderline.destroy({
-    where: { cartorderId: userId } })
+    where: { cartorderId: userId }
+  })
     .then(resolve => {
-    res.send('Se vacio el carrito')
-  });
+      res.send('Se vacio el carrito')
+    });
 });
 
-  
+
 
 // 41 - EDITA LAS CANTIDADES DEL CARRITO
 
@@ -130,8 +131,12 @@ server.put('/:id/cart', (req, res) => {
       result.update(newData);
       res.send(200, result)
     })
+    .catch(err => {
+      res.send(err)
+    })
 
 });
+
 
 
 module.exports = server;
