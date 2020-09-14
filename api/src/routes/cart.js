@@ -118,29 +118,16 @@ server.delete('/:id/cart', (req, res) => {
   });
 });
 
-
-//////////////////////////////////////////////
-
-  // server.delete('/:id', (req, res) => {
-  //   const productId = req.params.id;
-  //   Product.destroy({ where: { id: productId } })
-  //     .then(resolve => {
-  //       res.status(200).send('Se elimino el producto con exito')
-  //     })
-  // })
   
-
-
 
 // 41 - EDITA LAS CANTIDADES DEL CARRITO
 
 server.put('/:id/cart', (req, res) => {
   const userId = req.params.id;
   const newData = req.body;
-  Orderline.findOne({ where: { id: userId } })
+  Orderline.findOne({ where: { cartorderId: userId } })
     .then(result => {
-
-      result.update({ quantity: newData });
+      result.update(newData);
       res.send(200, result)
     })
 
