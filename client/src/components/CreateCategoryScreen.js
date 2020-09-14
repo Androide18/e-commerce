@@ -65,7 +65,7 @@ function CreateCategoryScreen() {
         onClick={() => {
           setForm({ tipoModal: 'insertar' });
           modalInsert()
-        }}>Agregar Cateforia</button>
+        }}>Agregar Categoria</button>
       <br /><br />
       <table className="table ">
         <thead>
