@@ -81,36 +81,6 @@ server.post('/:idproducto/category/:idcategoria', (req, res) => {
 });
 
 
-// // S23
-
-// server.get('/', (req, res) => {
-// 	const cuery = req.query.category;
-// 	console.log(req.query)
-// 	Product.findAll({ where: { category: cuery } })
-// 		.then(result => {
-// 			res.send(result)
-// 		})
-// })
-// app.get('/', function(req, res){
-// 	res.send('id: ' + req.query.id);
-//   });
-
-//get query&params in express
-
-//etc. example.com/user/000000?sex=female
-
-
-// server.get('/search', (req, res) => {
-//     const  name  = req.query.name;
-//     console.log(query)
-//     Product.findAll({ where: { name: { [Op.like]: '%' + name + '%' } } })
-//         .then(result => {
-//             res.send(result)
-//         })
-//         .catch(err => {
-//             console.log(err, message);
-//         })
-// })
 
 
 

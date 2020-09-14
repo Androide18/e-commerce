@@ -75,7 +75,7 @@ import { getNumbers } from '../actions/getBasketAction';
               <InputBase
                 fontSize="inherit" style={{ fontSize: "15px" }}
                 type='search'
-                name='query'
+                name='name'
                 placeholder="Busca tu producto"
                 inputProps={{ 'aria-label': 'search' }}
                 onChange={onChangeBusqueda}
