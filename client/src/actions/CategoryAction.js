@@ -1,12 +1,10 @@
-
+import { 
+    DELETE_CATEGORY_ERROR, DELETE_CATEGORY_REQUEST, DELETE_CATEGORY_SUCCESS, 
+    GET_CATEGORIES_ERROR, GET_CATEGORIES_REQUEST, GET_CATEGORIES_SUCCESS, 
+    SAVE_CATEGORY_ERROR, SAVE_CATEGORY_REQUEST, SAVE_CATEGORY_SUCCESS, 
+    UPDATE_CATEGORY_ERROR, UPDATE_CATEGORY_REQUEST, UPDATE_CATEGORY_SUCCESS 
+} from '../constants-F/constanst';
 import axios from 'axios';
-import { DELETE_PRODUCT_ERROR, 
-    DELETE_PRODUCT_REQUEST, 
-    DELETE_PRODUCT_SUCCESS, 
-    GET_CATEGORIES_ERROR, 
-    GET_CATEGORIES_REQUEST, 
-    GET_CATEGORIES_SUCCESS } from '../constants-F/constanst';
-
 
 export const getCategories = () => async (dispatch) => {
     try {
@@ -14,16 +12,36 @@ export const getCategories = () => async (dispatch) => {
         const { data } = await axios.get('http://localhost:3001/categories');
         dispatch({ type: GET_CATEGORIES_SUCCESS, payload: data })
     } catch (error) {
-        dispatch({type: GET_CATEGORIES_ERROR, payload: error.message})
+        dispatch({ type: GET_CATEGORIES_ERROR, payload: error.message })
+    }
+}
+
+export const saveCategory = (category) => async (dispatch) => {
+    try {
+        dispatch({ type: SAVE_CATEGORY_REQUEST, payload: category });
+        const { data } = await axios.post('http://localhost:3001/categories', category);
+        dispatch({ type: SAVE_CATEGORY_SUCCESS, payload: data })
+    } catch (error) {
+        dispatch({ type: SAVE_CATEGORY_ERROR, payload: error.message })
+    }
+}
+
+export const updateCategory = (id, category) => async (dispatch) => {
+    try {
+        dispatch({type: UPDATE_CATEGORY_REQUEST, payload: id});
+        const { data } = axios.put('http://localhost:3001/categories/' + id, category);
+        dispatch({type: UPDATE_CATEGORY_SUCCESS, payload: data})
+    } catch (error) {
+        dispatch({type: UPDATE_CATEGORY_ERROR, payload: error.message})
     }
 }
 
 export const deleteCategory = (id) => async (dispatch) => {
     try {
-        dispatch({type: DELETE_PRODUCT_REQUEST, payload: id});
-        const { data } = await axios.delete('http://localhost:3001/products/' + id);
-        dispatch({type: DELETE_PRODUCT_SUCCESS, payload: data })
+        dispatch({ type: DELETE_CATEGORY_REQUEST, payload: id });
+        const { data } = await axios.delete('http://localhost:3001/categories/' + id);
+        dispatch({ type: DELETE_CATEGORY_SUCCESS, payload: data });
     } catch (error) {
-        dispatch({type: DELETE_PRODUCT_ERROR, payload: error.message})
+        dispatch({ type: DELETE_CATEGORY_ERROR, payload: error.message })
     }
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -16,11 +16,14 @@ import { addBasket } from '../actions/addBasketAction';
 
   const ProductCard = (props) => {
     console.log(props);
-  const [qty, setQty] = useState(1);
-  const productDetails = useSelector(state => state.productDetails);
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(false)
-  const dispatch = useDispatch();
+  //const [qty, setQty] = useState(1);
+  //const productDetails = useSelector(state => state.productDetails);
+//import { detailsProduct } from '../actions/productActions';
+  //const [quantity, setQuantity] = useState(1);
+  //const productDetails = useSelector((state) => state.productDetails);
+  //const [loading, setLoading] = useState(false)
+  //const [error, setError] = useState(false)
+  //const dispatch = useDispatch();
 
   const useStyles = makeStyles({
     Card: {
@@ -36,9 +39,17 @@ import { addBasket } from '../actions/addBasketAction';
   });
   const classes = useStyles();
 
-  const handleAddtoCart = () => {
-    props.history.push("/carrito/" + props.match.params.id + "?qty=" + qty)
-  }
+  // useEffect(() => {
+  //   dispatch(detailsProduct(props.match.params.id));
+  //   console.log(props.match.params.id);
+  //   return () => {
+  //     //
+  //   };
+  // }, [])
+
+  // const handleAddtoCart = () => {
+  //   props.history.push("/carrito/" + props.match.params.id + "?quantity=" + quantity)
+  // }
 
   return (
     <div className='card'>
@@ -56,7 +67,7 @@ import { addBasket } from '../actions/addBasketAction';
             <Link to={'/products/' + props.id}>
               <Typography variant="h4" component="h2">
                 {props.name}
-            </Typography>
+              </Typography>
             </Link>
             <Typography style={{ color: lightGreen['800'] }} variant="h5" color="textPrimary" component="h1">${props.price}</Typography>
           </CardContent>
