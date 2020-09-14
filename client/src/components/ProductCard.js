@@ -11,19 +11,24 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import lightGreen from '@material-ui/core/colors/lightGreen' //color de la fuente
-import { detailsProduct } from '../actions/productActions';
+import { connect } from 'react-redux';
+import { addBasket } from '../actions/addBasketAction';
 
-function ProductCard(props) {
-  const [quantity, setQuantity] = useState(1);
-  const productDetails = useSelector((state) => state.productDetails);
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(false)
-  const dispatch = useDispatch();
+  const ProductCard = (props) => {
+    console.log(props);
+  //const [qty, setQty] = useState(1);
+  //const productDetails = useSelector(state => state.productDetails);
+//import { detailsProduct } from '../actions/productActions';
+  //const [quantity, setQuantity] = useState(1);
+  //const productDetails = useSelector((state) => state.productDetails);
+  //const [loading, setLoading] = useState(false)
+  //const [error, setError] = useState(false)
+  //const dispatch = useDispatch();
 
-  
   const useStyles = makeStyles({
     Card: {
-      width: 143,
+      // width: 180,
+      height: 290,
       margin: 'auto'
     },
     Media: {
@@ -60,17 +65,19 @@ function ProductCard(props) {
           </Link>
           <CardContent>
             <Link to={'/products/' + props.id}>
-              <Typography gutterBottom variant="h5" component="h2">
+              <Typography variant="h4" component="h2">
                 {props.name}
               </Typography>
             </Link>
-            <Typography style={{ color: lightGreen['800'] }} variant="body2" color="textPrimary" component="h1">${props.price}</Typography>
+            <Typography style={{ color: lightGreen['800'] }} variant="h5" color="textPrimary" component="h1">${props.price}</Typography>
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size="small" color="primary" onm>
+          <Button size="large" color="primary" onClick={() => props.addBasket(props)} >
+            <Typography variant='h6'>
             AÑADIR AL CARRITO
-          </Button>
+            </Typography>
+        </Button>
         </CardActions>
       </Card>
     </div>
@@ -78,4 +85,4 @@ function ProductCard(props) {
 }
 
 
-export default ProductCard;
+export default connect(null, { addBasket })(ProductCard);

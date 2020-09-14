@@ -4,7 +4,7 @@ import { getProductsReducer, deleteProductReducer, saveProductReducer, updatePro
 import Cookie from "js-cookie";
 import thunk from 'redux-thunk';
 import { cartReducer } from '../reducers/cartReducers';
-
+import basketReducer from '../reducers/basketReducer'
 
 
 const cartItems = Cookie.getJSON('cartItems') ||  [];
@@ -18,10 +18,11 @@ const reducer = combineReducers({
     updateCategory: updateCategoryReducer,
     deleteCategory: deleteCategoryReducer,
     product: getProductsReducer,
+    cart: cartReducer,
+    basket: basketReducer,
     deleteProduct: deleteProductReducer,
     saveProduct: saveProductReducer,
     updateProduct: updateProductReducer,
-    cart: cartReducer
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
