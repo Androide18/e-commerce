@@ -65,7 +65,7 @@ export default function Appbar() {
             <form action="/search">
               <InputBase
                 type='search'
-                name='query'
+                name='name'
                 placeholder="Busca tu producto"
                 inputProps={{ 'aria-label': 'search' }}
                 onChange={onChangeBusqueda}
