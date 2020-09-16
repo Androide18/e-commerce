@@ -32,7 +32,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 // Para relacionarlos hacemos un destructuring
 
 
-const { Product, Category, Cartorder, User, Orderline } = sequelize.models;
+const { Product, Category, Cartorder, User, Orderline, Review } = sequelize.models;
 const ProductCategory = sequelize.define('product_category', {}, { timestamps: false });
 
 
@@ -43,8 +43,10 @@ Category.belongsToMany(Product, {through: ProductCategory});
 Cartorder.belongsTo(User);
 Product.belongsToMany(Cartorder, { as: 'Carts', through: Orderline});
 Cartorder.belongsToMany(Product, { as: 'Prods', through: Orderline});
+Product.hasMany(Review);
+Review.belongsTo(User);
 
-
+//Un producto puede tener muchas reviews. Una review es de un usuario.
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
