@@ -33,10 +33,10 @@ const initialState = {
 function cartReducer(state = initialState, action) {
     switch (action.type) {
         case CART_ADD_ITEM_REQUEST:
-            return { ...state, loading: true};
+            return {...state, loading: true};
         case CART_ADD_ITEM_SUCCESS:
-            console.log(state);
-            return { ...state, loading: false, cartItems: [...state.cartItems, action.payload]  };
+            console.log('desde el success:', 'payload', action.payload, 'state', state);
+            return {...state, loading: false, cartItems: state.cartItems.concat(action.payload)};
         case CART_ADD_ITEM_ERROR:
             return { ...state, loading: false, error: action.payload}
         default:
@@ -45,4 +45,4 @@ function cartReducer(state = initialState, action) {
 }
 
 
-export { cartReducer } 
+export default cartReducer;

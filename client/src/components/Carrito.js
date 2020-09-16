@@ -4,9 +4,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link } from '@material-ui/core';
 
 function Carrito(props) {
-    const carritoItems = useSelector(state=> state.cart.cartItems);
-    const cartItems = [carritoItems]
-    console.log(cartItems)
+
+    const carritoItems = useSelector(state => state.cart.carritoItems);
+    //const cartItems = [carritoItems]
+    console.log('items desde el carrito.js', carritoItems)
+   
 
   const productId = props.match.params.id;
   //const qty = props.location.search ? Number(props.location.search.split("=")[1]) : 1;
@@ -39,13 +41,13 @@ function Carrito(props) {
           </div>
         </li>
         {
-          cartItems.length === 0 ?
+          carritoItems.length === 0 ?
             <div>
               El Carrito está vacio
           </div>
             :
-            cartItems.map(item => (
-              <li>
+            carritoItems.map(item => (
+              <li key={item.id}>
                 <div className="cart-image">
                   <img src={`http://localhost:3001/static/${item.image}`} alt="product" />
                 </div>
@@ -80,12 +82,12 @@ function Carrito(props) {
     </div>
     <div className="cart-action">
       <h3>
-        Subtotal ( {cartItems.reduce((a, c) => a + c.qty, 0)} items)
+        Subtotal ( {carritoItems.reduce((a, c) => a + c.qty, 0)} items)
         :
-         $ {cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
+         $ {carritoItems.reduce((a, c) => a + c.price * c.qty, 0)}
       </h3>
       <Link className='link' to="/checkout">
-      <button onClick={checkoutHandler} className="button primary full-width" disabled={cartItems.length === 0}>
+      <button onClick={checkoutHandler} className="button primary full-width" disabled={carritoItems.length === 0}>
         Revisar
       </button>
       </Link>

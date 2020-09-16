@@ -17,6 +17,8 @@ function CreateProductsScreen() {
   const dataCat = useSelector(state => state.categories.categoriesLoaded)
   const [modalInsertar, setModalInsertar] = useState(false);
   const [modalEliminar, setModalEliminar] = useState(false);
+  const estado = useSelector(state => state);
+  console.log(estado);
 
   const peticionPost = async () => {
     delete form.id;

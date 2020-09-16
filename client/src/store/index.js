@@ -3,14 +3,14 @@ import {getCategoriesReducer, saveCategoryReducer, updateCategoryReducer, delete
 import { getProductsReducer, deleteProductReducer, saveProductReducer, updateProductReducer }  from '../reducers/P-reducer';
 import Cookie from "js-cookie";
 import thunk from 'redux-thunk';
-import { cartReducer } from '../reducers/cartReducers';
+import cartReducer  from '../reducers/cartReducers';
 import basketReducer from '../reducers/basketReducer'
 
 
-const cartItems = Cookie.getJSON('cartItems') ||  [];
-const initialState = {
-    cart: { cartItems },
-};
+// const cartItems = Cookie.getJSON('cartItems') ||  [];
+// const initialState = {
+//     cart: { cartItems },
+// };
 
 const reducer = combineReducers({
     categories: getCategoriesReducer,
@@ -29,7 +29,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
     reducer,
-    initialState,
+    //initialState,
     composeEnhancers(applyMiddleware(thunk))
 );
 

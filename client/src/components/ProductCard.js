@@ -17,7 +17,7 @@ import { addBasket } from '../actions/addBasketAction';
 import { addToCart } from "../actions/cartActions";
 
 const ProductCard = (props) => {
-  console.log('props desde productCard', props)
+ 
   const [qty, setQty] = useState(5);
   //const productDetails = useSelector(state => state.productDetails);
   //import { detailsProduct } from '../actions/productActions';

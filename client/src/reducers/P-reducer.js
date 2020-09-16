@@ -15,11 +15,11 @@ const initialState = {
 function getProductsReducer(state = initialState, action) {
     switch (action.type) {
         case GET_PRODUCTS_REQUEST:
-            return { loading: true, productsLoaded: [] };
+            return { ...state, loading: true, productsLoaded: [] };
         case GET_PRODUCTS_SUCCESS:
-            return { loading: false, productsLoaded: action.payload };
+            return { ...state, loading: false, productsLoaded: action.payload };
         case GET_PRODUCTS_ERROR:
-            return { loading: false, error: action.payload };
+            return { ...state, loading: false, error: action.payload };
         default:
             return state;
     }
@@ -28,11 +28,11 @@ function getProductsReducer(state = initialState, action) {
 function deleteProductReducer(state = initialState, action) {
     switch (action.type) {
         case DELETE_PRODUCT_REQUEST:
-            return { loading: true };
+            return { ...state, loading: true };
         case DELETE_PRODUCT_SUCCESS:
-            return { loading: false };
+            return { ...state, loading: false };
         case DELETE_PRODUCT_ERROR:
-            return { loading: false, error: action.payload };
+            return { ...state, loading: false, error: action.payload };
         default:
             return state;
     }
@@ -41,11 +41,11 @@ function deleteProductReducer(state = initialState, action) {
 function saveProductReducer(state = initialState, action) {
     switch (action.type) {
         case SAVE_PRODUCT_REQUEST:
-            return { loading: true };
+            return { ...state, loading: true };
         case SAVE_PRODUCT_SUCCESS:
-            return { loading: false };
+            return { ...state, loading: false };
         case SAVE_PRODUCT_ERROR:
-            return { loading: false, error: action.payload };
+            return { ...state, loading: false, error: action.payload };
         default:
             return state;
     }
@@ -54,11 +54,11 @@ function saveProductReducer(state = initialState, action) {
 function updateProductReducer(state = initialState, action) {
     switch (action.type) {
         case UPDATE_PRODUCT_REQUEST:
-            return { loading: true };
+            return { ...state, loading: true };
         case UPDATE_PRODUCT_SUCCESS:
-            return { loading: false };
+            return { ...state, loading: false };
         case UPDATE_PRODUCT_ERROR:
-            return { loading: false, error: action.payload };
+            return { ...state, loading: false, error: action.payload };
         default:
             return state;
     }

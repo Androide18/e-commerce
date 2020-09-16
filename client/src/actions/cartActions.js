@@ -37,6 +37,7 @@ const addToCart = (product, qty) => async (dispatch, getState) => {
     try {
         dispatch({ type: CART_ADD_ITEM_REQUEST, payload: '' });
         dispatch({ type: CART_ADD_ITEM_SUCCESS, payload: product })
+        console.log(getState());
     } catch (error) {
         dispatch({ type: CART_ADD_ITEM_ERROR, payload: error.message })
     }
