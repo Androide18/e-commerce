@@ -4,11 +4,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link } from '@material-ui/core';
 
 function Carrito(props) {
-    const cart = useSelector(state=> state.cart);
-    const{cartItems} = cart;
+    const carritoItems = useSelector(state=> state.cart.cartItems);
+    const cartItems = [carritoItems]
+    console.log(cartItems)
 
   const productId = props.match.params.id;
-  const qty = props.location.search ? Number(props.location.search.split("=")[1]) : 1;
+  //const qty = props.location.search ? Number(props.location.search.split("=")[1]) : 1;
   const dispatch = useDispatch();
 
   const removeFromCartHandler = (productId) => {
@@ -17,7 +18,7 @@ function Carrito(props) {
 
   useEffect(() => {
     if (productId) {
-      dispatchEvent(addToCart(productId, qty));
+      //dispatchEvent(addToCart(productId, qty));
     }
   }, []);
 
@@ -46,7 +47,7 @@ function Carrito(props) {
             cartItems.map(item => (
               <li>
                 <div className="cart-image">
-                  <img src={item.image} alt="product" />
+                  <img src={`http://localhost:3001/static/${item.image}`} alt="product" />
                 </div>
                 <div className="cart-name">
                   <div>
@@ -57,11 +58,11 @@ function Carrito(props) {
                   </div>
                   <div>
                     Cantidad:
-                  <select value={item.qty} onChange={(e) => dispatch(addToCart(item.product, e.target.value))}>
+                  {/* <select value={item.qty} onChange={(e) => dispatch(addToCart(item.product, e.target.value))}>
                       {[...Array(item.countInStock).keys()].map(x =>
                         <option key={x + 1} value={x + 1}>{x + 1}</option>
                       )}
-                    </select>
+                    </select> */}
                     <button type="button" className="button" onClick={() => removeFromCartHandler(item.product)} >
                       Borrar
                     </button>

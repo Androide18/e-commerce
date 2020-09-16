@@ -21,7 +21,7 @@ server.get('/:id', function (req, res) {
 
 })
 
-// EL USUARIO AGRUEGUE UN PRODUCTO AL CARRITO
+// EL USUARIO AGRUEGUE UN  AL CARRITO
 
 
 server.post('/:id/cart', (req, res) => {
@@ -39,7 +39,7 @@ server.post('/:id/cart', (req, res) => {
         totalQty: 0,
         userId: req.params.id,
       }).then(newOrder => {
-        //le agrega una producto a la orden nueva
+        //le agrega una  a la orden nueva
         Product.findByPk(req.body.productId).then(product => {
           Orderline.create({
             price: product.price,
@@ -52,7 +52,7 @@ server.post('/:id/cart', (req, res) => {
     }
     else {
       //si existe una orden uncreated y con el id del user
-      // le agrega al order line de esa orden el id el producto
+      // le agrega al order line de esa orden el id el 
       Product.findByPk(req.body.productId).then(product => {
         Orderline.findOne({
           where: { productId: product.id, cartorderId: cartorder.id },

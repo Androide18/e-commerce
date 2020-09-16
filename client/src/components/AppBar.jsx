@@ -13,7 +13,7 @@ import { getNumbers } from '../actions/getBasketAction';
 
 
   function Appbar(props) {
-    console.log(props);
+ 
 
     useEffect(() => {
       getNumbers();
