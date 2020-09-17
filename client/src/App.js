@@ -16,6 +16,7 @@ import Carrito from './components/Carrito';
 import { useDispatch } from 'react-redux';
 import { getProducts } from './actions/ProductsActions';
 import { getCategories } from './actions/CategoryAction'
+import Review from './components/Review'
 
 
 function App() {
@@ -63,7 +64,7 @@ function App() {
         <main className="main">
           <div>
             <Route exact path="/" component={Home} />
-            <Route path="/producto/:id" component={ProductScreen} />
+            <Route path="/product/:id" component={ProductScreen} />
             <Route path="/product/new" component={CreateProductScreen} />
             <Route path='/category/new' component={CreateCategoryScreen} />
             <Route path='/registro' component={Registro} />
@@ -72,6 +73,7 @@ function App() {
             <Route path='/carrito/:id?' component={Carrito} />
             <Route path='/orden' component={Orden} />
             <Route path='/misordenes' component={MisOrdenes} />
+            <Route path='/review' component={Review} />
           </div>
         </main>
         <footer className="footer">All right reserved</footer>
