@@ -46,6 +46,9 @@ Cartorder.belongsToMany(Product, { as: 'Prods', through: Orderline});
 Product.hasMany(Review);
 Review.belongsTo(User);
 
+User.hasMany(Cartorder);
+
+
 //Un producto puede tener muchas reviews. Una review es de un usuario.
 
 module.exports = {

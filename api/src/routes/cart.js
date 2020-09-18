@@ -1,5 +1,6 @@
 const server = require('express').Router();
 
+const { urlencoded } = require('body-parser');
 const { Cartorder } = require('../db.js');
 const { Product } = require('../db.js');
 const { Orderline } = require('../db.js');
@@ -42,10 +43,10 @@ server.post('/:id/cart', (req, res) => {
         //le agrega una producto a la orden nueva
         Product.findByPk(req.body.productId).then(product => {
           Orderline.create({
-            price: product.price,
-            quantity: 1,
+             price: product.price,
+             quantity: 1,
             productId: product.id,
-            cartorderId: newOrder.id,
+             cartorderId: newOrder.id,
           }).then(orderline => res.send(orderline));
         });
       });
@@ -59,10 +60,10 @@ server.post('/:id/cart', (req, res) => {
         }).then(orderline => {
           if (!orderline) {
             Orderline.create({
-              price: product.price,
-              quantity: 1,
+               price: product.price,
+             quantity: 1,
               productId: product.id,
-              cartorderId: cartorder.id,
+               cartorderId: cartorder.id,
             }).then(orderline =>
               res.send(orderline));
           } else {
@@ -80,8 +81,10 @@ server.post('/:id/cart', (req, res) => {
 // 39 - RETORNA TODOS LOS ITEMS DEL CARRITO
 
 server.get('/:id/cart', (req, res) => {
+
+
   Cartorder.findOne({
-    where: { id: req.params.id },
+    where: { userId: req.params.id },
     include: [{
       model: Product,
       as: 'Prods',
