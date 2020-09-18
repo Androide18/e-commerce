@@ -18,6 +18,8 @@ import { getProducts } from './actions/ProductsActions';
 import { getCategories } from './actions/CategoryAction'
 
 
+
+
 function App() {
   const [darkMode, setDarkMode] = React.useState(getInitialMode());
 
@@ -69,7 +71,7 @@ function App() {
             <Route path='/registro' component={Registro} />
             <Route path='/login' component={Login} />
             <Route path='/checkout' component={Checkout} />
-            <Route path='/carrito/:id?' component={Carrito} />
+            <Route path='/carrito' component={Carrito} />
             <Route path='/orden' component={Orden} />
             <Route path='/misordenes' component={MisOrdenes} />
           </div>

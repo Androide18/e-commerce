@@ -3,9 +3,7 @@ import Cookie from "js-cookie";
 import {
     CART_ADD_ITEM_REQUEST,
     CART_ADD_ITEM_SUCCESS,
-    CART_ADD_ITEM_ERROR,
-    CART_ERROR_ITEM,
-    CART_REMOVE_ITEM
+    CART_ADD_ITEM_ERROR
 } from "../constants/cartConstants";
 
 // const addToCart = (productId, qty) => async (dispatch, getState) => {
@@ -33,11 +31,10 @@ import {
 //     Cookie.set("cartItems", JSON.stringify(cartItems));
 // }
                 
-const addToCart = (product, qty) => async (dispatch, getState) => {
+const addToCart = (product, qty) => async (dispatch) => {
     try {
         dispatch({ type: CART_ADD_ITEM_REQUEST, payload: '' });
         dispatch({ type: CART_ADD_ITEM_SUCCESS, payload: product })
-        console.log(getState());
     } catch (error) {
         dispatch({ type: CART_ADD_ITEM_ERROR, payload: error.message })
     }
@@ -45,7 +42,7 @@ const addToCart = (product, qty) => async (dispatch, getState) => {
 
 
 
-const removeFromCart = (productId) => (dispatch, getState) => {
+const removeFromCart = (productId) => (dispatch) => {
     dispatch({ type: 'CART_REMOVE_ITEM', payload: productId });
 
     //const { cart: { cartItems } } = getState();

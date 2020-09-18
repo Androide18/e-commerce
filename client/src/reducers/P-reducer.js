@@ -15,7 +15,7 @@ const initialState = {
 function getProductsReducer(state = initialState, action) {
     switch (action.type) {
         case GET_PRODUCTS_REQUEST:
-            return { ...state, loading: true, productsLoaded: [] };
+            return { ...state, loading: true };
         case GET_PRODUCTS_SUCCESS:
             return { ...state, loading: false, productsLoaded: action.payload };
         case GET_PRODUCTS_ERROR:

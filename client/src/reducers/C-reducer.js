@@ -15,7 +15,7 @@ const initialState = {
 function getCategoriesReducer(state = initialState, action) {
     switch (action.type) {
         case GET_CATEGORIES_REQUEST:
-            return { ...state, loading: true, categoriesLoaded: [] };
+            return { ...state, loading: true };
         case GET_CATEGORIES_SUCCESS:
             return { ...state, loading: false, categoriesLoaded: action.payload };
         case GET_CATEGORIES_ERROR:
