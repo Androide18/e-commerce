@@ -10,7 +10,11 @@ export const getProducts = () => async (dispatch) => {
     try {
         dispatch({ type: GET_PRODUCTS_REQUEST, payload: '' });
         const { data } = await axios.get('http://localhost:3001/products');
-        dispatch({ type: GET_PRODUCTS_SUCCESS, payload: data })
+        let prodInOrder = data.sort(function(a, b){
+            return a.id-b.id
+        });
+        console.log('prodInOrder',prodInOrder);
+        dispatch({ type: GET_PRODUCTS_SUCCESS, payload: prodInOrder })
     } catch (error) {
         dispatch({ type: GET_PRODUCTS_ERROR, payload: error.message })
     }

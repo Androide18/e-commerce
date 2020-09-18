@@ -19,6 +19,8 @@ import { getCategories } from './actions/CategoryAction'
 import Review from './components/Review'
 
 
+
+
 function App() {
   const [darkMode, setDarkMode] = React.useState(getInitialMode());
 
@@ -70,7 +72,7 @@ function App() {
             <Route path='/registro' component={Registro} />
             <Route path='/login' component={Login} />
             <Route path='/checkout' component={Checkout} />
-            <Route path='/carrito/:id?' component={Carrito} />
+            <Route path='/carrito' component={Carrito} />
             <Route path='/orden' component={Orden} />
             <Route path='/misordenes' component={MisOrdenes} />
             <Route path='/review' component={Review} />
