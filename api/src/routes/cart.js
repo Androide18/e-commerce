@@ -24,14 +24,14 @@ server.get('/:id', function (req, res) {
 // EL USUARIO AGRUEGUE UN PRODUCTO AL CARRITO
 
 server.post("/:id/cart", (req, res) => {
-  const { price, quantity, productId } = req.body;
-  const { id } = req.params; //id del usuario
+  const { price, quantity, productId } = req.body; //Me traigo los valores del body
+  const userId = req.params.id; //me traigo el id del usuario
 
   !productId && res.send("hace falta producto");
 
   Cartorder.create({
-    userId: parseInt(id),
-    price: price,  
+    userId: userId,
+    price: price,
     quantity: quantity,
   })
     .then((cartorder) => {
@@ -42,10 +42,10 @@ server.post("/:id/cart", (req, res) => {
       );
     })
     .catch((err) => {
-      res.send("el usuario no existe")
-
+      res.send(err);
     });
 });
+
 
 
 // 39 - RETORNA TODOS LOS ITEMS DEL CARRITO
