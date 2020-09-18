@@ -40,11 +40,15 @@ const ProductCategory = sequelize.define('product_category', {}, { timestamps: f
 // Product.hasMany(Reviews);
 Product.belongsToMany(Category, {through: ProductCategory})
 Category.belongsToMany(Product, {through: ProductCategory});
-Cartorder.belongsTo(User);
-Product.belongsToMany(Cartorder, { as: 'Carts', through: Orderline});
-Cartorder.belongsToMany(Product, { as: 'Prods', through: Orderline});
+
+Cartorder.belongsToMany(Product, { through: "orderline"});
+Product.belongsToMany(Cartorder, { through: "orderline"});
+
 Product.hasMany(Review);
 Review.belongsTo(User);
+
+User.hasMany(Cartorder);
+Cartorder.belongsTo(User);
 
 //Un producto puede tener muchas reviews. Una review es de un usuario.
 
