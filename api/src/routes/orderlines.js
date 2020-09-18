@@ -12,12 +12,11 @@ server.get('/', function (req, res) {
       Product.findAll({
         include: [{
             model: Cartorder,
-            as: 'Carts',
             through: Orderline
           }]
         })
-      .then(orderlines => {
-          res.send({ orderlines })
+      .then(orders => {
+          res.send({ orders })
       })
   })
 
@@ -25,10 +24,10 @@ server.get('/', function (req, res) {
 // TRAE UNA ORDEN EN ESPECIFICO POR ID
 
   server.get('/:id', (req, res) => {
-    Orderline.findOne({
+    Cartorder.findOne({
       where: { id: req.params.id },
-    }).then(orderline => {
-      res.send({ orderline })
+    }).then(order => {
+      res.send({ order })
     });
   });
   
@@ -39,7 +38,7 @@ server.get('/', function (req, res) {
 server.put('/:id', (req, res) => {
     const orderId = req.params.id;
     const newData = req.body;
-    Orderline.findOne({ where: { id: orderId } })
+    Cartorder.findOne({ where: { id: orderId } })
       .then(result => {
         result.update(newData);
         res.send(200, result)
