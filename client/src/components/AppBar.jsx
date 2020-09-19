@@ -14,9 +14,17 @@ export default function Appbar() {
   const [anchor, setAnchor] = useState('left')
   const [infoCat, setInfoCat] = useState([])
   const classes = useStyles();
-  const [busqueda, setBusqueda] = useState("")
 
+  const [busqueda, setBusqueda] = useState('');
 
+  const validate = ()=>{
+    if(busqueda !== ''){
+        return <Link to={'/search?query=' + busqueda} ><i></i></Link>
+    }
+    else{
+        return <i></i>
+    }
+}
 
   const onChangeBusqueda = (event) => {
     setBusqueda(event.currentTarget.value);
@@ -65,7 +73,7 @@ export default function Appbar() {
             <form action="/search">
               <InputBase
                 type='search'
-                name='name'
+                name='query'
                 placeholder="Busca tu producto"
                 inputProps={{ 'aria-label': 'search' }}
                 onChange={onChangeBusqueda}
@@ -78,7 +86,7 @@ export default function Appbar() {
                 value='Buscar'
                 variant="contained"
                 color="primary"
-                onClick={() => filtrarBuscqueda()}
+                onClick={() => validate()}
               >
                 Buscar
 
