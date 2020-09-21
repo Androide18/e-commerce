@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import SearchBar from './SearchBar';
 import { AppBar, Toolbar, IconButton, Typography, Button, InputBase, Drawer } from '@material-ui/core'
 import { AccountCircle } from "@material-ui/icons"
-import SearchIcon from '@material-ui/icons/Search';
+
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Divider from '@material-ui/core/Divider';
 import axios from 'axios';
@@ -13,23 +14,7 @@ export default function Appbar() {
   const [open, setOpen] = useState(false)
   const [anchor, setAnchor] = useState('left')
   const [infoCat, setInfoCat] = useState([])
-  const classes = useStyles();
-
-  const [busqueda, setBusqueda] = useState('');
-
-  const validate = ()=>{
-    if(busqueda !== ''){
-        return <Link to={'/search?query=' + busqueda} ><i></i></Link>
-    }
-    else{
-        return <i></i>
-    }
-}
-
-  const onChangeBusqueda = (event) => {
-    setBusqueda(event.currentTarget.value);
-    console.log('busqueda', busqueda);
-  }
+ 
 
 
   const handleDrawer = () => {
@@ -43,9 +28,6 @@ export default function Appbar() {
     setOpen(true)
   }
 
-  const filtrarBuscqueda = () => {
-
-  }
   // useEffect(() => {
   //   axios.get('http://localhost:3001/category')
   //     .then(res => {
@@ -66,33 +48,7 @@ export default function Appbar() {
               E-COMMERCE
           </Link>
           </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <form action="/search">
-              <InputBase
-                type='search'
-                name='query'
-                placeholder="Busca tu producto"
-                inputProps={{ 'aria-label': 'search' }}
-                onChange={onChangeBusqueda}
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-              />
-              <Button type='submit'
-                value='Buscar'
-                variant="contained"
-                color="primary"
-                onClick={() => validate()}
-              >
-                Buscar
-
-          </Button>
-            </form>
-          </div>
+          <SearchBar/>
           <Button color='inherit'>
             <Link className='link' to='/product/new'>Nuevo Producto</Link>
           </Button>
@@ -160,46 +116,3 @@ export default function Appbar() {
     </div>
   );
 }
-
-const useStyles = makeStyles((theme) => ({
-  search: {
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
-    },
-    marginRight: theme.spacing(2),
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(3),
-      width: 'auto',
-    },
-  },
-  searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  inputRoot: {
-    color: "white",
-  },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      width: "20ch",
-      "&:focus": {
-        width: "40ch",
-      },
-    },
-  },
-}));
