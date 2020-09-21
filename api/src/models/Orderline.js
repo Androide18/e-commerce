@@ -4,18 +4,18 @@ module.exports = (sequelize) => {
 
     sequelize.define('orderline', {
 
-        id: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
-      },
+    //     id: {
+    //         type: DataTypes.INTEGER,
+    //         primaryKey: true,
+    //         autoIncrement: true
+    //   },
         price: {
-            type: DataTypes.STRING,
-            allowNull: false,
+            type: DataTypes.INTEGER,
+            defaultValue: 0,
         },
         quantity: {
-            type: DataTypes.STRING,
-            allowNull: false,
+            type: DataTypes.INTEGER,
+            defaultValue: 0,
         },
 
     },

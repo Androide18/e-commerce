@@ -30,22 +30,22 @@ server.get('/', (req, res) => {
 		.catch();
 });
 
-server.get('/category', (req, res) => {
-	Category.findAll()
-		.then(categories => {
-			res.send(categories);
-		})
-		.catch();
-});
+// server.get('/category', (req, res) => {
+// 	Category.findAll()
+// 		.then(categories => {
+// 			res.send(categories);
+// 		})
+// 		.catch();
+// });
 
 // S15 and S24
 
 server.get('/:id', (req, res) => {
 	const productId = req.params.id;
-	const producto = Product.findByPk(productId)
-		.then(producto => {
-			if (producto) {
-				res.send({ producto })
+	Product.findByPk(productId)
+		.then(response => {
+			if (response) {
+				res.send(response)
 			} else {
 				res.status(404).send({ message: 'Poducto not Found' })
 			};

@@ -4,21 +4,20 @@ module.exports = (sequelize) => {
 
     sequelize.define('cartorder', {
         state: {
-            type: DataTypes.ENUM('cart', 'created', 'processing', 'cancelled', 'completed', 'Uncreated'),
-            allowNull: false,
+            type: DataTypes.ENUM,
+            values: ["carrito", "creada", "procesando", "cancelada", "completa"],
+            defaultValue: "carrito",
         },
-        totalPrice: {
-            type: DataTypes.STRING,
-            allowNull: false,
+        price: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0,
         },
-        totalQty: {
-            type: DataTypes.STRING,
-            allowNull: false,
+        quantity: {
+            type: DataTypes.INTEGER,
+            defaultValue: 1,
         },
-               
+
     },
-    {timestamp:false}
+        { timestamp: false }
     );
 };
-
-
