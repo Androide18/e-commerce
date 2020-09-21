@@ -1,14 +1,12 @@
-import * as constants from "./constants";
+import * as constants from "../constants/searchConstants";
 
 
 var initialState = {
-    products: [],
-    productByID: {},
     filterProducts: [],
   };
 
   
-export const rootReducer = (state = initialState, action) => {
+export const searchReducer = (state = initialState, action) => {
     switch (action.type) {
 
 
@@ -17,5 +15,7 @@ case constants.GET_SEARCH:
       ...state,
       filterProducts: action.payload,
     };
+
+}
 
 }
