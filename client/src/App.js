@@ -69,7 +69,7 @@ function App() {
         <main className="main">
           <div>
             <Route exact path="/" component={Home} />
-            <Route path="/product/:id" component={ProductScreen} />
+            <Route path="/products/:id" component={ProductScreen} />
             <Route path="/product/new" component={CreateProductScreen} />
             <Route path='/category/new' component={CreateCategoryScreen} />
             <Route path='/registro' component={Registro} />

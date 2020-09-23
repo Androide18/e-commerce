@@ -42,6 +42,7 @@ server.get('/', (req, res) => {
 
 server.get('/:id', (req, res) => {
 	const productId = req.params.id;
+	console.log(productId)
 	Product.findByPk(productId)
 		.then(response => {
 			if (response) {
@@ -56,14 +57,14 @@ server.get('/:id', (req, res) => {
 
 // S22
 
-server.get('/:id', (req, res) => {
-    console.log(req.params.id);
-    const catName = req.params.id;
-    Product.findAll( {where: {Category: catName}})
-    .then( result => {
-        res.send({result})
-    })
-})
+// server.get('/:id', (req, res) => {
+//     console.log(req.params.id);
+//     const catName = req.params.id;
+//     Product.findAll( {where: {Category: catName}})
+//     .then( result => {
+//         res.send(result)
+//     })
+// })
 
 server.post('/:idproducto/category/:idcategoria', (req, res) => {
     const { idproducto, idcategoria } = req.params;

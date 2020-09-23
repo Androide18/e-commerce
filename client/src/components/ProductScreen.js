@@ -11,9 +11,10 @@ function ProductScreen(props) {
     const [infoProd, setInfoProd] = useState([])
 
     useEffect(() => {
-        axios.get('http://localhost:3001/products')
+        axios.get('http://localhost:3001/products/' + matchId)
             .then(res => {
-                setInfoProd(res.data)
+                console.log(res.data)
+                setInfoProd([res.data])
             })
             .catch(err => {
                 console.log(err.message)
@@ -39,6 +40,7 @@ function ProductScreen(props) {
                                     description={el.description}
                                     category={el.category}
                                     id={el.id}
+                                    image={el.image}
                                 />
                             </div>
                         </li>

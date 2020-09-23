@@ -7,14 +7,12 @@ export const FETCH_PRODUCT_FAILURE = 'FETCH_PRODUCT_FAILURE';
 //ACCIONES
 
 export const fetchProductRequest = () => {
-    console.log('hago la request de busqueda')
     return {
         type: FETCH_PRODUCT_REQUEST
     }
 }
 
 export const fetchProductSuccess = (product) => {
-    console.log('te traigo el producto')
     return {
         type: FETCH_PRODUCT_SUCCESS,
         payload: product
@@ -22,7 +20,6 @@ export const fetchProductSuccess = (product) => {
 }
 
 export const fetchProductFailure = (error) => {
-    console.log('hiciste todo mal flaco')
     return {
         type: FETCH_PRODUCT_FAILURE,
         payload: error
@@ -35,10 +32,10 @@ const fetchProduct = (value) => {
         dispatch(fetchProductRequest());
         Axios.get(`http://localhost:3001/search?name=${value}`)
             .then(response =>{
-                dispatch(fetchProductSuccess([response.data]));
+                dispatch(fetchProductSuccess(response.data));
             })
             .catch(error =>{
-                dispatch(fetchProductFailure(error));
+                dispatch(fetchProductFailure('no se encontro nada flaco'));
             })
     }
 }

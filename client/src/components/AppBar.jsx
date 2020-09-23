@@ -75,11 +75,10 @@ import fetchProduct from "../actions/searchProduct";
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
-            <form action="/search">
               <InputBase
-                fontSize="inherit" style={{ fontSize: "15px" }}
+                fontSize="inherit" style={{ fontSize: "13px" }}
                 type='search'
-                name='name'
+                name='query'
                 value={product_name}
                 placeholder="Busca tu producto"
                 inputProps={{ 'aria-label': 'search' }}
@@ -98,12 +97,11 @@ import fetchProduct from "../actions/searchProduct";
                 value='Buscar'
                 variant="contained"
                 color="primary"
-                onClick={() => dispatch(fetchProduct(product_name))}
+                onClick={() => {dispatch(fetchProduct(product_name))}}
               >
-                Buscar
-
+                <Link className='link' to='/search'>Buscar</Link>
           </Button>
-            </form>
+            
           </div>
           <Button color='inherit' fontSize="inherit" style={{ fontSize: "12px" }}>
             <Link className='link' to='/product/new'>Nuevo Producto</Link>
@@ -195,7 +193,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   searchIcon: {
-    padding: theme.spacing(0, 2),
+    padding: theme.spacing(0, 1),
     height: '100%',
     position: 'absolute',
     pointerEvents: 'none',
