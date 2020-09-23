@@ -1,7 +1,10 @@
+
+import SearchBar from './SearchBar';
 import React, { useState, useEffect } from "react";
+
 import { AppBar, Toolbar, IconButton, Typography, Button, InputBase, Drawer } from '@material-ui/core'
 import { AccountCircle } from "@material-ui/icons"
-import SearchIcon from '@material-ui/icons/Search';
+
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Divider from '@material-ui/core/Divider';
 import axios from 'axios';
@@ -23,6 +26,7 @@ import fetchProduct from "../actions/searchProduct";
   const [open, setOpen] = useState(false)
   const [anchor, setAnchor] = useState('left')
   const [infoCat, setInfoCat] = useState([])
+
   const classes = useStyles();
   const [busqueda, setBusqueda] = useState("")
   
@@ -48,9 +52,6 @@ import fetchProduct from "../actions/searchProduct";
     setOpen(true)
   }
 
-  const filtrarBuscqueda = () => {
-
-  }
   // useEffect(() => {
   //   axios.get('http://localhost:3001/category')
   //     .then(res => {
@@ -71,6 +72,7 @@ import fetchProduct from "../actions/searchProduct";
               E-COMMERCE
           </Link>
           </Typography>
+
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -103,6 +105,7 @@ import fetchProduct from "../actions/searchProduct";
           </Button>
             
           </div>
+
           <Button color='inherit' fontSize="inherit" style={{ fontSize: "12px" }}>
             <Link className='link' to='/product/new'>Nuevo Producto</Link>
           </Button>
@@ -176,6 +179,7 @@ import fetchProduct from "../actions/searchProduct";
   );
 }
 
+
 const useStyles = makeStyles((theme) => ({
   search: {
     position: 'relative',
@@ -218,6 +222,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+
 
   const mapStateToProps = state => ({
     basketProps: state.basket
