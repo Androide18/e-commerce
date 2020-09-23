@@ -11,8 +11,9 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Badge from '@material-ui/core/Badge';
 import { fade, makeStyles } from "@material-ui/core/styles";
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { getNumbers } from '../actions/getBasketAction';
+import fetchProduct from "../actions/searchProduct";
 
 
   function Appbar(props) {
@@ -25,7 +26,19 @@ import { getNumbers } from '../actions/getBasketAction';
   const [open, setOpen] = useState(false)
   const [anchor, setAnchor] = useState('left')
   const [infoCat, setInfoCat] = useState([])
- 
+
+  const classes = useStyles();
+  const [busqueda, setBusqueda] = useState("")
+  
+  
+  const dispatch = useDispatch();
+  const [product_name, set_product_name] = useState('')
+  console.log('product_name', product_name)
+
+  const onChangeBusqueda = (event) => {
+    setBusqueda(event.currentTarget.value);
+    console.log('busqueda', busqueda);
+  }
 
 
   const handleDrawer = () => {
@@ -59,7 +72,40 @@ import { getNumbers } from '../actions/getBasketAction';
               E-COMMERCE
           </Link>
           </Typography>
-          <SearchBar/>
+
+          <div className={classes.search}>
+            <div className={classes.searchIcon}>
+              <SearchIcon />
+            </div>
+              <InputBase
+                fontSize="inherit" style={{ fontSize: "13px" }}
+                type='search'
+                name='query'
+                value={product_name}
+                placeholder="Busca tu producto"
+                inputProps={{ 'aria-label': 'search' }}
+                onChange={
+                  (event) => { 
+                    set_product_name(event.target.value); 
+                  }
+                }
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+              />
+              <Button type='submit'
+                fontSize="inherit" style={{ fontSize: "13px" }}
+                value='Buscar'
+                variant="contained"
+                color="primary"
+                onClick={() => {dispatch(fetchProduct(product_name))}}
+              >
+                <Link className='link' to='/search'>Buscar</Link>
+          </Button>
+            
+          </div>
+
           <Button color='inherit' fontSize="inherit" style={{ fontSize: "12px" }}>
             <Link className='link' to='/product/new'>Nuevo Producto</Link>
           </Button>
@@ -132,51 +178,51 @@ import { getNumbers } from '../actions/getBasketAction';
     </div>
   );
 }
-// <<<<<<< SEARCHBAR_CONECTION
-// =======
 
-// const useStyles = makeStyles((theme) => ({
-//   search: {
-//     position: 'relative',
-//     borderRadius: theme.shape.borderRadius,
-//     backgroundColor: fade(theme.palette.common.white, 0.15),
-//     '&:hover': {
-//       backgroundColor: fade(theme.palette.common.white, 0.25),
-//     },
-//     marginRight: theme.spacing(2),
-//     marginLeft: 0,
-//     width: '100%',
-//     [theme.breakpoints.up('sm')]: {
-//       marginLeft: theme.spacing(3),
-//       width: 'auto',
-//     },
-//   },
-//   searchIcon: {
-//     padding: theme.spacing(0, 2),
-//     height: '100%',
-//     position: 'absolute',
-//     pointerEvents: 'none',
-//     display: 'flex',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-//   inputRoot: {
-//     color: "white",
-//   },
-//   inputInput: {
-//     padding: theme.spacing(0, 1, 1, 0),
-//     // vertical padding + font size from searchIcon
-//     paddingLeft: `calc(1em + ${theme.spacing(2)}px)`,
-//     transition: theme.transitions.create("width"),
-//     width: "100%",
-//     [theme.breakpoints.up("sm")]: {
-//       width: "20ch",
-//       "&:focus": {
-//         width: "40ch",
-//       },
-//     },
-//   },
-// }));
+
+const useStyles = makeStyles((theme) => ({
+  search: {
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: fade(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: fade(theme.palette.common.white, 0.25),
+    },
+    marginRight: theme.spacing(2),
+    marginLeft: 0,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(3),
+      width: 'auto',
+    },
+  },
+  searchIcon: {
+    padding: theme.spacing(0, 1),
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  inputRoot: {
+    color: "white",
+  },
+  inputInput: {
+    padding: theme.spacing(0, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(2)}px)`,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      width: "20ch",
+      "&:focus": {
+        width: "40ch",
+      },
+    },
+  },
+}));
+
 
   const mapStateToProps = state => ({
     basketProps: state.basket

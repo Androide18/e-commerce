@@ -26,7 +26,7 @@ router.use('/users', userRouter);
 router.use('/users', cartRouter);
 router.use('/orders', orderlinesRouter);
 router.use('/search', searchRouter);
-router.use('/products', reviewsRouter);
+//router.use('/products', reviewsRouter);
 
 
 module.exports = router;
