@@ -17,6 +17,8 @@ import { useDispatch } from 'react-redux';
 import { getProducts } from './actions/ProductsActions';
 import { getCategories } from './actions/CategoryAction'
 import Review from './components/Review'
+import SearchResult from './components/SearchResult';
+import fetchProduct from './actions/searchProduct';
 
 
 
@@ -57,6 +59,7 @@ function App() {
   useEffect(() => {
     dispatch(getProducts())
     dispatch(getCategories())
+    dispatch(fetchProduct())
   }, [])
 
   return (
@@ -76,6 +79,7 @@ function App() {
             <Route path='/orden' component={Orden} />
             <Route path='/misordenes' component={MisOrdenes} />
             <Route path='/review' component={Review} />
+            <Route path='/search' component={SearchResult} />
           </div>
         </main>
         <footer className="footer">All right reserved</footer>

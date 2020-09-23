@@ -8,8 +8,9 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Badge from '@material-ui/core/Badge';
 import { fade, makeStyles } from "@material-ui/core/styles";
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { getNumbers } from '../actions/getBasketAction';
+import fetchProduct from "../actions/searchProduct";
 
 
   function Appbar(props) {
@@ -24,8 +25,11 @@ import { getNumbers } from '../actions/getBasketAction';
   const [infoCat, setInfoCat] = useState([])
   const classes = useStyles();
   const [busqueda, setBusqueda] = useState("")
-
-
+  
+  
+  const dispatch = useDispatch();
+  const [product_name, set_product_name] = useState('')
+  console.log('product_name', product_name)
 
   const onChangeBusqueda = (event) => {
     setBusqueda(event.currentTarget.value);
@@ -76,9 +80,14 @@ import { getNumbers } from '../actions/getBasketAction';
                 fontSize="inherit" style={{ fontSize: "15px" }}
                 type='search'
                 name='name'
+                value={product_name}
                 placeholder="Busca tu producto"
                 inputProps={{ 'aria-label': 'search' }}
-                onChange={onChangeBusqueda}
+                onChange={
+                  (event) => { 
+                    set_product_name(event.target.value); 
+                  }
+                }
                 classes={{
                   root: classes.inputRoot,
                   input: classes.inputInput,
@@ -89,7 +98,7 @@ import { getNumbers } from '../actions/getBasketAction';
                 value='Buscar'
                 variant="contained"
                 color="primary"
-                onClick={() => filtrarBuscqueda()}
+                onClick={() => dispatch(fetchProduct(product_name))}
               >
                 Buscar
 
