@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 
 import { AppBar, Toolbar, IconButton, Typography, Button, InputBase, Drawer } from '@material-ui/core'
 import { AccountCircle } from "@material-ui/icons"
+import SearchIcon from '@material-ui/icons/Search';
 
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Divider from '@material-ui/core/Divider';
