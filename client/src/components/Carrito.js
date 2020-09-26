@@ -1,13 +1,27 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { addToCart, removeFromCart } from '../actions/cartActions';
+import {getProductsOfCart} from '../actions/addBasketAction';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from '@material-ui/core';
 
 function Carrito(props) {
 
-  const carritoItems = useSelector(state => state.cart.cartItems);
-  //const cartItems = [carritoItems]
-  console.log('items desde el carrito.js', carritoItems)
+
+  const carritoReducer = useSelector((state) => state.carritoReducer.orden.products);
+  console.log('estado de carritoReducer',carritoReducer);
+
+ 
+
+  // const { product, loading, error } = search
+
+  // console.log('que es product', product)
+
+
+  // console.log('productsCart.orden.products', productsCart.orden.products)
+  
+  // const carritoItems = useSelector(state => state.cart.cartItems);
+  // //const cartItems = [carritoItems]
+  // console.log('items desde el carrito.js', carritoItems)
 
 
   const productId = props.match.params.id;
@@ -19,14 +33,28 @@ function Carrito(props) {
   }
 
   useEffect(() => {
-    if (productId) {
-      //dispatchEvent(addToCart(productId, qty));
-    }
+    // if (productId) {
+    //   //dispatchEvent(addToCart(productId, qty));
+    dispatch(getProductsOfCart())
+      console.log('USE EFFECT')
+    //  }
   }, []);
+
 
   const checkoutHandler = () => {
     props.history.push();
   }
+
+  // console.log('carritoItems', carritoItems)
+  
+  // const getProductsOfCart = (id) => {
+  //   dispatch(getProductsOfCart(id));
+  //   console.log('id',id)
+  // };
+  console.log('Q HAY?' , carritoReducer)
+
+  
+  
 
   return (
     <>
@@ -44,24 +72,26 @@ function Carrito(props) {
             </div>
           </li>
           {
-            carritoItems.length === 0 ?
+
+
+            !carritoReducer ?
               <div>
                 El Carrito está vacio
           </div>
               :
-              carritoItems.map(item => (
-                <li key={item.id}>
-                  <div className="cart-image">
+              Object.keys(carritoReducer).map(item => (
+                <li key={item}>
+                  {/* <div className="cart-image">
                     <img src={`http://localhost:3001/static/${item.image}`} alt="product" />
-                  </div>
+                  </div> */}
                   <div className="cart-name">
                     <div>
-                      <Link to={"/product/" + item.product}>
+                      {/* <Link to={"/product/" + item.product}> */}
                         {item.name}
-                      </Link>
+                      {/* </Link> */}
 
                     </div>
-                    <div>
+                    {/* <div>
                       Cantidad:
                   <select value={item.qty} onChange={(e) => dispatch(addToCart(item.product, e.target.value))}>
                       {[...Array(item.countInStock).keys()].map(x =>
@@ -71,11 +101,11 @@ function Carrito(props) {
                       <button type="button" className="button" onClick={() => removeFromCartHandler(item.product)} >
                         Borrar
                     </button>
-                    </div>
+                    </div> */}
                   </div>
-                  <div className="cart-price">
+                  {/* <div className="cart-price">
                     ${item.price}
-                  </div>
+                  </div> */}
                 </li>
               )
               )
@@ -83,7 +113,7 @@ function Carrito(props) {
         </ul>
 
       </div>
-      <div className="cart-action">
+      {/* <div className="cart-action">
         <h3>
           Subtotal ( {carritoItems.reduce((a, c) => a + c.qty, 0)} items)
         :
@@ -95,7 +125,7 @@ function Carrito(props) {
       </button>
         </Link>
 
-      </div>
+      </div> */}
 
     </div>
     </>

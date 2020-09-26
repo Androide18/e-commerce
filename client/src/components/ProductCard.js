@@ -13,16 +13,13 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import lightGreen from '@material-ui/core/colors/lightGreen' //color de la fuente
 import { connect } from 'react-redux';
-import { addBasket } from '../actions/addBasketAction';
+import { addBasket, postProductToCart } from '../actions/addBasketAction';
 import { addToCart } from "../actions/cartActions";
 
 const ProductCard = (props) => {
  
   const [qty, setQty] = useState(5);
-  //const productDetails = useSelector(state => state.productDetails);
-  //import { detailsProduct } from '../actions/productActions';
   //const [quantity, setQuantity] = useState(1);
-  //const productDetails = useSelector((state) => state.productDetails);
   //const [loading, setLoading] = useState(false)
   //const [error, setError] = useState(false)
   const { cart } = useSelector(state => state.cart)
@@ -42,17 +39,10 @@ const ProductCard = (props) => {
   });
   const classes = useStyles();
 
-  // useEffect(() => {
-  //   dispatch(detailsProduct(props.match.params.id));
-  //   console.log(props.match.params.id);
-  //   return () => {
-  //     //
-  //   };
-  // }, [])
-
   const handleAddtoCart = () => {
-    dispatch(addToCart(props))
-     
+    dispatch(addBasket(props))
+    dispatch(postProductToCart(props))
+    console.log('props', props)
   }
 
   return (
