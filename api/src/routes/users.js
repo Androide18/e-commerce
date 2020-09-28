@@ -1,5 +1,55 @@
 const server = require('express').Router();
+const bcrypt = require('bcryptjs');
 const { User } = require('../db.js');
+const session = require('express-session');
+const { check, validationResult } = require('express-validator');
+const moment = require('moment');
+const jwt = require('jwt-simple');
+
+
+
+server.post('/register', [
+  check('firstname', 'El nombre es obligatorio').not().isEmpty(),
+  check('password', 'La contraseña es obligatoria').not().isEmpty(),
+  check('email', 'el email debe ser valido').isEmail()
+], async (req, res) => {
+
+  const errors = validationResult(req);
+  if(!errors.isEmpty()){
+    return res.status(422).send({errores: errors.array()});
+  }
+
+  req.body.password = bcrypt.hashSync(req.body.password, 10);
+  const user = await User.create(req.body);
+  res.send(user);
+});
+
+server.post('/login', async (req, res) => {
+  const user = await User.findOne({ where: {email: req.body.email}});
+  if(user){
+    const iguale = bcrypt.compareSync(req.body.password, user.password);
+    if(iguales){
+      res.send({succes: createToken(user)});
+    }else{
+      res.send({error: 'Error en usuario y/o contraseña'});
+    }
+  }else{
+    res.send({error: 'Error en usuario y/o contraseña'});
+  }
+  
+
+});
+
+const createToken = (user) => {
+  const payload = {
+    usuarioId: user.id,
+    createdAt: moment().unix(),
+    expiredAt: moment().add(5, 'minutes').unix()
+  }
+  return jwt.encode(payload, 'frase_secreta');
+
+}
+
 
 server.get('/', (req, res) => {
     User.findAll()
@@ -18,9 +68,9 @@ server.post('/', (req, res) => {
     User.create({
         firstname: firstname,
         lastname: lastname,
-        // phone: phone,
-        // address: address,
-        // role: role,
+         phone: phone,
+         address: address,
+        role: role,
         email: email,
         password: password,
     }).then(created => {
@@ -29,7 +79,7 @@ server.post('/', (req, res) => {
     })
     .catch(err => {
         res.send(err)
-        console.log('hay un puto error')
+        console.log('hay error')
     })
 });
 
@@ -59,5 +109,7 @@ server.delete('/:id', (req, res) => {
         res.send(err)
     })
 })
+
+
 
 module.exports = server;

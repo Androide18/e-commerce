@@ -65,7 +65,7 @@ export default function Registro(props) {
     };
     axios({
       method: 'post',
-      url: 'http://localhost:3001/users',
+      url: 'http://localhost:3001/users/register',
       data: usuario
   })
   .then(function (response) {
