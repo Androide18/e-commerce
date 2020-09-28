@@ -1,5 +1,4 @@
 
-import SearchBar from './SearchBar';
 import React, { useState, useEffect } from "react";
 
 import { AppBar, Toolbar, IconButton, Typography, Button, InputBase, Drawer } from '@material-ui/core'
@@ -123,7 +122,7 @@ import fetchProduct from "../actions/searchProduct";
             <AccountCircle fontSize="inherit" style={{ fontSize: "20px" }} />
           </IconButton>
           <IconButton color='inherit'>
-            <Link className='link' to='/carrito'>
+            <Link className='link' to='/users/1/cart'>
                {/* el badge es la cantidad de items en el carro */}
               <Badge badgeContent={props.basketProps.basketNumbers} color="secondary"> 
                 <ShoppingCartIcon fontSize="inherit" style={{ fontSize: "20px" }} />

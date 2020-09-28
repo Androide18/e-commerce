@@ -23,6 +23,7 @@ import fetchProduct from './actions/searchProduct';
 
 
 
+
 function App() {
   const [darkMode, setDarkMode] = React.useState(getInitialMode());
 
@@ -75,7 +76,7 @@ function App() {
             <Route path='/registro' component={Registro} />
             <Route path='/login' component={Login} />
             <Route path='/checkout' component={Checkout} />
-            <Route path='/carrito' component={Carrito} />
+            <Route path='/users/1/cart' component={Carrito} />
             <Route path='/orden' component={Orden} />
             <Route path='/misordenes' component={MisOrdenes} />
             <Route path='/review' component={Review} />
