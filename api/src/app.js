@@ -3,6 +3,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const routes = require('./routes/index.js');
+const session = require('express-session');
 
 require('./db.js');
 
@@ -12,6 +13,17 @@ server.name = 'API';
 server.use('/static', express.static('public'));
 server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 server.use(bodyParser.json({ limit: '50mb' }));
+
+//======================================================
+
+server.use(session({
+  secret: 'palabra secreta',
+  resave: true,
+  saveUninitialized: true
+}))
+
+//======================================================
+
 server.use(cookieParser());
 server.use(morgan('dev'));
 server.use((req, res, next) => {
