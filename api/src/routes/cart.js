@@ -27,6 +27,8 @@ server.post("/:id/cart", (req, res) => {
   const { price, quantity, productId } = req.body; //Me traigo los valores del body
   const userId = req.params.id; //me traigo el id del usuario
 
+  console.log('esto',productId)
+  
   !productId && res.send("hace falta producto");
 
   Cartorder.create({
@@ -88,24 +90,34 @@ server.get('/:id/orders', (req, res) => {
 
 // 40 - VACIA EL CARRITO // (para el usuario borra /// para el ADMIN cancela la orden)
 
-server.delete('/:id/cart', (req, res) => {
-  const { id } = req.params;
+// server.delete('/:id/cart', (req, res) => {
+//   const { id } = req.params;
 
-  Cartorder.update(
-    {
-      state: "cancelada",
-    },
-    {
-      where: { userId: parseInt(id), state: "carrito" },
-    }
-  )
-    .then((up) =>
-      res.send(
-        up[0] ? "se cancelo la compra" : "no se encontraron los productos"
-      )
-    )
-    .catch((err) => res.send(err));
-});
+//   Cartorder.update(
+//     {
+//       state: "cancelada",
+//     },
+//     {
+//       where: { userId: parseInt(id), state: "carrito" },
+//     }
+//   )
+//     .then((up) =>
+//       res.send(
+//         up[0] ? "se cancelo la compra" : "no se encontraron los productos"
+//       )
+//     )
+//     .catch((err) => res.send(err));
+// });
+
+// BORRA EL CARRITO POR COMPLETO (PARA LIMPIEZA)
+
+server.delete('/:id/cart', (req, res) => {
+	const userId = req.params.id;
+	Cartorder.destroy({ where: { userId: userId } })
+		.then(resolve => {
+			res.status(200).send('Se vacio el carrito con exito')
+		})
+})
 
 
 // 41 - EDITA LAS CANTIDADES DEL CARRITO
