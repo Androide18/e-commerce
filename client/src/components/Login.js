@@ -13,6 +13,35 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Link } from 'react-router-dom';
 
+//-----------------------------------------------------------------------
+//Pedido a axios
+
+var axios = require('axios');
+var data = JSON.stringify({"email":"elfabri@gmail.com","password":"456789"});
+
+var config = {
+  method: 'post',
+  url: 'http://localhost:3001/users/login',
+  headers: { 
+    'Content-Type': 'application/json', 
+    'Cookie': 'connect.sid=s%3ACfDy3qTbnuXMMND6RK2AbiW2xBnzY5U2.29RrYy0doZFcY%2BBVuMG5KVV098YsRD3GqScwfliHDLU'
+  },
+  data : data
+};
+
+axios(config)
+.then(function (response) {
+  console.log(JSON.stringify(response.data));
+})
+.catch(function (error) {
+  console.log(error);
+});
+
+//-----------------------------------------------------------------------
+
+
+
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
