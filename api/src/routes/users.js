@@ -27,9 +27,10 @@ server.post('/register', [
 server.post('/login', async (req, res) => {
   const user = await User.findOne({ where: {email: req.body.email}});
   if(user){
-    const iguale = bcrypt.compareSync(req.body.password, user.password);
+    const iguales = bcrypt.compareSync(req.body.password, user.password);
+    console.log(user.password);
     if(iguales){
-      res.send({succes: createToken(user)});
+      res.send({ succes: createToken(user) });
     }else{
       res.send({error: 'Error en usuario y/o contraseña'});
     }
