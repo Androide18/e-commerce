@@ -27,26 +27,46 @@ server.post("/:id/cart", (req, res) => {
   const { price, quantity, productId } = req.body; //Me traigo los valores del body
   const userId = req.params.id; //me traigo el id del usuario
 
-  console.log('esto',productId)
-  
-  !productId && res.send("hace falta producto");
+  console.log('esto', productId)
 
-  Cartorder.create({
-    userId: userId,
-    price: price,
-    quantity: quantity,
-  })
-    .then((cartorder) => {
-      cartorder.addProduct(productId).then(
-        () => res.send(cartorder),
-        (err) =>
-          res.send("el producto no existe")
-      );
+  !productId && res.send("hace falta producto");
+  Cartorder.findOne({ where: { state: "carrito" } })
+    .then(carrusel => {
+      console.log('DATAA??', carrusel)
+
+      if (carrusel) {
+
+        Orderline.create();
+        carrusel.addProduct(productId).then(
+          () => {
+            carrusel.update({ price: carrusel.price+price, quantity: carrusel.quantity+quantity}).then(() => res.send(carrusel))
+            
+          },
+          (err) => {
+            res.send("el producto no existe")
+          }
+        );
+      }
+      else {
+        Cartorder.create({
+          userId: userId,
+          price: price,
+          quantity: quantity,
+        })
+          .then((cartorder) => {
+            cartorder.addProduct(productId).then(
+              () => res.send(cartorder),
+              (err) =>
+                res.send("el producto no existe")
+            );
+          })
+          .catch((err) => {
+            res.send(err);
+          });
+      };
     })
-    .catch((err) => {
-      res.send(err);
-    });
-});
+})
+
 
 
 
@@ -112,11 +132,11 @@ server.get('/:id/orders', (req, res) => {
 // BORRA EL CARRITO POR COMPLETO (PARA LIMPIEZA)
 
 server.delete('/:id/cart', (req, res) => {
-	const userId = req.params.id;
-	Cartorder.destroy({ where: { userId: userId } })
-		.then(resolve => {
-			res.status(200).send('Se vacio el carrito con exito')
-		})
+  const userId = req.params.id;
+  Cartorder.destroy({ where: { userId: userId } })
+    .then(resolve => {
+      res.status(200).send('Se vacio el carrito con exito')
+    })
 })
 
 
