@@ -21,6 +21,11 @@ server.post('/register', [
 
   req.body.password = bcrypt.hashSync(req.body.password, 10);
   const user = await User.create(req.body);
+  Cartorder.create({
+    userId: user.dataValues.id,
+    price: 0,
+    quantity: 0
+  })
   res.send(user);
 });
 

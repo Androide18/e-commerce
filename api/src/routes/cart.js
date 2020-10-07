@@ -39,7 +39,7 @@ server.post("/:id/cart", (req, res) => {
         Orderline.create();
         carrusel.addProduct(productId).then(
           () => {
-            carrusel.update({ price: carrusel.price+price, quantity}).then(() => res.send(carrusel))
+            carrusel.update({ price: carrusel.price+price, quantity: carrusel.quantity+quantity}).then(() => res.send(carrusel))
             
           },
           (err) => {
