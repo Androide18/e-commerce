@@ -23,6 +23,92 @@ server.get('/:id', function (req, res) {
 
 // EL USUARIO AGRUEGUE UN PRODUCTO AL CARRITO
 
+// server.post('/:id/cart', function (req, res, next) {
+//   const { id } = req.params;
+//   const { productId } = req.body;
+//   console.log('userId', id)
+//   console.log('productId', productId)
+
+//   Promise.all([
+//     Cartorder.findAll({
+//       where: {
+//         // userId: id,
+//         state: "carrito"
+//       }
+//     }),
+//     Product.findByPk(productId),
+//   ])
+//     .then(results => {
+//       // console.log('results', results)
+//       // console.log('results otros', results)
+//       console.log('VER', results[1])
+
+//       Orderline.create({
+//         cartorderId: results[0][0].dataValues.id,
+//         productId: results[1].dataValues.id,
+//         quantity: 1,
+//         price: results[1].dataValues.price
+//       })
+//     })
+//     .then(result => res.status(201).json(result))
+//     .catch(e => { res.send(e) })
+// })
+// .delete((req, res, next) => {
+//     const { userId } = req.params;
+//     Cartorder.findAll({
+//         where: {
+//             userId: userId,
+//             state: "carrito"
+//         }
+//     })
+//     .then(results => {
+//       Orderline.destroy({
+//             where: {
+//               cartorderId: results[0].id,
+//             }
+//         });
+//     })
+//     .then(() => res.status(201).send("Productos eliminados"))
+//     .catch(e => { res.send(e) })
+// });
+
+
+
+// server.put('/:id/cart', (req, res, next) => {
+//     const { userId } = req.params;
+//     const { quantity, productId } = req.body;
+//     Promise.all([
+//       Cartorder.findAll({
+//             where: {
+//                 userId: userId,
+//                 state: "carrito"
+//             }
+//         }),
+//         Product.findByPk(productId),
+//     ])
+//         .then(results => {
+
+//             if (quantity > 0 && quantity <= results[1].stock) {
+//               Orderline.update({
+//                     quantity: quantity,
+//                     price: results[1].price * quantity,
+//                 }, {
+//                     where: {
+//                         cartorderId: results[0][0].id,
+//                         productId: results[1].id,
+//                     }
+//                 });
+//             }
+//         })
+//         .then(() => res.status(201).send(true))
+//         .catch(e => { res.send(e) })
+// })
+
+
+
+
+//NUETRO CODE ANTERIOR :(
+
 server.post("/:id/cart", (req, res) => {
   const { price, quantity, productId } = req.body; //Me traigo los valores del body
   const userId = req.params.id; //me traigo el id del usuario
@@ -30,44 +116,65 @@ server.post("/:id/cart", (req, res) => {
   console.log('esto', productId)
 
   !productId && res.send("hace falta producto");
-  Cartorder.findOne({ where: { state: "carrito" } })
-    .then(carrusel => {
-      console.log('DATAA??', carrusel)
 
-      if (carrusel) {
+  Promise.all([
+    Cartorder.findOne({ where: { state: "carrito" } }),
+    Product.findByPk(productId)
+  ])
+    .then(carrito => {
+      console.log('DATAA??', carrito[0].dataValues.id)
 
-        Orderline.create();
-        carrusel.addProduct(productId).then(
-          () => {
-            carrusel.update({ price: carrusel.price+price, quantity: carrusel.quantity+quantity}).then(() => res.send(carrusel))
-            
-          },
-          (err) => {
-            res.send("el producto no existe")
-          }
-        );
+      if (carrito) {
+
+        Orderline.create({
+          cartorderId: carrito[0].dataValues.id,
+          price: carrito[0].dataValues.price,
+          quantity: carrito[0].dataValues.quantity,
+          productId: carrito[1].dataValues.id
+        });
       }
-      else {
-        Cartorder.create({
-          userId: userId,
-          price: price,
-          quantity: quantity,
-        })
-          .then((cartorder) => {
-            cartorder.addProduct(productId).then(
-              () => res.send(cartorder),
-              (err) =>
-                res.send("el producto no existe")
-            );
-          })
-          .catch((err) => {
-            res.send(err);
-          });
-      };
+      // else {
+      //   Cartorder.create({
+      //     userId: userId,
+      //     price: price,
+      //     quantity: quantity,
+      //   })
+      //     .then((cartorder) => {
+      //       cartorder.addProduct(productId).then(
+      //         () => res.send(cartorder),
+      //         (err) =>
+      //           res.send("el producto no existe")
+      //       );
+      //     })
+      //     .catch((err) => {
+      //       res.send(err);
+      //     });
+      // };
     })
+    .then(result => res.status(201).json(result))
+    .catch(e => { res.send(e) })
 })
 
 
+
+
+// UPDATE QUANTITY:
+// if (quantity > 0 && quantity <= carrito[1].stock) {
+//   Orderline.update({
+//     quantity: quantity,
+//     price: carrito[1].price * quantity,
+//   }, {
+//     where: {
+//       cartorderId: carrito[0].dataValues.id,
+//       productId: carrito[1].dataValues.id,
+//     }
+//   }).then(() => res.send(carrito))
+//     .catch(err => {
+//       res.send("el producto no existe")
+//     }
+//     );
+// }
+// }
 
 
 // 39 - RETORNA TODOS LOS ITEMS DEL CARRITO
@@ -142,28 +249,28 @@ server.delete('/:id/cart', (req, res) => {
 
 // 41 - EDITA LAS CANTIDADES DEL CARRITO
 
-server.put('/:id/cart', (req, res) => {
-  const { id } = req.params;
-  const { price, quantity, cartorderId } = req.body;
+// server.put('/:id/cart', (req, res) => {
+//   const { id } = req.params;
+//   const { price, quantity, cartorderId } = req.body;
 
-  (!cartorderId || typeof cartorderId === "string") &&
-    res.send("el order id es invalido");
+//   (!cartorderId || typeof cartorderId === "string") &&
+//     res.send("el order id es invalido");
 
-  Cartorder.update(
-    {
-      quantity: quantity,
-      price: price
-    },
-    {
-      where: {
-        id: cartorderId,
-        userId: parseInt(id),
-      },
-    }
-  )
-    .then((up) => res.send(up[0] ? "se edito la cantidad" : "no se edito nada"))
-    .catch((err) => res.send(err));
-});
+//   Cartorder.update(
+//     {
+//       quantity: quantity,
+//       price: price
+//     },
+//     {
+//       where: {
+//         id: cartorderId,
+//         userId: parseInt(id),
+//       },
+//     }
+//   )
+//     .then((up) => res.send(up[0] ? "se edito la cantidad" : "no se edito nada"))
+//     .catch((err) => res.send(err));
+// });
 
 module.exports = server;
 
