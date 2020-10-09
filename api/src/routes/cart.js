@@ -119,20 +119,40 @@ server.post("/:id/cart", (req, res) => {
 
   Promise.all([
     Cartorder.findOne({ where: { state: "carrito" } }),
-    Product.findByPk(productId)
+    Product.findByPk(productId),
+    Orderline.findOne({ where: { productId: productId }})
   ])
     .then(carrito => {
-      console.log('DATAA??', carrito[0].dataValues.id)
+      console.log('carrito[0]', carrito[0].dataValues.id)
+      console.log('carrito[1]', carrito[1].dataValues.id)
+      console.log('carrito[2]', carrito[2])
 
-      if (carrito) {
+      if (!carrito[1].dataValues.id) { 
 
         Orderline.create({
           cartorderId: carrito[0].dataValues.id,
-          price: carrito[0].dataValues.price,
-          quantity: carrito[0].dataValues.quantity,
-          productId: carrito[1].dataValues.id
+          price: carrito[1].dataValues.price,
+          quantity,
+          productId
         });
-      }
+       }
+
+       // PREGUNTAR ESTO A WALLY
+      //  else{
+      //    console.log('se updatea')
+      //   Orderline.update({
+      //     cartorderId,
+      //     quantity: quantity+1,
+      //     price: carrito[0].dataValues.price*quantity,
+      //     productId
+      //   }, {
+      //     where: {
+      //       productId: productId,
+      //       cartorderId: cartorderId
+      //     }
+      //   })
+      // }
+      
       // else {
       //   Cartorder.create({
       //     userId: userId,

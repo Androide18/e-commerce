@@ -22,9 +22,9 @@ server.post('/register', [
   req.body.password = bcrypt.hashSync(req.body.password, 10);
   const user = await User.create(req.body);
   Cartorder.create({
-    userId: user.dataValues.id,
-    price: 0,
-    quantity: 0
+    userId: user.dataValues.id
+    // price: 0,
+    // quantity: 0
   })
   res.send(user);
 });
@@ -69,32 +69,30 @@ server.get('/', (req, res) => {
 
 
 
-server.post('/', (req, res) => {
-  const { firstname, lastname, phone, address, role, email, password } = req.body;
-  User.create({
-    firstname: firstname,
-    lastname: lastname,
-    //  phone: phone,
-    //  address: address,
-    // role: role,
-    email: email,
-    password: password,
-  }).then(created => {
+// server.post('/', (req, res) => {
+//   const { firstname, lastname, phone, address, role, email, password } = req.body;
+//   User.create({
+//     firstname: firstname,
+//     lastname: lastname,
+//     //  phone: phone,
+//     //  address: address,
+//     // role: role,
+//     email: email,
+//     password: password,
+//   }).then(created => {
     
-    Cartorder.create({
-      userId: created.dataValues.id,
-      price: 0,
-      quantity: 0
-    })
-    console.log('CREATED', created.dataValues.id);
-    res.send(created)
-    console.log('usuario cargado');
-  })
-    .catch(err => {
-      res.send(err)
-      console.log('hay error')
-    })
-});
+//     Cartorder.create({
+//       userId: created.dataValues.id
+//     })
+//     console.log('CREATED', created.dataValues.id);
+//     res.send(created)
+//     console.log('usuario cargado');
+//   })
+//     .catch(err => {
+//       res.send(err)
+//       console.log('hay error')
+//     })
+// });
 
 
 
