@@ -19,9 +19,8 @@ import { getCategories } from './actions/CategoryAction'
 import Review from './components/Review'
 import SearchResult from './components/SearchResult';
 import fetchProduct from './actions/searchProduct';
-
-
-
+import adminLogin from './components/adminLogin';
+import { getUsers } from './actions/adminLoginActions';
 
 
 function App() {
@@ -60,7 +59,7 @@ function App() {
   useEffect(() => {
     dispatch(getProducts())
     dispatch(getCategories())
-    // dispatch(fetchProduct())
+    dispatch(getUsers())
   }, [])
 
   return (
@@ -81,6 +80,8 @@ function App() {
             <Route path='/misordenes' component={MisOrdenes} />
             <Route path='/review' component={Review} />
             <Route path='/search' component={SearchResult} />
+            <Route path='/adminlogin' component={adminLogin} />
+
           </div>
         </main>
         <footer className="footer">All right reserved</footer>
@@ -90,44 +91,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-
-{/* <nav>
-      className={darkMode ? "dark-mode" : "light-mode"}
-        <div className="toggle-container">
-          <span style={{ color: darkMode ? "grey" : "yellow" }}>☀︎</span>
-          <span className="toggle">
-            <input
-              checked={darkMode}
-              onChange={() => setDarkMode(prevMode => !prevMode)}
-              id="checkbox"
-              className="checkbox"
-              type="checkbox"
-            />
-            <label htmlFor="checkbox" />
-          </span>
-          <span style={{ color: darkMode ? "slateblue" : "grey" }}>☾</span>s
-          </div>
-      </nav> */}
-
-
-
-      // div>
-      // <header>
-      //     <AppBar />
-      //   </header>
-      //   <main className="main">
-      //     <div>
-      //       <Route exact path="/" component={Home} />
-      //       <Route exact path="/producto" component={ProductComplete} />
-      //       <Route exact path='/formulario' component={FormIngresos} />
-      //       <Route exact path='/registro' component={Registro} />
-      //       <Route exact path='/login' component={Login} />
-      //       <Route path='*' component={NotFound} />
-      //     </div>
-      //   </main>
-      //   <footer className="footer">All Rights Reserved</footer>
-      // </div>
