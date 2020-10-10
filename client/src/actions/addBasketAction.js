@@ -37,7 +37,7 @@ export const postProductToCart = (value) => async (dispatch) => {
   try {
    var data = {productId: value.id, price: value.price, quantity: 1}
    console.log('JSON DATA:', data)
-   Axios.post('http://localhost:3001/users/11/cart', data).then(function(data){
+   Axios.post('http://localhost:3001/users/1/cart', data).then(function(data){
 
     if (data.status === 200 ){
     dispatch({
