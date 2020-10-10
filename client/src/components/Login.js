@@ -12,6 +12,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Link } from 'react-router-dom';
+import { FacebookLoginButton, GoogleLoginButton, GithubLoginButton, TwitterLoginButton, InstagramLoginButton } from "react-social-login-buttons";
+import '../index.css';
 
 //-----------------------------------------------------------------------
 //Pedido a axios
@@ -111,6 +113,7 @@ export default function Login() {
           >
             Ingresar
           </Button>
+        
           <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">
@@ -124,6 +127,7 @@ export default function Login() {
             </Grid>
           </Grid>
         </form>
+      
       </div>
       <Box mt={8}>
       </Box>

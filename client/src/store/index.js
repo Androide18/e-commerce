@@ -6,11 +6,7 @@ import thunk from 'redux-thunk';
 import cartReducer  from '../reducers/cartReducers';
 import basketReducer, { carritoReducer } from '../reducers/basketReducer'
 import search from '../reducers/searchReducer';
-
-// const cartItems = Cookie.getJSON('cartItems') ||  [];
-// const initialState = {
-//     cart: { cartItems },
-// };
+import { getUsersReducer, deleteUsersReducer, saveUsersReducer, updateUsersReducer } from '../reducers/adminLoginReducers';
 
 const reducer = combineReducers({
     categories: getCategoriesReducer,
@@ -24,7 +20,11 @@ const reducer = combineReducers({
     saveProduct: saveProductReducer,
     updateProduct: updateProductReducer,
     search: search,
-    carritoReducer: carritoReducer
+    carritoReducer: carritoReducer,
+    getUsers: getUsersReducer,
+    deleteUsers: deleteUsersReducer,
+    saveUsers: saveUsersReducer,
+    updateUsers: updateUsersReducer,
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
