@@ -59,7 +59,6 @@ function App() {
   useEffect(() => {
     dispatch(getProducts())
     dispatch(getCategories())
-    dispatch(fetchProduct())
     dispatch(getUsers())
   }, [])
 
