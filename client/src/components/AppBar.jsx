@@ -33,7 +33,6 @@ import fetchProduct from "../actions/searchProduct";
   
   const dispatch = useDispatch();
   const [product_name, set_product_name] = useState('')
-  console.log('product_name', product_name)
 
   const onChangeBusqueda = (event) => {
     setBusqueda(event.currentTarget.value);

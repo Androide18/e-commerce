@@ -21,6 +21,8 @@ import SearchResult from './components/SearchResult';
 import fetchProduct from './actions/searchProduct';
 import adminLogin from './components/adminLogin';
 import { getUsers } from './actions/adminLoginActions';
+import { getProductFromCart } from './actions/CartActions';
+
 
 
 function App() {
@@ -60,6 +62,7 @@ function App() {
     dispatch(getProducts())
     dispatch(getCategories())
     dispatch(getUsers())
+    dispatch(getProductFromCart())
   }, [])
 
   return (

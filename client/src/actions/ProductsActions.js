@@ -13,7 +13,6 @@ export const getProducts = () => async (dispatch) => {
         let prodInOrder = data.sort(function(a, b){
             return a.id-b.id
         });
-        console.log('prodInOrder',prodInOrder);
         dispatch({ type: GET_PRODUCTS_SUCCESS, payload: prodInOrder })
     } catch (error) {
         dispatch({ type: GET_PRODUCTS_ERROR, payload: error.message })

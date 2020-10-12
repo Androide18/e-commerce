@@ -63,8 +63,6 @@ export const postProductToCart = (value) => async (dispatch) => {
 export const getProductsOfCart = () => async (dispatch) => {
   try {
     Axios.get("http://localhost:3001/users/1/cart").then(function(data){
-      console.log('GET PRODUCTS AXIOS -> esto recibo del back', data.data)
-
       dispatch({
         type: GET_PRODUCTS_OF_CART, payload: {
           products: data.data
