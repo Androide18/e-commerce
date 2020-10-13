@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { addToCart, getProductFromCart, removeFromCart } from '../actions/CartActions';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from '@material-ui/core';
 import { getProductsOfCart } from '../actions/addBasketAction';
+import { Link } from 'react-router-dom';
 
 function Carrito(props) {
 
@@ -13,7 +13,7 @@ function Carrito(props) {
 
   const productId = props.match.params.id;
   //const qty = props.location.search ? Number(props.location.search.split("=")[1]) : 1;
-  
+
 
   const removeFromCartHandler = (productId) => {
     dispatch(removeFromCart(productId));
@@ -57,23 +57,24 @@ function Carrito(props) {
                       <div className="cart-image">
                         <img src={`http://localhost:3001/static/${item.image}`} alt="product" />
                       </div>
+
                       <div className="cart-name">
                         <div>
-                          {/* <Link to={"/product/" + item.product}> */}
-                          {item.name}
-                          {/* </Link> */}
+                          <Link to={'/products/' + item.id}>
+                            {item.name}
+                          </Link>
                         </div>
                         <br />
                         <div>
+                          {item.description}
+                        </div>
+                        <div className="cart-quantity">
                           Cantidad: {item.orderline.quantity}
                         </div>
                         <br />
-                        <button onClick={() => {peticionAdd(item)}}>
-                          <i class="fas fa-plus-circle"></i></button> {"  "}
-                        <button onClick={() => {console.log('restar 1', item.id)}}>
-                          <i class="fas fa-minus-circle"></i></button> {"  "}
-                        <button onClick={() => {console.log('eliminar', item.id)}}>
-                          <i class="far fa-trash-alt"></i></button>
+                        <i class="fas fa-plus-circle" onClick={() => { peticionAdd(item) }}></i> {"  "}
+                        <i class="fas fa-minus-circle" onClick={() => { console.log('restar 1', item.id) }}></i> {"  "}
+                        <i class="far fa-trash-alt delete-cart" onClick={() => { console.log('eliminar', item.id) }}></i>
                       </div>
                       <div className="cart-price">
                         ${item.price}
@@ -86,15 +87,15 @@ function Carrito(props) {
             </ul>
           </div>
           <div className="cart-action" >
-            <div style={{ padding: "10px" }}>
+            <div style={{ justifyContent: "center" }}>
               <h3>
                 Total: {totalQuantity}(items)
               </h3>
               <h3>
-                Precio: {totalPrice}
+                Precio: $ {totalPrice}
               </h3>
-              <Link className='link' to="/checkout">
-                <button onClick={checkoutHandler} className="button primary full-width">
+              <Link to="/checkout">
+                <button onClick={checkoutHandler} className="btn btn-success">
                   Comprar
                 </button>
               </Link>

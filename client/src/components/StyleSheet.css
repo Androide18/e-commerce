@@ -139,6 +139,19 @@ margin-bottom: 20px;
   .lista:hover{
     color: black;
   }
-  /* componente producto */
+  /* componente carrito */
 
+  .fa-plus-circle {
+    color: #3f51b5;
+    cursor:pointer;
+  }
 
+  .fa-minus-circle{
+    color: #3f51b5;
+    cursor:pointer;
+  }
+
+  .delete-cart{
+    color: #3f51b5;
+    cursor:pointer;
+  }

@@ -253,6 +253,8 @@ a > .rating > span:last-child {
   flex: 3 1 60rem;
 }
 .cart-action {
+  display: flex;
+  justify-content: center;
   flex: 1 1 20rem;
   background-color: #f0f0f0;
   border-radius: 0.5rem;
@@ -266,7 +268,6 @@ a > .rating > span:last-child {
 .cart-list-container li {
   display: flex;
   justify-content: space-between;
-
   padding-bottom: 1rem;
   margin-bottom: 1rem;
   border-bottom: 0.1rem #c0c0c0 solid;
@@ -281,15 +282,42 @@ a > .rating > span:last-child {
   align-items: flex-end;
 }
 .cart-image {
-  flex: 1 1;
+  flex: 2 2;
+  padding: 0 10px 0 0;
 }
 .cart-name {
   flex: 8 1;
+  font-weight: bold;
 }
 .cart-price {
   flex: 1 1;
   font-size: 2.5rem;
   text-align: right;
+}
+
+.cart-quantity {
+  font-weight: 100;
+}
+
+/* LINKS */
+/* unvisited link */
+.cart-name a:link {
+  color: black;
+}
+
+/* visited link */
+.cart-name a:visited {
+  color: black;
+}
+
+/* mouse over link */
+.cart-name a:hover {
+  color: black;
+}
+
+/* selected link */
+.cart-name a:active {
+  color: black;
 }
 
 /* forms */
