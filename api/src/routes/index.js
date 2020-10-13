@@ -19,7 +19,8 @@ const { token } = require('morgan');
 // load each router on a route
 // i.e: router.use('/auth', authRouter);
 // router.use('/auth', authRouter);
-router.use('/products',middlewares.checkToken, productRouter);
+//router.use('/products',middlewares.checkToken, productRouter);     CODIGO DE NAZA!!
+router.use('/products', productRouter);
 
 // PRUEBA DE CARGA DE IMAGEN CON MULTER
 //router.use('/uploads', productRouter);

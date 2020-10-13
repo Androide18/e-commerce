@@ -12,7 +12,7 @@ server.post('/register', [
   check('firstname', 'El nombre es obligatorio').not().isEmpty(),
   check('password', 'La contraseña es obligatoria').not().isEmpty(),
   check('email', 'el email debe ser valido').isEmail(),
-  check('role', 'debe logearse como guest, admin o logged').not().isEmpty()
+  //check('role', 'debe logearse como guest, admin o logged').not().isEmpty()
 ], async (req, res) => {
 
   const errors = validationResult(req);

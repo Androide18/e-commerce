@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import lightGreen from '@material-ui/core/colors/lightGreen' //color de la fuente
 import { connect } from 'react-redux';
 import { addBasket, postProductToCart } from '../actions/addBasketAction';
-import { addToCart } from "../actions/cartActions";
+import { addToCart, getProductFromCart } from "../actions/CartActions";
 
 const ProductCard = (props) => {
  
@@ -39,10 +39,10 @@ const ProductCard = (props) => {
   });
   const classes = useStyles();
 
-  const handleAddtoCart = () => {
-    dispatch(addBasket(props))
-    dispatch(postProductToCart(props))
-    console.log('props', props)
+  const handleAddtoCart = async () => {
+   await dispatch(addBasket(props))
+   await dispatch(addToCart(props))
+   await dispatch(getProductFromCart())
   }
 
   return (

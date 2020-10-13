@@ -13,7 +13,6 @@ export const getCategories = () => async (dispatch) => {
         let catInOrder = data.sort(function(a, b){
             return a.id-b.id
         });
-        console.log('catInOrder',catInOrder);
         dispatch({ type: GET_CATEGORIES_SUCCESS, payload: catInOrder })
     } catch (error) {
         dispatch({ type: GET_CATEGORIES_ERROR, payload: error.message })

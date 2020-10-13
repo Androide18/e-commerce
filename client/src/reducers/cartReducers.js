@@ -1,48 +1,40 @@
 import { 
-    CART_ADD_ITEM_REQUEST, 
-    CART_ADD_ITEM_SUCCESS,
-    CART_ADD_ITEM_ERROR,
-} from "../constants/cartConstants";
-
-// function cartReducer(state = { cartItems: [] }, action) {
-//     switch (action.type) {
-//         case CART_ADD_ITEM:
-//             const item = action.payload;
-//             const product = state.cartItems.find(x => x.product === item.product);
-//             if (product) {
-//                 return {
-//                     cartItems:
-//                         state.cartItems.map(x => x.product === product.product ? item : x)
-//                 };
-//             }
-//             return { cartItems: [...state.cartItems, item] };
-//         case CART_REMOVE_ITEM:
-//             return { cartItems: state.cartItems.filter(x => x.product !== action.payload) };
-//         default:
-//             return state
-//     }
-// }
-
+    GET_PRODUCTS_FROM_CART_ERROR, GET_PRODUCTS_FROM_CART_REQUEST, GET_PRODUCTS_FROM_CART_SUCCESS 
+} from "../constants-F/constanst";
 
 const initialState = {
     cartItems: [],
     loading: false,
     error: '',
+    totalQuantity: '',
+    totalPrice: ''
 }
 
-function cartReducer(state = initialState, action) {
+function getProductFromCartReducer(state = initialState, action) {
     switch (action.type) {
-        case CART_ADD_ITEM_REQUEST:
+        case GET_PRODUCTS_FROM_CART_REQUEST:
             return {...state, loading: true};
-        case CART_ADD_ITEM_SUCCESS:
-            console.log('desde el success:', 'payload', action.payload, 'state', state);
-            return {...state, loading: false, cartItems: state.cartItems.concat(action.payload)};
-        case CART_ADD_ITEM_ERROR:
+        case GET_PRODUCTS_FROM_CART_SUCCESS:
+            return {
+                ...state, loading: false, 
+                cartItems: action.payload,
+                totalPrice: action.payload.products[0].price ,
+                totalQuantity: action.payload.products[0].quantity,
+            };
+        case GET_PRODUCTS_FROM_CART_ERROR:
             return { ...state, loading: false, error: action.payload}
         default:
             return state
     }
 }
 
+function updateCartReducer (state = initialState, action) {
 
-export default cartReducer;
+}
+
+function removeFromCartReducer (state = initialState, action) {
+    
+}
+
+
+export { getProductFromCartReducer , updateCartReducer, removeFromCartReducer };
