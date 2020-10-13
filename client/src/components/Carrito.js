@@ -23,6 +23,19 @@ function Carrito(props) {
     props.history.push();
   }
 
+  const peticionAdd = async (item) => {
+    await dispatch(addToCart(item))
+    await dispatch(getProductFromCart())
+  }
+
+  const peticionSubstract = async () => {
+
+  }
+
+  const peticionDelete = async () => {
+
+  }
+
   return (
     <>
       {loading ? (<div>Loading...</div>) : error ? (<div>No esta funcionando{error}</div>) : (
@@ -55,9 +68,12 @@ function Carrito(props) {
                           Cantidad: {item.orderline.quantity}
                         </div>
                         <br />
-                        <button><i class="fas fa-plus-circle"></i></button> {"  "}
-                        <button><i class="fas fa-minus-circle"></i></button> {"  "}
-                        <button><i class="far fa-trash-alt"></i></button>
+                        <button onClick={() => {peticionAdd(item)}}>
+                          <i class="fas fa-plus-circle"></i></button> {"  "}
+                        <button onClick={() => {console.log('restar 1', item.id)}}>
+                          <i class="fas fa-minus-circle"></i></button> {"  "}
+                        <button onClick={() => {console.log('eliminar', item.id)}}>
+                          <i class="far fa-trash-alt"></i></button>
                       </div>
                       <div className="cart-price">
                         ${item.price}

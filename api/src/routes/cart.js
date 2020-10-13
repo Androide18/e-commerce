@@ -179,8 +179,6 @@ server.get('/:id', function (req, res) {
 // CODE AGUS MODIFICADO - NUESTRO - ANTERIOR
 
 server.post('/:id/cart', (req, res) => {
-
-
 	// busca si existe una orden con el userid y con state 'carrito'
 	Cartorder.findOne({
 		where: { state: 'carrito', userId: req.params.id },
@@ -230,7 +228,11 @@ server.post('/:id/cart', (req, res) => {
 					});
 				});
 		}
-	});
+	}).then( tarea => {
+		res.send('tarea completada')
+	}).catch(error => {
+		res.send(error.message)
+	})
 });
 
 // UPDATE QUANTITY:

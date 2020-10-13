@@ -10,8 +10,8 @@ const addToCart = (product, qty) => async (dispatch) => {
     try {
         var dataProduct = { productId: product.id, price: product.price, quantity: 1 }
         dispatch({ type: CART_ADD_ITEM_REQUEST, payload: '' });
-        await axios.post('http://localhost:3001/users/1/cart', dataProduct);
-        dispatch({ type: CART_ADD_ITEM_SUCCESS, payload: '' })
+        const { data } = await axios.post('http://localhost:3001/users/1/cart', dataProduct);
+        dispatch({ type: CART_ADD_ITEM_SUCCESS, payload: data })
     } catch (error) {
         dispatch({ type: CART_ADD_ITEM_ERROR, payload: error.message })
     }
@@ -30,7 +30,6 @@ const getProductFromCart = () => async (dispatch) => {
     try {
         dispatch({ type: GET_PRODUCTS_FROM_CART_REQUEST, payload: '' });
         const { data } = await axios.get('http://localhost:3001/users/1/cart');
-        console.log('data desde get', data[0]);
         dispatch({ type: GET_PRODUCTS_FROM_CART_SUCCESS, payload: {products: data }})
     } catch (error) {
         dispatch({ type: GET_PRODUCTS_FROM_CART_ERROR, payload: error.message })
