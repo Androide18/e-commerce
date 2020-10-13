@@ -6,28 +6,18 @@ import { getProductsOfCart } from '../actions/addBasketAction';
 
 function Carrito(props) {
 
-
-  const carritoReducer = useSelector((state) => state.carritoReducer.orden.products);
-
-  const carrito = useSelector((state) => state.carritoReducer.orden.products);
-
-
-  //const carritoReducer2 = useSelector((state) => state.cart.cartItems.products);
- 
+  const dispatch = useDispatch();
+  const carritoReducer = useSelector(state => state.cart.cartItems.products);
+  const { loading, error, totalQuantity, totalPrice } = useSelector(state => state.cart);
+  console.log('carritoReducer', carritoReducer);
 
   const productId = props.match.params.id;
   //const qty = props.location.search ? Number(props.location.search.split("=")[1]) : 1;
-  const dispatch = useDispatch();
+  
 
   const removeFromCartHandler = (productId) => {
     dispatch(removeFromCart(productId));
   }
-
-  useEffect(() => {
-    dispatch(getProductFromCart())
-    dispatch(getProductsOfCart())
-  }, []);
-
 
   const checkoutHandler = () => {
     props.history.push();
@@ -35,23 +25,22 @@ function Carrito(props) {
 
   return (
     <>
-      <br />
-      <br />
-      <div className="cart">
-        <div className="cart-list">
-          <ul className="cart-list-container">
-            <li>
-              <h3>
-                Carrito
-              </h3>
-              <div>
-                <h3>Precio</h3>
-              </div>
-            </li>
-            { !carritoReducer ? <div> El Carrito está vacio </div> :
+      {loading ? (<div>Loading...</div>) : error ? (<div>No esta funcionando{error}</div>) : (
+        <div className="cart">
+          <div className="cart-list">
+            <ul className="cart-list-container">
+              <li>
+                <h3>
+                  Carrito
+                </h3>
+                <div>
+                  <h3>Precio</h3>
+                </div>
+              </li>
+              {!carritoReducer ? <div> El Carrito está vacio </div> :
                 carritoReducer[0].products.map(item => (
                   <div key={item.id}>
-                    <li> {console.log("cantidad:", carritoReducer[0].quantity)}
+                    <li>
                       <div className="cart-image">
                         <img src={`http://localhost:3001/static/${item.image}`} alt="product" />
                       </div>
@@ -61,11 +50,11 @@ function Carrito(props) {
                           {item.name}
                           {/* </Link> */}
                         </div>
-                        <br/>
+                        <br />
                         <div>
                           Cantidad: {item.orderline.quantity}
                         </div>
-                        <br/>
+                        <br />
                         <button><i class="fas fa-plus-circle"></i></button> {"  "}
                         <button><i class="fas fa-minus-circle"></i></button> {"  "}
                         <button><i class="far fa-trash-alt"></i></button>
@@ -77,29 +66,30 @@ function Carrito(props) {
                   </div>
                 )
                 )
-            }
-          </ul>
-        </div>
-        <div className="cart-action" >
-          <div style={{ padding: "10px" }}>
-            <h3>
-              Total: {}(items)
-              <div>{carrito[0].quantity}</div>
-            </h3>
-            <h3>
-              Precio: {34}
-            </h3>
-            <Link className='link' to="/checkout">
-              <button onClick={checkoutHandler} className="button primary full-width">
-                Comprar
-      </button>
-            </Link>
+              }
+            </ul>
+          </div>
+          <div className="cart-action" >
+            <div style={{ padding: "10px" }}>
+              <h3>
+                Total: {totalQuantity}(items)
+              </h3>
+              <h3>
+                Precio: {totalPrice}
+              </h3>
+              <Link className='link' to="/checkout">
+                <button onClick={checkoutHandler} className="button primary full-width">
+                  Comprar
+                </button>
+              </Link>
+            </div>
           </div>
         </div>
-
-      </div>
+      )}
     </>
   )
 }
 
 export default Carrito;
+
+//!carritoReducer ? 'el carro esta vacio' : 'tiene valor', console.log('carritoReducer',carritoReducer[0])

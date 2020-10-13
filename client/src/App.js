@@ -22,6 +22,8 @@ import fetchProduct from './actions/searchProduct';
 import adminLogin from './components/adminLogin';
 import { getUsers } from './actions/adminLoginActions';
 import { getProductFromCart } from './actions/CartActions';
+import { getProductsOfCart } from './actions/addBasketAction';
+
 
 
 
@@ -84,7 +86,6 @@ function App() {
             <Route path='/review' component={Review} />
             <Route path='/search' component={SearchResult} />
             <Route path='/adminlogin' component={adminLogin} />
-
           </div>
         </main>
         <footer className="footer">All right reserved</footer>

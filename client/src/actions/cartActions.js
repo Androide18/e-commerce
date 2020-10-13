@@ -30,6 +30,7 @@ const getProductFromCart = () => async (dispatch) => {
     try {
         dispatch({ type: GET_PRODUCTS_FROM_CART_REQUEST, payload: '' });
         const { data } = await axios.get('http://localhost:3001/users/1/cart');
+        console.log('data desde get', data[0]);
         dispatch({ type: GET_PRODUCTS_FROM_CART_SUCCESS, payload: {products: data }})
     } catch (error) {
         dispatch({ type: GET_PRODUCTS_FROM_CART_ERROR, payload: error.message })

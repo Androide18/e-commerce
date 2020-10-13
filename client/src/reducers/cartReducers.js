@@ -6,6 +6,8 @@ const initialState = {
     cartItems: [],
     loading: false,
     error: '',
+    totalQuantity: '',
+    totalPrice: ''
 }
 
 function getProductFromCartReducer(state = initialState, action) {
@@ -13,7 +15,12 @@ function getProductFromCartReducer(state = initialState, action) {
         case GET_PRODUCTS_FROM_CART_REQUEST:
             return {...state, loading: true};
         case GET_PRODUCTS_FROM_CART_SUCCESS:
-            return {...state, loading: false, cartItems: action.payload};
+            return {
+                ...state, loading: false, 
+                cartItems: action.payload,
+                totalPrice: action.payload.products[0].price ,
+                totalQuantity: action.payload.products[0].quantity,
+            };
         case GET_PRODUCTS_FROM_CART_ERROR:
             return { ...state, loading: false, error: action.payload}
         default:
