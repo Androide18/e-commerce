@@ -341,6 +341,8 @@ server.get('/:id/orders', (req, res) => {
 // 	// 	})
 // })
 
+// ELIMINA UN PRODUCTO DEL CARRITO !
+
 server.delete('/:id/cart',(req, res, next) => {
 		const { id } = req.params;
 		const { productId } = req.body;
@@ -358,7 +360,7 @@ server.delete('/:id/cart',(req, res, next) => {
 	            }
 	        });
 	    })
-	    .then(() => res.status(201).send("Productos eliminados"))
+	    .then(() => res.status(201).send("Producto eliminados"))
 	    .catch(e => { res.send(e) })
 	});
 
