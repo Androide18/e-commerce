@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { addToCart, getProductFromCart, removeFromCart } from '../actions/CartActions';
+import { addToCart, getProductFromCart, substractFromCart } from '../actions/CartActions';
 import { useSelector, useDispatch } from 'react-redux';
 import { getProductsOfCart } from '../actions/addBasketAction';
 import { Link } from 'react-router-dom';
+
 
 function Carrito(props) {
 
   const dispatch = useDispatch();
   const carritoReducer = useSelector(state => state.cart.cartItems.products);
   const { loading, error, totalQuantity, totalPrice } = useSelector(state => state.cart);
-  console.log('carritoReducer', carritoReducer);
 
   const productId = props.match.params.id;
   //const qty = props.location.search ? Number(props.location.search.split("=")[1]) : 1;
 
 
-  const removeFromCartHandler = (productId) => {
-    dispatch(removeFromCart(productId));
+  const substractFromCartHandler = async (item) => {
+    const { id, orderline } = item;
+    await dispatch(substractFromCart(id, orderline))
+    await dispatch(getProductFromCart())
   }
 
   const checkoutHandler = () => {
@@ -73,7 +75,7 @@ function Carrito(props) {
                         </div>
                         <br />
                         <i class="fas fa-plus-circle" onClick={() => { peticionAdd(item) }}></i> {"  "}
-                        <i class="fas fa-minus-circle" onClick={() => { console.log('restar 1', item.id) }}></i> {"  "}
+                        <i class="fas fa-minus-circle" onClick={() => { substractFromCartHandler(item) }}></i> {"  "}
                         <i class="far fa-trash-alt delete-cart" onClick={() => { console.log('eliminar', item.id) }}></i>
                       </div>
                       <div className="cart-price">

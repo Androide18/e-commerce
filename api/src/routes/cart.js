@@ -217,7 +217,7 @@ server.post('/:id/cart', (req, res) => {
 								productId: product.id,
 								cartorderId: cartorder.id,
 							}).then(orderline => {
-								cartorder.update({ quantity: Number(cartorder.quantity) + 1, price: Number(cartorder.price) + Number(req.body.price)   })
+								cartorder.update({ quantity: Number(cartorder.quantity) + 1, price: Number(cartorder.price) + Number(req.body.price) })
 								res.send(orderline)
 							}
 							);
@@ -228,7 +228,7 @@ server.post('/:id/cart', (req, res) => {
 					});
 				});
 		}
-	}).then( tarea => {
+	}).then(tarea => {
 		res.send('tarea completada')
 	}).catch(error => {
 		res.send(error.message)
@@ -313,41 +313,100 @@ server.get('/:id/orders', (req, res) => {
 //     .catch((err) => res.send(err));
 // });
 
+
+
 // BORRA EL CARRITO POR COMPLETO (PARA LIMPIEZA)
 
-server.delete('/:id/cart', (req, res) => {
-	const userId = req.params.id;
-	Cartorder.destroy({ where: { userId: userId } })
-		.then(resolve => {
-			res.status(200).send('Se vacio el carrito con exito')
-		})
-})
+// server.delete('/:id/cart', (req, res) => {
+// 	const userId = req.params.id;
+// 	Cartorder.destroy({ where: { userId: userId } })
+// 		.then(resolve => {
+// 			res.status(200).send('Se vacio el carrito con exito')
+// 		})
+// })
+
+
+// server.delete('/:id/cart', (req, res) => {
+// 	const productId = req.body;
+
+// 	Orderline.findByPk(2)
+// 		.then(resolve => {
+// 			console.log('resolve', resolve);
+// 			res.status(200).send('Se elimino el producto con exito')
+// 		})
+
+// 	// Orderline.destroy({ where: { productId: productId } })
+// 	// 	.then(resolve => {
+// 	// 		res.status(200).send('Se elimino el producto con exito')
+// 	// 	})
+// })
+
+server.delete('/:id/cart',(req, res, next) => {
+		const { id } = req.params;
+		const { productId } = req.body;
+	    Cartorder.findAll({
+	        where: {
+	            userId: id,
+	            state: "carrito"
+	        }
+	    })
+	    .then(results => {
+			console.log('results', results);
+	      Orderline.destroy({
+	            where: {
+	              productId: productId,
+	            }
+	        });
+	    })
+	    .then(() => res.status(201).send("Productos eliminados"))
+	    .catch(e => { res.send(e) })
+	});
 
 
 // 41 - EDITA LAS CANTIDADES DEL CARRITO
 
-// server.put('/:id/cart', (req, res) => {
-//   const { id } = req.params;
-//   const { price, quantity, cartorderId } = req.body;
+server.put('/:id/cart', (req, res) => {
+	const { id } = req.params;
+	const { productId, quantity, cartorderId } = req.body;
+	
+	(!cartorderId || typeof cartorderId === "string") &&
+		res.send("el order id es invalido");
 
-//   (!cartorderId || typeof cartorderId === "string") &&
-//     res.send("el order id es invalido");
+	Orderline.update(
+		{
+			quantity: Number(quantity - 1)
+		},
+		{
+			where: {
+				cartorderId: cartorderId,
+				productId: productId,
+			},
+		}
+	),
+		Product.findByPk(productId)
+			.then(product => {
+				console.log('product', product)
 
-//   Cartorder.update(
-//     {
-//       quantity: quantity,
-//       price: price
-//     },
-//     {
-//       where: {
-//         id: cartorderId,
-//         userId: parseInt(id),
-//       },
-//     }
-//   )
-//     .then((up) => res.send(up[0] ? "se edito la cantidad" : "no se edito nada"))
-//     .catch((err) => res.send(err));
-// });
+				Cartorder.findOne({
+					where: { state: 'carrito', userId: id },
+				}).then(cartorder => {
+					console.log(cartorder);
+					Cartorder.update(
+						{
+							quantity: Number(cartorder.quantity - 1),
+							price: Number(cartorder.price - product.price)
+						},
+						{
+							where: {
+								userId: id
+							},
+						}
+					)
+				})
+			})
+			.then((up) => res.send(up[0] ? "se edito la cantidad" : "no se edito nada"))
+			.catch((err) => res.send(err));
+});
 
 module.exports = server;
 

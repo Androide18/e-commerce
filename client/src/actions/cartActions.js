@@ -1,7 +1,8 @@
 import axios from "axios";
 import {
     CART_ADD_ITEM_ERROR, CART_ADD_ITEM_REQUEST, CART_ADD_ITEM_SUCCESS,
-    GET_PRODUCTS_FROM_CART_ERROR, GET_PRODUCTS_FROM_CART_REQUEST, GET_PRODUCTS_FROM_CART_SUCCESS
+    GET_PRODUCTS_FROM_CART_ERROR, GET_PRODUCTS_FROM_CART_REQUEST, GET_PRODUCTS_FROM_CART_SUCCESS,
+    CART_SUBSTRACT_ITEM_REQUEST, CART_SUBSTRACT_ITEM_SUCCESS, CART_SUBSTRACT_ITEM_ERROR, CART_DELETE_ITEM_REQUEST, CART_DELETE_ITEM_SUCCESS, CART_DELETE_ITEM_ERROR
 } from "../constants-F/constanst";
 
 
@@ -17,12 +18,17 @@ const addToCart = (product, qty) => async (dispatch) => {
     }
 }
 
-const updateCart = (product, qty) => async (dispatch) => {
+const substractFromCart = (productId, orderline) => async (dispatch) => {
+    const { quantity, cartorderId } = orderline
+    const data = { productId, quantity, cartorderId }
+    console.log('productId', productId);
+    console.log('data', data);
     try {
-        dispatch({ type: CART_ADD_ITEM_REQUEST, payload: '' });
-        dispatch({ type: CART_ADD_ITEM_SUCCESS, payload: product })
+        dispatch({ type: CART_SUBSTRACT_ITEM_REQUEST, payload: '' });
+        await axios.put('http://localhost:3001/users/1/cart', data)
+        dispatch({ type: CART_SUBSTRACT_ITEM_SUCCESS, payload: '' })
     } catch (error) {
-        dispatch({ type: CART_ADD_ITEM_ERROR, payload: error.message })
+        dispatch({ type: CART_SUBSTRACT_ITEM_ERROR, payload: error.message })
     }
 }
 
@@ -30,7 +36,7 @@ const getProductFromCart = () => async (dispatch) => {
     try {
         dispatch({ type: GET_PRODUCTS_FROM_CART_REQUEST, payload: '' });
         const { data } = await axios.get('http://localhost:3001/users/1/cart');
-        dispatch({ type: GET_PRODUCTS_FROM_CART_SUCCESS, payload: {products: data }})
+        dispatch({ type: GET_PRODUCTS_FROM_CART_SUCCESS, payload: { products: data } })
     } catch (error) {
         dispatch({ type: GET_PRODUCTS_FROM_CART_ERROR, payload: error.message })
     }
@@ -39,14 +45,17 @@ const getProductFromCart = () => async (dispatch) => {
 
 
 const removeFromCart = (productId) => async (dispatch) => {
-    dispatch({ type: 'CART_REMOVE_ITEM', payload: productId });
-
-    //const { cart: { cartItems } } = getState();
-    //Cookie.set("cartItems", JSON.stringify(cartItems));
+    try {
+        dispatch({ type: CART_DELETE_ITEM_REQUEST, payload: '' })
+        await axios.delete('http://localhost:3001/users/1/cart', productId)
+        dispatch({ type: CART_DELETE_ITEM_SUCCESS, payload: '' })
+    } catch (error) {
+        dispatch({ type: CART_DELETE_ITEM_ERROR, payload: error.message })
+    }
 }
 
 
 
 
 
-export { addToCart, removeFromCart, getProductFromCart }
+export { addToCart, substractFromCart, getProductFromCart, removeFromCart }
