@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import lightGreen from '@material-ui/core/colors/lightGreen' //color de la fuente
 import { connect } from 'react-redux';
 import { addBasket, postProductToCart } from '../actions/addBasketAction';
-import { addToCart, getProductFromCart } from "../actions/CartActions";
+import { addToCart, getProductFromCart } from "../actions/cartActions";
 
 const ProductCard = (props) => {
  
