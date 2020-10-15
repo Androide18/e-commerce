@@ -63,7 +63,7 @@ import fetchProduct from "../actions/searchProduct";
 
 
   return (
-    <div>
+    <div className="espacioBlanco">
       <AppBar position='static'>
         <Toolbar>
           <Typography variant='h4' style={{ flexGrow: 1 }}>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { addToCart, getProductFromCart, substractFromCart, removeFromCart } from '../actions/CartActions';
+import { addToCart, getProductFromCart, substractFromCart, removeFromCart } from '../actions/cartActions';
 import { useSelector, useDispatch } from 'react-redux';
 import { getProductsOfCart } from '../actions/addBasketAction';
 import { Link } from 'react-router-dom';
