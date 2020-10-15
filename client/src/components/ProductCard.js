@@ -13,21 +13,16 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import lightGreen from '@material-ui/core/colors/lightGreen' //color de la fuente
 import { connect } from 'react-redux';
-import { addBasket, postProductToCart } from '../actions/addBasketAction';
 import { addToCart, getProductFromCart } from "../actions/cartActions";
 
 const ProductCard = (props) => {
  
   const [qty, setQty] = useState(5);
-  //const [quantity, setQuantity] = useState(1);
-  //const [loading, setLoading] = useState(false)
-  //const [error, setError] = useState(false)
   const { cart } = useSelector(state => state.cart)
   const dispatch = useDispatch();
 
   const useStyles = makeStyles({
     Card: {
-      // width: 180,
       height: 290,
       margin: 'auto'
     },
@@ -40,7 +35,6 @@ const ProductCard = (props) => {
   const classes = useStyles();
 
   const handleAddtoCart = async () => {
-   await dispatch(addBasket(props))
    await dispatch(addToCart(props))
    await dispatch(getProductFromCart())
   }
@@ -67,20 +61,9 @@ const ProductCard = (props) => {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          {/* <li>
-            Qty: <select value={qty} onChange={(e) => { setQty(e.target.value) }}>
-              {[...Array(props.stock).keys()].map(x =>
-                <option value={x + 1}>{4 + 1}</option>
-              )}
-            </select>
-          </li> */}
           <Button size="small" color="primary"
-            //onClick={() => props.addBasket(props)} 
             onClick={handleAddtoCart}
           >
-            {/* <Typography variant='h6'>
-              AÑADIR AL CARRITO
-            </Typography> */}
             <ShoppingCartIcon fontSize="inherit" style={{ fontSize: "20px" }} />
           </Button>
         </CardActions>
@@ -89,4 +72,4 @@ const ProductCard = (props) => {
   )
 }
 
-export default connect(null, { addBasket })(ProductCard);
+export default ProductCard;

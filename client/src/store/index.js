@@ -2,7 +2,6 @@ import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import {getCategoriesReducer, saveCategoryReducer, updateCategoryReducer, deleteCategoryReducer} from '../reducers/C-reducer';
 import { getProductsReducer, deleteProductReducer, saveProductReducer, updateProductReducer }  from '../reducers/P-reducer';
 import thunk from 'redux-thunk';
-import basketReducer, { carritoReducer } from '../reducers/basketReducer'
 import search from '../reducers/searchReducer';
 import { getUsersReducer, deleteUsersReducer, saveUsersReducer, updateUsersReducer } from '../reducers/adminLoginReducers';
 import { getProductFromCartReducer } from '../reducers/cartReducers';
@@ -14,12 +13,10 @@ const reducer = combineReducers({
     deleteCategory: deleteCategoryReducer,
     product: getProductsReducer,
     cart: getProductFromCartReducer,
-    basket: basketReducer,
     deleteProduct: deleteProductReducer,
     saveProduct: saveProductReducer,
     updateProduct: updateProductReducer,
     search: search,
-    carritoReducer: carritoReducer,
     getUsers: getUsersReducer,
     deleteUsers: deleteUsersReducer,
     saveUsers: saveUsersReducer,
