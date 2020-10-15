@@ -21,7 +21,7 @@ import SearchResult from './components/SearchResult';
 import fetchProduct from './actions/searchProduct';
 import adminLogin from './components/adminLogin';
 import { getUsers } from './actions/adminLoginActions';
-import { getProductFromCart } from './actions/CartActions';
+import { getProductFromCart } from './actions/cartActions';
 import { addBasket, getProductsOfCart } from './actions/addBasketAction';
 
 

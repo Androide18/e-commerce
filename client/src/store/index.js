@@ -5,7 +5,7 @@ import thunk from 'redux-thunk';
 import basketReducer, { carritoReducer } from '../reducers/basketReducer'
 import search from '../reducers/searchReducer';
 import { getUsersReducer, deleteUsersReducer, saveUsersReducer, updateUsersReducer } from '../reducers/adminLoginReducers';
-import { getProductFromCartReducer } from '../reducers/CartReducers';
+import { getProductFromCartReducer } from '../reducers/cartReducers';
 
 const reducer = combineReducers({
     categories: getCategoriesReducer,

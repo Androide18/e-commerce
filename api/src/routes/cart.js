@@ -326,43 +326,24 @@ server.get('/:id/orders', (req, res) => {
 // })
 
 
-// server.delete('/:id/cart', (req, res) => {
-// 	const productId = req.body;
 
-// 	Orderline.findByPk(2)
-// 		.then(resolve => {
-// 			console.log('resolve', resolve);
-// 			res.status(200).send('Se elimino el producto con exito')
-// 		})
-
-// 	// Orderline.destroy({ where: { productId: productId } })
-// 	// 	.then(resolve => {
-// 	// 		res.status(200).send('Se elimino el producto con exito')
-// 	// 	})
-// })
-
-// ELIMINA UN PRODUCTO DEL CARRITO !
-
-server.delete('/:id/cart',(req, res, next) => {
-		const { id } = req.params;
-		const { productId } = req.body;
-	    Cartorder.findAll({
-	        where: {
-	            userId: id,
-	            state: "carrito"
-	        }
-	    })
-	    .then(results => {
-			console.log('results', results);
-	      Orderline.destroy({
-	            where: {
-	              productId: productId,
-	            }
-	        });
-	    })
-	    .then(() => res.status(201).send("Producto eliminados"))
-	    .catch(e => { res.send(e) })
-	});
+server.delete('/:id/cart', (req, res, next) => {
+	const { id } = req.params;
+	const { productId } = req.body;
+	Cartorder.findOne({ where: { userId: id, state: "carrito" } })
+		.then(cartorder => {
+			Orderline.findOne({ where: { productId: productId } })
+				.then(orderline => {
+					cartorder.update({
+						quantity: Number(cartorder.quantity) - Number(orderline.quantity),
+						price: Number(cartorder.price) - Number(orderline.price * orderline.quantity)
+					})
+					orderline.destroy({ where: { productId: productId } })
+				})
+		})
+		.then(() => res.status(201).send("Producto eliminados"))
+		.catch(e => { res.send(e) })
+});
 
 
 // 41 - EDITA LAS CANTIDADES DEL CARRITO
@@ -370,7 +351,7 @@ server.delete('/:id/cart',(req, res, next) => {
 server.put('/:id/cart', (req, res) => {
 	const { id } = req.params;
 	const { productId, quantity, cartorderId } = req.body;
-	
+
 	(!cartorderId || typeof cartorderId === "string") &&
 		res.send("el order id es invalido");
 
