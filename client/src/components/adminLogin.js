@@ -13,6 +13,7 @@ import '../index.css';
 import ControlledOpenSelect from './rolDropDown.js';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SaveIcon from '@material-ui/icons/Save';
+import { deleteUsers, getUsers } from "../actions/adminLoginActions";
 
 const useStyles = makeStyles({
   table: {
@@ -44,6 +45,13 @@ const BasicTable = () => {
   console.log("HOLA", Camilo);
   console.log("USERS", users);
 
+  const dispatch = useDispatch();
+
+  const handlerDelete = async (id) => {
+    await dispatch(deleteUsers(id))
+    await dispatch(getUsers())
+  }
+
   return (
     <>
       <br />
@@ -67,7 +75,7 @@ const BasicTable = () => {
             </TableHead>
             <TableBody>
               {users.map((user) => (
-                <TableRow key={user}>
+                <TableRow key={user.id}>
                   <TableCell component="th" scope="row">
                     {user.email}
                   </TableCell>
@@ -80,7 +88,7 @@ const BasicTable = () => {
                   <TableCell align="center">
                     <SaveIcon onClick={() => alert("Guardar")} />
 
-                    <DeleteIcon onClick={() => alert("Borrar")} />
+                    <DeleteIcon onClick={() => handlerDelete(user.id)} />
                   </TableCell>
                 </TableRow>
               ))}
