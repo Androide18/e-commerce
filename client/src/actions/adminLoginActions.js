@@ -38,11 +38,12 @@ export const updateUsers = (id, user) => async (dispatch) => {
 }
 
 export const deleteUsers = (id) => async (dispatch) => {
+    console.log('id', id)
     try {
         dispatch({ type: DELETE_USERS_REQUEST, payload: id });
-        const { data } = await axios.delete('http://localhost:3001/users/' + id);
-        dispatch({ type: DELETE_USERS_SUCCESS, payload: data });
+        await axios.delete('http://localhost:3001/users/' + id);
+        dispatch({ type: DELETE_USERS_SUCCESS, payload: '' });
     } catch (error) {
-        dispatch({ type: DELETE_USERS_ERROR, payload: error })
+        dispatch({ type: DELETE_USERS_ERROR, payload: error.message })
     }
 }
