@@ -88,3 +88,8 @@ Form {
     height: 1.5em;
    
   }
+
+  .lista-cat{
+    text-decoration: none;
+    color: black;
+  }

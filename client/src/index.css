@@ -35,7 +35,7 @@ button {
 }
 .brand a {
   color: #ffffff;
-  font-size: 2rem;
+  font-size: 1.4rem;
   font-weight: bold;
   text-decoration: none;
 }
@@ -135,8 +135,13 @@ a > .rating > span:last-child {
 
 /* Sidebar */
 
+.lista-cat{
+  text-decoration: none;
+  color: black;
+}
+
 .brand button {
-  font-size: 3rem;
+  font-size: 1.5rem;
   padding: 0.5rem;
   background: none;
   border: none;
@@ -152,6 +157,8 @@ a > .rating > span:last-child {
   height: 100%;
   padding-top: 2rem;
   padding-left: 1.5rem;
+  color: #000000;
+  text-decoration: none;
 }
 .sidebar.open {
   transform: translateX(0);
@@ -159,16 +166,18 @@ a > .rating > span:last-child {
 
 .sidebar-close-button {
   border-radius: 50%;
-  border: 0.1rem #000000 solid;
-  width: 3rem;
-  height: 3rem;
-  padding: .3rem;
-  font-size: 2rem;
+  border: 0.1rem #3f51b5 solid;
+  width: 2rem;
+  height: 2rem;
+  padding: .2rem;
+  font-size: 1.2rem;
   padding-top: 0;
   cursor: pointer;
   position: absolute;
   right: 0.5rem;
-  top: .5rem;
+  top: 1.6rem;
+  background-color: #3f51b5;
+  color: #f0f0f0;
 }
 
 /* Product Details */
@@ -492,12 +501,13 @@ tbody > tr:nth-child(odd) {
 .categories {
   padding: 0;
   list-style-type: none;
-  font-size: 1.5rem;
+  font-size: 1rem;
   color: black;
+  text-decoration: none;
 }
 .categories a {
   display: flex;
-  padding: 1rem;
+  padding: .2rem;
   text-decoration: none;
 }
 

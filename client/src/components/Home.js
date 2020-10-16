@@ -15,8 +15,6 @@ function Home() {
 
     const products = useSelector(state => state.product)
     const { productsLoaded, loading, error } = products
-    //const dispatch = useDispatch()
-    console.log('esto es productsloaded', productsLoaded)
 
     return (
         <>

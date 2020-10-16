@@ -22,6 +22,7 @@ import fetchProduct from './actions/searchProduct';
 import adminLogin from './components/adminLogin';
 import { getUsers } from './actions/adminLoginActions';
 import { getProductFromCart } from './actions/cartActions';
+import ProdCategoryScreen from './components/ProdCategoryScreen';
 
 
 
@@ -66,6 +67,7 @@ function App() {
     dispatch(getProductFromCart())
   }, [])
 
+
   return (
     <BrowserRouter>
       <div className="grid-container">
@@ -85,6 +87,7 @@ function App() {
             <Route path='/review' component={Review} />
             <Route path='/search' component={SearchResult} />
             <Route path='/adminlogin' component={adminLogin} />
+            <Route path='/product/category' component={ProdCategoryScreen}/>
           </div>
         </main>
         <footer className="footer">All right reserved</footer>

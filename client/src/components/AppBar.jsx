@@ -1,6 +1,4 @@
-
 import React, { useState, useEffect } from "react";
-
 import { AppBar, Toolbar, IconButton, Typography, Button, InputBase, Drawer } from '@material-ui/core'
 import { AccountCircle } from "@material-ui/icons"
 import SearchIcon from '@material-ui/icons/Search';
@@ -13,27 +11,21 @@ import { connect, useDispatch, useSelector } from 'react-redux';
 import fetchProduct from "../actions/searchProduct";
 
 
-function Appbar(props) {
 
-  const carritoReducer = useSelector(state => state.cart.cartItems.products);
+function Appbar() {
+
   const { totalQuantity } = useSelector(state => state.cart);
-
+  const { categoriesLoaded } = useSelector(state => state.categories)
   const [open, setOpen] = useState(false)
-  const [anchor, setAnchor] = useState('left')
-  const [infoCat, setInfoCat] = useState([])
-
+  const [anchor, setAnchor] = useState('left');
   const classes = useStyles();
-  const [busqueda, setBusqueda] = useState("")
-
-
   const dispatch = useDispatch();
   const [product_name, set_product_name] = useState('')
 
-  const onChangeBusqueda = (event) => {
-    setBusqueda(event.currentTarget.value);
-    console.log('busqueda', busqueda);
+  const handleAccount = () => {
+    setAnchor('right')
+    setOpen(true)
   }
-
 
   const handleDrawer = () => {
     setAnchor('left')
@@ -41,21 +33,25 @@ function Appbar(props) {
 
   }
 
-  const handleAccount = () => {
-    setAnchor('right')
-    setOpen(true)
-  }
+  const openMenu = () => {
+    document.querySelector('.sidebar').classList.add('open');
+  };
+  const closeMenu = () => {
+    document.querySelector('.sidebar').classList.remove('open');
+  };
 
   return (
     <div>
       <AppBar position='static'>
         <Toolbar>
           <Typography variant='h4' style={{ flexGrow: 1 }}>
-            <Link className='link' to='/'>
-              E-COMMERCE
-          </Link>
+            <div className="brand">
+              <button onClick={handleDrawer}>&#9776;</button>
+              <Link className='link' to='/'>
+                E-COMMERCE
+            </Link>
+            </div>
           </Typography>
-
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -124,11 +120,12 @@ function Appbar(props) {
               <div>
                 <h5>Categorias</h5>
                 <Divider />
-                {/* {
-                  infoCat.map(cat => (
-                    <li>{cat.name}</li>
-                  ))
-                } */}
+                <br/>
+                {categoriesLoaded.map(category => (
+                  <li >
+                    <Link style={{color: 'black', textDecoration: 'none'}} to={`/product/category/${category.name}`}>{category.name}</Link>
+                  </li>
+                ))}
               </div> : <div>
                 <h5>Mi Perfil</h5>
                 <Divider />
@@ -161,6 +158,8 @@ function Appbar(props) {
     </div>
   );
 }
+
+
 
 
 const useStyles = makeStyles((theme) => ({
