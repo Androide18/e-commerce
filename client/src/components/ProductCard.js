@@ -12,11 +12,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import lightGreen from '@material-ui/core/colors/lightGreen' //color de la fuente
-import { connect } from 'react-redux';
-
-import { addBasket, postProductToCart } from '../actions/addBasketAction';
 import { addToCart, getProductFromCart } from "../actions/cartActions";
-import { Height } from "@material-ui/icons";
+
 
 
 

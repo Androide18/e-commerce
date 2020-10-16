@@ -5,10 +5,6 @@ import axios from 'axios';
 import Reviews from './Review';
 import { addToCart, getProductFromCart } from '../actions/cartActions';
 
-import { addBasket } from '../actions/addBasketAction';
-
-
-
 function ProductScreen(props) {
 
     const dispatch = useDispatch();
