@@ -41,7 +41,7 @@ export default function Registro(props) {
       lastname:"", 
       // phone:"", 
       // address:"", 
-      // role:"", 
+      role:"", 
       email:"", 
       password:""
     });

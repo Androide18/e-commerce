@@ -2,10 +2,17 @@ const jwt = require('jwt-simple');
 const moment = require('moment');
 
 const checkToken = (req, res, next) => {
-    if(!req.headers['user-token']) {
-        return res.send({ error: 'Necesitas incluir un token' });
-    }
-    const userToken = req.headers['user-token'];
+    // if(!req.headers['user-token']) {
+    //     return res.send({ error: 'Necesitas incluir un token' });
+    // }
+    // if (req.cookies && req.cookies.cookieHash && req.cookies.cookieHash == hashpass) {
+    //     res.send({ chk: true,  msj: "Cookies Correctas" });
+    //   } else {
+    //     res.send({ chk: false, error: true,  msj: "Cookies Invalidas" });
+    //   }
+
+
+    const userToken = (req.cookies && req.cookies.cookieHash) ? req.cookies.cookieHash : '';
     let payload = {};
    try {
        payload = jwt.decode(userToken, 'frase_secreta');
@@ -20,6 +27,9 @@ const checkToken = (req, res, next) => {
 
     next();
 }
+
+
+
 
 module.exports = {
     checkToken: checkToken

@@ -16,17 +16,16 @@ import { FacebookLoginButton, GoogleLoginButton, GithubLoginButton, TwitterLogin
 import '../index.css';
 
 //-----------------------------------------------------------------------
-//Pedido a axios
 
 var axios = require('axios');
-var data = JSON.stringify({"email":"elfabri@gmail.com","password":"456789"});
+var data = JSON.stringify({"email":"victor@gmail.com","password":"123456"});
 
 var config = {
   method: 'post',
   url: 'http://localhost:3001/users/login',
   headers: { 
     'Content-Type': 'application/json', 
-    'Cookie': 'connect.sid=s%3ACfDy3qTbnuXMMND6RK2AbiW2xBnzY5U2.29RrYy0doZFcY%2BBVuMG5KVV098YsRD3GqScwfliHDLU'
+    'Cookie': 'cookieHash=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c3VhcmlvSWQiOjgsImNyZWF0ZWRBdCI6MTYwMjY2Nzc1MywiZXhwaXJlZEF0IjoxNjAyNjY4MDUzfQ.Masqe7zZjVrG7Cd9JxFTUzxDHhSgh5VUI8Nt7RQEc3E; connect.sid=s%3AeJBgUt4ZbCI8zCL3bbrptatr7jBOKhL8.Ur27t6kFMhZ3HlD8YcmEGj7hzcpWndWk%2FUg2ragvsmg'
   },
   data : data
 };
@@ -38,6 +37,7 @@ axios(config)
 .catch(function (error) {
   console.log(error);
 });
+
 
 //-----------------------------------------------------------------------
 
