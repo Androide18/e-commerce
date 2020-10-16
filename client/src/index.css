@@ -532,3 +532,10 @@ table.table thead th {
   width: 100%;
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
 }
+
+
+.MuiCardActions-root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

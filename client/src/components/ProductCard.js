@@ -71,7 +71,7 @@ const ProductCard = (props) => {
             {/* <Typography variant='h6'>
               AÑADIR AL CARRITO
             </Typography> */}
-            <ShoppingCartIcon fontSize="inherit" style={{ fontSize: "35px" }} />
+            <ShoppingCartIcon fontSize="inherit" style={{ fontSize: "35px", display: "flex", justifyContent: "center", alignItems: "center" }} />
 
           </Button>
         </CardActions>
