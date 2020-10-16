@@ -1,11 +1,12 @@
 import React from 'react';
-import ProductCard from './ProductCard';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import Reviews from './Review';
 import { addToCart, getProductFromCart } from '../actions/cartActions';
+
 import { addBasket } from '../actions/addBasketAction';
+
 
 
 function ProductScreen(props) {
@@ -13,7 +14,6 @@ function ProductScreen(props) {
     const dispatch = useDispatch();
 
     const peticionAdd = async (el) => {
-        await dispatch(addBasket(el))
         await dispatch(addToCart(el))
         await dispatch(getProductFromCart())
     }
