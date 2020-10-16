@@ -1,36 +1,29 @@
 import React from 'react';
 import ProductCard from './ProductCard';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useSelector} from 'react-redux';
+
 
 
 function ProdCategoryScreen(props) {
 
-    let matchCategory = props.match.params.id; 
-
-    const [infoProd, setInfoProd] = useState([])
-
-    const catFilt = infoProd.filter(el => el.category === matchCategory)
-
-    console.log(catFilt);
-
-    useEffect(() => {
-        axios.get('http://localhost:3001/products')
-            .then(res => {
-                setInfoProd(res.data)
-            })
-            .catch()
-    }, [])
-
+    let matchCategory = props.location.pathname.split('/', 6)[3];
+    console.log('matchCategory', matchCategory);
     
-    
+
+    const products = useSelector(state => state.product.productsLoaded);
+    console.log('products', products);
+   
+    const prodFilter = products.filter(el => el.category === matchCategory);
+    console.log('prodFilter', prodFilter);
+   
 
     return (
         
         <div>
             <ul className="products">
                 {
-                    catFilt.map(el => (
+                    prodFilter.map(el => (
 
                         <li key={el.id}>
                             <div className="product">
@@ -41,6 +34,7 @@ function ProdCategoryScreen(props) {
                                     description={el.description}
                                     category={el.category}
                                     id={el.id}
+                                    image= {el.image}
                                 />
                             </div>
                         </li>
