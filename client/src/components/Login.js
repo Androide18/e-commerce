@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -14,29 +14,30 @@ import Container from '@material-ui/core/Container';
 import { Link } from 'react-router-dom';
 import { FacebookLoginButton, GoogleLoginButton, GithubLoginButton, TwitterLoginButton, InstagramLoginButton } from "react-social-login-buttons";
 import '../index.css';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 //-----------------------------------------------------------------------
 
-var axios = require('axios');
-var data = JSON.stringify({"email":"victor@gmail.com","password":"123456"});
+// var axios = require('axios');
+// var data = JSON.stringify({"email": req.body.email,"password": req.body.password});
 
-var config = {
-  method: 'post',
-  url: 'http://localhost:3001/users/login',
-  headers: { 
-    'Content-Type': 'application/json', 
-    'Cookie': 'cookieHash=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c3VhcmlvSWQiOjgsImNyZWF0ZWRBdCI6MTYwMjY2Nzc1MywiZXhwaXJlZEF0IjoxNjAyNjY4MDUzfQ.Masqe7zZjVrG7Cd9JxFTUzxDHhSgh5VUI8Nt7RQEc3E; connect.sid=s%3AeJBgUt4ZbCI8zCL3bbrptatr7jBOKhL8.Ur27t6kFMhZ3HlD8YcmEGj7hzcpWndWk%2FUg2ragvsmg'
-  },
-  data : data
-};
+// var config = {
+//   method: 'post',
+//   url: 'http://localhost:3001/users/login',
+//   headers: { 
+//     'Content-Type': 'application/json'
+//   },
+//   data : data
+// };
 
-axios(config)
-.then(function (response) {
-  console.log(JSON.stringify(response.data));
-})
-.catch(function (error) {
-  console.log(error);
-});
+// axios(config)
+// .then(function (response) {
+//   console.log('response', response);
+// })
+// .catch(function (error) {
+//   console.log(error);
+// });
 
 
 //-----------------------------------------------------------------------
@@ -64,8 +65,54 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Login() {
+
+export default function Login(props) {
+
+  const [form, setForm] = useState(
+    {
+      email: '',
+      password: ''
+    });
+
+  console.log('form', form)
+
+  const handleChange = async e => {
+    e.preventDefault();
+    e.persist();
+    await setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    })
+    console.log('e', e.target.value)
+  }
+
+  const enviarDatos = (event) => {
+    event.preventDefault();
+
+    var data = JSON.stringify({ "email": form.email, "password": form.password });
+
+    axios({
+      method: 'post',
+      url: 'http://localhost:3001/users/login',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: data
+    }
+    )
+      .then(function (response) {
+        console.log('axios response', response);
+      })
+      .catch(function (error) {
+        console.log('axios error', error);
+      });
+  }
+
+
   const classes = useStyles();
+
+  // const estado = useSelector(state => state.getUsers)
+  // console.log('useSelector', estado)
 
   return (
     <Container component="main" maxWidth="xs">
@@ -77,8 +124,9 @@ export default function Login() {
         <Typography component="h1" variant="h5">
           Ingresar
         </Typography>
-        <form className={classes.form} noValidate>
+        <form onSubmit={enviarDatos} className={classes.form} noValidate>
           <TextField
+            onChange={handleChange}
             variant="outlined"
             margin="normal"
             required
@@ -90,6 +138,7 @@ export default function Login() {
             autoFocus
           />
           <TextField
+            onChange={handleChange}
             variant="outlined"
             margin="normal"
             required
@@ -113,7 +162,7 @@ export default function Login() {
           >
             Ingresar
           </Button>
-        
+
           <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">
@@ -127,7 +176,7 @@ export default function Login() {
             </Grid>
           </Grid>
         </form>
-      
+
       </div>
       <Box mt={8}>
       </Box>

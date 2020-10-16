@@ -22,8 +22,6 @@ const { token } = require('morgan');
 //router.use('/products',middlewares.checkToken, productRouter);     CODIGO DE NAZA!!
 router.use('/products', productRouter);
 
-// PRUEBA DE CARGA DE IMAGEN CON MULTER
-//router.use('/uploads', productRouter);
 
 router.use('/categories', categoryRouter);
 router.use('/users', userRouter);

@@ -42,9 +42,7 @@ const BasicTable = () => {
   const classes = useStyles();
   const  { users, loading, error } = useSelector (state => state.getUsers)
   const  Camilo  = useSelector (state => state.getUsers)
-  console.log("HOLA", Camilo);
-  console.log("USERS", users);
-
+  console.log('users!:', users)
   const dispatch = useDispatch();
 
   const handlerDelete = async (id) => {

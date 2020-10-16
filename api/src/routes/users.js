@@ -13,21 +13,22 @@ const { Cartorder } = require('../db.js');
 
 //const server = require("express").Router();
 //const { User } = require("../db.js");
-const passport = require('passport');
-const local = require('passport-local');
+// const passport = require('passport');
+// const local = require('passport-local');
 
 
 
 
 
 
-server.get('/', function(req, res) {
-    res.render('home', { user: req.user });
-});
+// server.get('/', function(req, res) {
+//     res.render('home', { user: req.user });
+// });
 
-server.get('/login', function(req, res){
-    res.render('login');
-});
+ server.get('/login', function(req, res){
+    // res.render('login');
+     res.send('login');
+ });
 
 
 // server.post('/login',
@@ -156,14 +157,13 @@ server.post('/login', async (req, res) => {
     if (iguales) {
       let cookie = createToken(user);
       res.cookie('cookieHash', cookie, { expires: new Date(Date.now() + 900000), httpOnly: true });
-
       res.send({ succes: cookie});
 
     } else {
-      res.send({ error: 'Error en usuario y/o contraseña' });
+      res.send({ error: 'Error en usuario y/o contraseña1' });
     }
   } else {
-    res.send({ error: 'Error en usuario y/o contraseña' });
+    res.send({ error: 'Error en usuario y/o contraseña2' });
   }
 
 
