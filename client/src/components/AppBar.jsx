@@ -47,7 +47,7 @@ function Appbar(props) {
   }
 
   return (
-    <div>
+    <div className="espacioBlanco">
       <AppBar position='static'>
         <Toolbar>
           <Typography variant='h4' style={{ flexGrow: 1 }}>
