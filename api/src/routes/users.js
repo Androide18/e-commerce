@@ -6,6 +6,7 @@ const { check, validationResult } = require('express-validator');
 const moment = require('moment');
 const jwt = require('jwt-simple');
 const { Cartorder } = require('../db.js');
+const { checkToken } = require('./middlewares');
 
 
 
@@ -148,6 +149,7 @@ server.post('/register', [
   res.send(user);
 });
 
+//AUTENTICACION
 server.post('/login', async (req, res) => {
   const user = await User.findOne({ where: { email: req.body.email } });
   
@@ -155,9 +157,9 @@ server.post('/login', async (req, res) => {
     const iguales = bcrypt.compareSync(req.body.password, user.password);
     console.log(user.password);
     if (iguales) {
-      let cookie = createToken(user);
-      res.cookie('cookieHash', cookie, { expires: new Date(Date.now() + 900000), httpOnly: true });
-      res.send({ succes: cookie});
+      const cookieToken = createToken(user);
+      res.cookie('cookieHash', cookieToken, { expires: new Date(Date.now() + 900000), httpOnly: true });
+      res.send({ succes: cookieToken});
 
     } else {
       res.send({ error: 'Error en usuario y/o contraseña1' });
@@ -242,7 +244,7 @@ const createToken = (user) => {
 //   res.send({ chk: false, error: true, msj: "Cookies Invalidas" });
 //   } 
 
-server.get('/', (req, res) => {
+server.get('/' , checkToken,  (req, res) => {
   User.findAll()
     .then(users => {
       res.send(users);
