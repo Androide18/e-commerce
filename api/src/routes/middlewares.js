@@ -14,17 +14,17 @@ const checkToken = (req, res, next) => {
 
 
     //  const {userToken} = (req.cookie && req.cookie.cookieHash) ? req.cookieToken.cookieHash : '';
-    console.log('cookie', req.cookie)
-    console.log('cookies: ', req.cookies)
-    console.log('cookies.cookieHash: ', req.cookies.cookieHash)  // este SI TRAE EL COOKIE HASH ( HABIA Q INSTALAR EL COOKIE PARSER() )
+    // console.log('cookie', req.cookie)
+    console.log('cookies desde el middleware: ', req.cookies)
+    console.log('cookies.cookieHash desde el middleware: ', req.cookies.cookieHash)  // este SI TRAE EL COOKIE HASH ( HABIA Q INSTALAR EL COOKIE PARSER() )
 
     const userToken = req.cookies.cookieHash
-    console.log('USERTOKEN:', userToken)
+    console.log('USERTOKEN desde el middleware:', userToken)
 
     let payload = {};
    try {
-       payload = jwt.decode(userToken, 'frase_secreta');
-        // console.log('payload', payload)
+       payload = jwt.decode(userToken, 'frase_secreta');            //me decodifica el token con la frase secreta
+         console.log('payload desde el middleware', payload)                           // y me trae en el payload el userId
     } catch(err) {
         
         return res.send({ error: 'El token es incorrecto' });

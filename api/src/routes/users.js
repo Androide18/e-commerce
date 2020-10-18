@@ -155,9 +155,10 @@ server.post('/login', async (req, res) => {
   
   if (user) {
     const iguales = bcrypt.compareSync(req.body.password, user.password);
-    console.log(user.password);
+    console.log('user.password',user.password);
     if (iguales) {
       const cookieToken = createToken(user);
+      console.log('cookieToken=', cookieToken);
       res.cookie('cookieHash', cookieToken, { expires: new Date(Date.now() + 900000), httpOnly: true });
       res.send({ succes: cookieToken});
 
@@ -245,6 +246,7 @@ const createToken = (user) => {
 //   } 
 
 server.get('/' , checkToken,  (req, res) => {
+  console.log("Cookies desde el get /users:  ", req.cookies);
   User.findAll()
     .then(users => {
       res.send(users);
