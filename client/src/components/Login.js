@@ -42,7 +42,10 @@ axios(config)
 //-----------------------------------------------------------------------
 
 
-
+const responseGoogle = (response) => {
+  console.log(response);
+}
+ 
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -113,8 +116,20 @@ export default function Login() {
           >
             Ingresar
           </Button>
-        
+
           <Grid container>
+          <Grid item xs={12} sm={6}>
+          <GoogleLoginButton  onClick={() => alert("Hello")}>
+            <span className='loginG'>Ingresar con cuenta Google</span>
+          </GoogleLoginButton>
+        </Grid>
+        
+        <Grid item xs={12} sm={6}>
+          <GithubLoginButton className='loginG'onClick={() => alert("Hello")}>
+            <span className='loginG'>Ingresar con cuenta Github</span>
+          </GithubLoginButton>
+        </Grid>
+        
             <Grid item xs>
               <Link href="#" variant="body2">
                 Olviste tu contraseña?

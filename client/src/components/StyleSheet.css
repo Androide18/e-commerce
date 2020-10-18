@@ -133,12 +133,14 @@ margin-bottom: 20px;
 
   .lista{
     color: black;
-    font-size: 9px;
+    font-size: 15px;
   }
 
   .lista:hover{
     color: black;
   }
+
+
   /* componente carrito */
 
   .fa-plus-circle {

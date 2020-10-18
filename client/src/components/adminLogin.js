@@ -21,23 +21,6 @@ const useStyles = makeStyles({
   }
 });
 
-// function createData(name, calories, fat, carbs, protein) {
-//   return { name, calories, fat, carbs, protein };
-// }
-
-// const rows = [
-//   createData(
-//     "cblancodelavega@udesa.edu.ar",
-//     "Camilo",
-//     "Blanco",
-//     "SKERET",
-//     "Admin"
-//   ),
-//   createData(),
-//   createData(),
-//   createData()
-// ];
-
 const BasicTable = () => {
   const classes = useStyles();
   const  { users, loading, error } = useSelector (state => state.getUsers)
