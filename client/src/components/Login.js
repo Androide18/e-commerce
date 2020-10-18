@@ -17,33 +17,6 @@ import '../index.css';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 
-//-----------------------------------------------------------------------
-
-// var axios = require('axios');
-// var data = JSON.stringify({"email": req.body.email,"password": req.body.password});
-
-// var config = {
-//   method: 'post',
-//   url: 'http://localhost:3001/users/login',
-//   headers: { 
-//     'Content-Type': 'application/json'
-//   },
-//   data : data
-// };
-
-// axios(config)
-// .then(function (response) {
-//   console.log('response', response);
-// })
-// .catch(function (error) {
-//   console.log(error);
-// });
-
-
-//-----------------------------------------------------------------------
-
-
-
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -90,24 +63,29 @@ export default function Login(props) {
     event.preventDefault();
 
     var data = JSON.stringify({ "email": form.email, "password": form.password });
-
+    
     axios({
       method: 'post',
       url: 'http://localhost:3001/users/login',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
-      data: data
+      data: data,
+      withCredentials: true
+
     }
     )
       .then(function (response) {
         console.log('axios response', response);
+        console.log('')
+        
       })
       .catch(function (error) {
         console.log('axios error', error);
       });
   }
 
+   
 
   const classes = useStyles();
 

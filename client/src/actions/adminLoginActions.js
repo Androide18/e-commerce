@@ -10,7 +10,7 @@ import axios from 'axios';
 export const getUsers = () => async (dispatch) => {
     try {
         dispatch({ type: GET_USERS_REQUEST, payload: '' });
-        const { data } = await axios.get('http://localhost:3001/users');
+        const { data } = await axios.get('http://localhost:3001/users', {withCredentials: true});
         console.log('data', data)
         dispatch({ type: GET_USERS_SUCCESS, payload: data })
     } catch (error) {

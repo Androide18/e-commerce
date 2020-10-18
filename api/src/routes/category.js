@@ -1,6 +1,7 @@
 const server = require('express').Router();
 const { Category } = require('../db.js');
 
+
 // S19 - CREAR RUTA PARA ELIMINAR CATEGORIA             ok
 // S18 - CREAR RUTA PARA CREAR CATEGORIA                ok
 // S20 - CREAR RUTA PARA MODIFICAR CATEGORIA            ok
