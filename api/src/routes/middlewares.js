@@ -3,68 +3,22 @@ const moment = require('moment');
 
 
 const checkToken = (req, res, next) => {
-    // if(!req.headers['user-token']) {
-    //     return res.send({ error: 'Necesitas incluir un token' });
-    // }
-    // if (req.cookies && req.cookies.cookieHash && req.cookies.cookieHash == hashpass) {
-    //     res.send({ chk: true,  msj: "Cookies Correctas" });
-    //   } else {
-    //     res.send({ chk: false, error: true,  msj: "Cookies Invalidas" });
-    //   }
-
-
-    //  const {userToken} = (req.cookie && req.cookie.cookieHash) ? req.cookieToken.cookieHash : '';
-    // console.log('cookie', req.cookie)
-    console.log('cookies desde el middleware: ', req.cookies)
-    console.log('cookies.cookieHash desde el middleware: ', req.cookies.cookieHash)  // este SI TRAE EL COOKIE HASH ( HABIA Q INSTALAR EL COOKIE PARSER() )
 
     const userToken = req.cookies.cookieHash
-    console.log('USERTOKEN desde el middleware:', userToken)
 
     let payload = {};
-   try {
-       payload = jwt.decode(userToken, 'frase_secreta');            //me decodifica el token con la frase secreta
-         console.log('payload desde el middleware', payload)                           // y me trae en el payload el userId
-    } catch(err) {
-        
+    try {
+        payload = jwt.decode(userToken, 'frase_secreta');            //me decodifica el token con la frase secreta
+        console.log('payload desde el middleware', payload)                           // y me trae en el payload el userId
+    } catch (err) {
         return res.send({ error: 'El token es incorrecto' });
-        
-    } 
-    if(payload.expiredAt < moment().unix()){
-        return res.send( { error: 'El token ha expirado' });
     }
-    
+    if (payload.expiredAt < moment().unix()) {
+        return res.send({ error: 'El token ha expirado' });
+    }
     req.usuarioId = payload.usuarioId;
-
     next();
 }
-
-//  FUNCIONA DESDE EL INSOMNIA EL LOGINEO PERO NO DESDE EL FRONT.
-
-
-// // MIDDLEWARE
-// const rutasProtegidas = express.Router(); 
-// rutasProtegidas.use((req, res, next) => {
-//     const token = req.headers['access-token'];
- 
-//     if (token) {
-//       jwt.verify(token, app.get('llave'), (err, decoded) => {      
-//         if (err) {
-//           return res.json({ mensaje: 'Token inválida' });    
-//         } else {
-//           req.decoded = decoded;    
-//           next();
-//         }
-//       });
-//     } else {
-//       res.send({ 
-//           mensaje: 'Token no proveída.' 
-//       });
-//     }
-//  });
-
-
-
 
 module.exports = {
     checkToken: checkToken
