@@ -16,7 +16,7 @@ const checkToken = (req, res, next) => {
             return res.send({ error: 'El token ha expirado' });
         }
         // req.usuarioId = payload.usuarioId;
-        else if (payload.userRole === 'user') {
+        else if (payload.userRole === 'admin') {
             next();
         }
         else {

@@ -14,6 +14,8 @@ import ControlledOpenSelect from './rolDropDown.js';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SaveIcon from '@material-ui/icons/Save';
 import { deleteUsers, getUsers } from "../actions/adminLoginActions";
+import Login from '../components/Login';
+import { Link, Route, Redirect} from 'react-router-dom';
 
 const useStyles = makeStyles({
   table: {
@@ -24,19 +26,20 @@ const useStyles = makeStyles({
 const BasicTable = () => {
   const classes = useStyles();
   const  { users, loading, error } = useSelector (state => state.getUsers)
-  const  Camilo  = useSelector (state => state.getUsers)
-  console.log('users!:', users)
+   console.log('usersmessahe!:', users.message)
+   console.log('error!:', error)
   const dispatch = useDispatch();
 
   const handlerDelete = async (id) => {
     await dispatch(deleteUsers(id))
     await dispatch(getUsers())
   }
-
+  // 
+  
   return (
     <>
       <br />
-      {loading && typeof(users) === 'array' ? (<div>Loading...</div>) : error ? (<div>no esta funcionando{error}</div>) : (
+      {loading ? (<div>Loading...</div>) : error ? (<Login/>) : users.message ? (<div>{users.message}</div>) : (
         <TableContainer component={Paper}>
           <div id="adm-usuarios">
             <Typography variant="h6" id="tableTitle">
