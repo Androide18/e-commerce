@@ -12,9 +12,9 @@ export const getUsers = () => async (dispatch) => {
         dispatch({ type: GET_USERS_REQUEST, payload: '' });
         const { data } = await axios.get('http://localhost:3001/users', {withCredentials: true});
         console.log('data', data)
-        dispatch({ type: GET_USERS_SUCCESS, payload: data })
+         dispatch({ type: GET_USERS_SUCCESS, payload: data })      
     } catch (error) {
-        dispatch({ type: GET_USERS_ERROR, payload: error })
+        dispatch({ type: GET_USERS_ERROR, payload: error.message })
     }
 }
 
