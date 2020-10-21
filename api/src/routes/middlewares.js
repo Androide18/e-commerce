@@ -18,6 +18,7 @@ const checkToken = (req, res, next) => {
         // req.usuarioId = payload.usuarioId;
         else if (payload.userRole === 'admin') {
             next();
+            return 
         }
         else {
             res.send({ message: 'No estas autorizado a acceder a esta pagina' })
