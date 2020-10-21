@@ -16,6 +16,7 @@ import SaveIcon from '@material-ui/icons/Save';
 import { deleteUsers, getUsers } from "../actions/adminLoginActions";
 import Login from '../components/Login';
 import { Link, Route, Redirect} from 'react-router-dom';
+import AwSnap from '../components/AwSnap';
 
 const useStyles = makeStyles({
   table: {
@@ -35,12 +36,10 @@ const BasicTable = () => {
     await dispatch(getUsers())
   }
   // 
-
-  
   return (
     <>
       <br />
-      {loading ? (<div>Loading...</div>) : error ? (<Login/>) : users.message ? (<div>{users.message}</div>) : (
+      {loading ? (<div>Loading...</div>) : error ? (<Login/>) : users.message ? (<AwSnap/>) : (
         <TableContainer component={Paper}>
           <div id="adm-usuarios">
             <Typography variant="h6" id="tableTitle">
