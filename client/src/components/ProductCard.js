@@ -13,10 +13,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import lightGreen from '@material-ui/core/colors/lightGreen' //color de la fuente
 import { addToCart, getProductFromCart } from "../actions/cartActions";
-
-
-
-
+import '../index.css';
 
 const ProductCard = (props) => {
  
@@ -26,9 +23,8 @@ const ProductCard = (props) => {
 
   const useStyles = makeStyles({
     Card: {
-       width: 240,
+      width: 240,
       height: 420,
-      margin: 'auto'
     },
     Media: {
       height: "250px",
@@ -67,10 +63,6 @@ const ProductCard = (props) => {
           <Button size="small" color="primary"
             onClick={handleAddtoCart}
           >
-
-            {/* <Typography variant='h6'>
-              AÑADIR AL CARRITO
-            </Typography> */}
             <ShoppingCartIcon fontSize="inherit" style={{ fontSize: "35px", display: "flex", justifyContent: "center", alignItems: "center" }} />
 
           </Button>
