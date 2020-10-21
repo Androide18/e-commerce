@@ -6,16 +6,19 @@ import {
 } from "../constants/adminLoginConstants";
 import axios from 'axios';
 
+// Esta accion se usa en http://localhost:3000/adminlogin para TRAER los users
 export const getUsers = () => async (dispatch) => {
     try {
         dispatch({ type: GET_USERS_REQUEST, payload: '' });
-        const { data } = await axios.get('http://localhost:3001/users');
-        dispatch({ type: GET_USERS_SUCCESS, payload: data })
+        const { data } = await axios.get('http://localhost:3001/users', {withCredentials: true});
+        console.log('data', data)
+         dispatch({ type: GET_USERS_SUCCESS, payload: data })      
     } catch (error) {
-        dispatch({ type: GET_USERS_ERROR, payload: error })
+        dispatch({ type: GET_USERS_ERROR, payload: error.message })
     }
 }
 
+// Esta accion se usa en http://localhost:3000/adminlogin para GUARDAR los users
 export const saveUsers = (user) => async (dispatch) => {
     try {
         dispatch({ type: SAVE_USERS_REQUEST, payload: user });
@@ -27,6 +30,7 @@ export const saveUsers = (user) => async (dispatch) => {
     }
 }
 
+// Esta accion se usa en http://localhost:3000/adminlogin para EDITAR los users
 export const updateUsers = (id, user) => async (dispatch) => {
     try {
         dispatch({type: UPDATE_USERS_REQUEST, payload: id});
@@ -37,6 +41,8 @@ export const updateUsers = (id, user) => async (dispatch) => {
     }
 }
 
+
+// Esta accion se usa en http://localhost:3000/adminlogin para BORRAR los users
 export const deleteUsers = (id) => async (dispatch) => {
     console.log('id', id)
     try {

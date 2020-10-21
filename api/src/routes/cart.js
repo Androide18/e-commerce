@@ -274,8 +274,6 @@ server.get('/:id/cart', (req, res) => {
 });
 
 
-
-
 // TRAE TODAS LAS ORDERLINES DE UN USUARIO
 
 server.get('/:id/orders', (req, res) => {
@@ -392,7 +390,4 @@ server.put('/:id/cart', (req, res) => {
 });
 
 module.exports = server;
-
-
-
 

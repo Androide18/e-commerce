@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -14,33 +14,8 @@ import Container from '@material-ui/core/Container';
 import { Link } from 'react-router-dom';
 import { FacebookLoginButton, GoogleLoginButton, GithubLoginButton, TwitterLoginButton, InstagramLoginButton } from "react-social-login-buttons";
 import '../index.css';
-
-//-----------------------------------------------------------------------
-//Pedido a axios
-
-var axios = require('axios');
-var data = JSON.stringify({"email":"elfabri@gmail.com","password":"456789"});
-
-var config = {
-  method: 'post',
-  url: 'http://localhost:3001/users/login',
-  headers: { 
-    'Content-Type': 'application/json', 
-    'Cookie': 'connect.sid=s%3ACfDy3qTbnuXMMND6RK2AbiW2xBnzY5U2.29RrYy0doZFcY%2BBVuMG5KVV098YsRD3GqScwfliHDLU'
-  },
-  data : data
-};
-
-axios(config)
-.then(function (response) {
-  console.log(JSON.stringify(response.data));
-})
-.catch(function (error) {
-  console.log(error);
-});
-
-//-----------------------------------------------------------------------
-
+import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 const responseGoogle = (response) => {
   console.log(response);
@@ -67,8 +42,59 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Login() {
+
+export default function Login(props) {
+
+  const [form, setForm] = useState(
+    {
+      email: '',
+      password: ''
+    });
+
+  console.log('form', form)
+
+  const handleChange = async e => {
+    e.preventDefault();
+    e.persist();
+    await setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    })
+    console.log('e', e.target.value)
+  }
+
+  const enviarDatos = (event) => {
+    event.preventDefault();
+
+    var data = JSON.stringify({ "email": form.email, "password": form.password });
+    
+    axios({
+      method: 'post',
+      url: 'http://localhost:3001/users/login',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: data,
+      withCredentials: true
+
+    }
+    )
+      .then(function (response) {
+        console.log('axios response', response);
+        console.log('')
+        
+      })
+      .catch(function (error) {
+        console.log('axios error', error);
+      });
+  }
+
+   
+
   const classes = useStyles();
+
+  // const estado = useSelector(state => state.getUsers)
+  // console.log('useSelector', estado)
 
   return (
     <Container component="main" maxWidth="xs">
@@ -80,8 +106,9 @@ export default function Login() {
         <Typography component="h1" variant="h5">
           Ingresar
         </Typography>
-        <form className={classes.form} noValidate>
+        <form onSubmit={enviarDatos} className={classes.form} noValidate>
           <TextField
+            onChange={handleChange}
             variant="outlined"
             margin="normal"
             required
@@ -93,6 +120,7 @@ export default function Login() {
             autoFocus
           />
           <TextField
+            onChange={handleChange}
             variant="outlined"
             margin="normal"
             required
@@ -142,7 +170,7 @@ export default function Login() {
             </Grid>
           </Grid>
         </form>
-      
+
       </div>
       <Box mt={8}>
       </Box>

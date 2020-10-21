@@ -1,26 +1,62 @@
 const jwt = require('jwt-simple');
 const moment = require('moment');
 
+
 const checkToken = (req, res, next) => {
-    if(!req.headers['user-token']) {
-        return res.send({ error: 'Necesitas incluir un token' });
-    }
-    const userToken = req.headers['user-token'];
+
+    const userToken = req.cookies.cookieHash
+
     let payload = {};
-   try {
-       payload = jwt.decode(userToken, 'frase_secreta');
-    } catch(err) {
-        return res.send({ error: 'El token es incorrecto' });
-    } 
-    if(payload.expiredAt < moment().unix()){
-        return res.send( { error: 'El token ha expirado' });
+    console.log('payloadVacio', payload)
+
+    try {
+        payload = jwt.decode(userToken, 'frase_secreta');            //me decodifica el token con la frase secreta
+        console.log('payload desde el middleware', payload)         // y me trae en el payload el userId y userRole
+        if (payload.expiredAt < moment().unix()) {
+            return res.send({ error: 'El token ha expirado' });
+        }
+        // req.usuarioId = payload.usuarioId;
+        else if (payload.userRole === 'user') {
+            next();
+        }
+        else {
+            res.send({ message: 'No estas autorizado a acceder a esta pagina' })
+        }
+    } catch {
+        error => res.send({message: 'error de autorizacion'})
     }
-
-    req.usuarioId = payload.usuarioId;
-
-    next();
 }
 
 module.exports = {
     checkToken: checkToken
 }
+
+
+
+
+// const checkToken = (req, res, next) => {
+
+//     const userToken = req.cookies.cookieHash
+
+//     let payload = {};
+//     console.log('payloadVacio', payload)
+//     try {
+//         payload = jwt.decode(userToken, 'frase_secreta');            //me decodifica el token con la frase secreta
+//         console.log('payload desde el middleware', payload)
+//         // y me trae en el payload el userId
+//         if (payload.expiredAt < moment().unix()) {
+//             return res.send({ error: 'El token ha expirado' });
+//         }
+//         // req.usuarioId = payload.usuarioId;
+//         else if (payload.userRole === 'admin') {
+//             next();
+//         }
+//         else {
+//             res.status(403).send({ message: 'No estas autorizado a acceder a esta pagina' })
+//         }
+//     } catch (err) {
+//         return res.send({ error: 'El token es incorrecto' });
+//     }
+
+
+// }

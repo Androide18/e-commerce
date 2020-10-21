@@ -8,6 +8,7 @@ const cartRouter = require('./cart');
 const orderlinesRouter = require('./orderlines');
 const searchRouter = require('./search');
 const reviewsRouter = require('./reviews');
+var cookieParser = require('cookie-parser');
 
 const router = Router();
 
@@ -22,8 +23,7 @@ const { token } = require('morgan');
 //router.use('/products',middlewares.checkToken, productRouter);     CODIGO DE NAZA!!
 router.use('/products', productRouter);
 
-// PRUEBA DE CARGA DE IMAGEN CON MULTER
-//router.use('/uploads', productRouter);
+router.use(cookieParser());
 
 router.use('/categories', categoryRouter);
 router.use('/users', userRouter);

@@ -6,6 +6,12 @@ const { check, validationResult } = require('express-validator');
 const moment = require('moment');
 const jwt = require('jwt-simple');
 const { Cartorder } = require('../db.js');
+const { checkToken } = require('./middlewares');
+
+
+ server.get('/login', function(req, res){
+     res.send('login');
+ });
 
 
 server.post('/register', [
@@ -30,37 +36,105 @@ server.post('/register', [
   res.send(user);
 });
 
+//AUTENTICACION
 server.post('/login', async (req, res) => {
   const user = await User.findOne({ where: { email: req.body.email } });
+  
   if (user) {
     const iguales = bcrypt.compareSync(req.body.password, user.password);
-    console.log(user.password);
+    console.log('user.password',user.password);
     if (iguales) {
-      res.send({ succes: createToken(user) });
+      const cookieToken = createToken(user);
+      console.log('cookieToken=', cookieToken);
+      res.cookie('cookieHash', cookieToken, { expires: new Date(Date.now() + 900000), httpOnly: true });
+      res.send({ succes: cookieToken});
+
     } else {
-      res.send({ error: 'Error en usuario y/o contraseña' });
+      res.send({ error: 'Error en usuario y/o contraseña1' });
     }
   } else {
-    res.send({ error: 'Error en usuario y/o contraseña' });
+    res.send({ error: 'Error en usuario y/o contraseña2' });
   }
 
 
 });
+
+server.post('/reset-password', function (req, res) {
+  const email = req.body.email
+  User
+      .findOne({
+          where: {email: email},//checking if the email address sent by client is present in the db(valid)
+      })
+      .then(function (user) {
+          if (!user) {
+              return res, 'No user found with that email address.'
+          }
+          ResetPassword
+              .findOne({
+                  where: {userId: user.id, status: 0},
+              }).then(function (resetPassword) {
+              if (resetPassword)
+                  resetPassword.destroy({
+                      where: {
+                          id: resetPassword.id
+                      }
+                  })
+              token = bcrypt.randomBytes(32).toString('hex')//creating the token to be sent to the forgot password form (react)
+              bcrypt.hash(token, null, null, function (err, hash) {//hashing the password to store in the db node.js
+                  ResetPassword.create({
+                      userId: user.id,
+                      resetPasswordToken: hash,
+                      expire: moment.utc().add(config.tokenExpiry, 'seconds'),
+                  }).then(function (item) {
+                      if (!item)
+                          return throwFailed(res, 'Oops problem in creating new password record')
+                      let mailOptions = {
+                          from: '"<admin>" admin@admin.com',
+                          to: user.email,
+                          subject: 'Reset your account password',
+                          html: '<h4><b>Reset Password</b></h4>' +
+                          '<p>To reset your password, complete this form:</p>' +
+                          '<a href=' + config.clientUrl + 'reset/' + user.id + '/' + token + '">' + config.clientUrl + 'reset/' + user.id + '/' + token + '</a>' +
+                          '<br><br>' +
+                          '<p>--Team</p>'
+                      }
+                      let mailSent = sendMail(mailOptions)//sending mail to the user where he can reset password.User id and the token generated are sent as params in a link
+                      if (mailSent) {
+                          return res.json({success: true, message: 'Check your mail to reset your password.'})
+                      } else {
+                          return throwFailed(error, 'Unable to send email.');
+                      }
+                  })
+              })
+          });
+      })
+})
 
 
 
 const createToken = (user) => {
   const payload = {
     usuarioId: user.id,
+    userRole: user.role,
     createdAt: moment().unix(),
     expiredAt: moment().add(5, 'minutes').unix()
   }
   return jwt.encode(payload, 'frase_secreta');
 
 }
+//cookie, 
 
+// res.cookie('cookieHash', hashpass, { expires: new Date(Date.now() + 900000), httpOnly: true }); 
 
-server.get('/', (req, res) => {
+// seteo de cookie
+// if (req.cookies && req.cookies.cookieHash && req.cookies.cookieHash == hashpass) {
+//   res.send({ chk: true, msj: "Cookies Correctas" });
+//   } else {
+//   res.send({ chk: false, error: true, msj: "Cookies Invalidas" });
+//   } 
+
+server.get('/' , checkToken,  (req, res) => {
+  console.log("Cookies desde el get /users:  ", req.cookies);
   User.findAll()
     .then(users => {
       res.send(users);

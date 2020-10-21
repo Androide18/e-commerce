@@ -25,9 +25,7 @@ const BasicTable = () => {
   const classes = useStyles();
   const  { users, loading, error } = useSelector (state => state.getUsers)
   const  Camilo  = useSelector (state => state.getUsers)
-  console.log("HOLA", Camilo);
-  console.log("USERS", users);
-
+  console.log('users!:', users)
   const dispatch = useDispatch();
 
   const handlerDelete = async (id) => {
@@ -38,7 +36,7 @@ const BasicTable = () => {
   return (
     <>
       <br />
-      {loading ? (<div>Loading...</div>) : error ? (<div>no esta funcionando{error}</div>) : (
+      {loading && typeof(users) === 'array' ? (<div>Loading...</div>) : error ? (<div>no esta funcionando{error}</div>) : (
         <TableContainer component={Paper}>
           <div id="adm-usuarios">
             <Typography variant="h6" id="tableTitle">
