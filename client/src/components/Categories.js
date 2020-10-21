@@ -4,7 +4,6 @@ import axios from 'axios';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 import '../index.css';
 
-
 function Categories() {
 
     const [infoCat, setInfoCat] = useState([])
@@ -20,6 +19,7 @@ function Categories() {
 
 
     return (
+        
         <div>
             <ul className="categories">
                 {
@@ -31,6 +31,7 @@ function Categories() {
                 }
             </ul>
         </div>
+        
     )
 }
 

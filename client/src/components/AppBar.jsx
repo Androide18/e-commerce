@@ -9,8 +9,7 @@ import Badge from '@material-ui/core/Badge';
 import { fade, makeStyles } from "@material-ui/core/styles";
 import { connect, useDispatch, useSelector } from 'react-redux';
 import fetchProduct from "../actions/searchProduct";
-
-
+import '../index.css';
 
 function Appbar() {
 
@@ -42,7 +41,7 @@ function Appbar() {
 
   return (
     <div className="espacioBlanco">
-      <AppBar position='static'>
+      <AppBar  position='static' >
         <Toolbar>
           <Typography variant='h4' style={{ flexGrow: 1 }}>
             <div className="brand">
@@ -122,7 +121,7 @@ function Appbar() {
                 <Divider />
                 <br/>
                 {categoriesLoaded.map(category => (
-                  <li >
+                  <li>
                     <Link style={{color: 'black', textDecoration: 'none'}} to={`/product/category/${category.name}`}>{category.name}</Link>
                   </li>
                 ))}
@@ -133,7 +132,7 @@ function Appbar() {
                   <Link className='lista'>Configuracion</Link>
                 </li>
                 <li>
-                  <Link className='lista' to='/carrito'>Mis ordenes</Link>
+                  <Link className='lista' to='/misordenes'>Mis ordenes</Link>
                 </li>
                 <li>
                   <Link className='lista'>Preguntas</Link>

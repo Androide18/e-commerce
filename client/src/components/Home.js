@@ -7,7 +7,7 @@ import Carrusel from './Carrusel.jsx'
 import "../index.css";
 import { useSelector } from 'react-redux';
 import { listProducts, detailsProduct } from '../actions/productActions';
-
+import '../index.css';
 
 function Home() {
 

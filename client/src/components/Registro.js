@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Link, Route } from 'react-router-dom';
+import { FacebookLoginButton, GoogleLoginButton, GithubLoginButton, TwitterLoginButton, InstagramLoginButton } from "react-social-login-buttons";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -157,8 +158,7 @@ export default function Registro(props) {
                   label="Quiero recibir notificaciones y promociones por correo electronico"
                 />
               </Grid>
-            </Grid>
-            <Button
+              <Button
               type="submit"
               fullWidth
               variant="contained"
@@ -168,6 +168,21 @@ export default function Registro(props) {
             >
               Registrate
             </Button>
+          <Grid container>
+          <Grid item xs={12} sm={6}>
+          <GoogleLoginButton  onClick={() => alert("Hello")}>
+            <span className='loginG'>Ingresar con cuenta Google</span>
+          </GoogleLoginButton>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <GithubLoginButton className='loginG'onClick={() => alert("Hello")}>
+            <span className='loginG'>Ingresar con cuenta Github</span>
+          </GithubLoginButton>
+        </Grid>
+            </Grid>
+            
+          </Grid>
+            <br></br>
             <Grid container justify="flex-end">
               <Grid item>
                 <Link to='/login' href="#" variant="body2">

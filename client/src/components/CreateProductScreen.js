@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { Modal, ModalBody, ModalFooter, ModalHeader, FormGroup, Label, Input } from 'reactstrap';
 import { deleteProduct, getProducts, saveProduct, updateProduct } from '../actions/ProductsActions';
+import Button from '@material-ui/core/Button';
 
 
 
@@ -88,14 +89,16 @@ function CreateProductsScreen() {
       {loading ? (<div>Loading...</div>) : error ? (<div>no esta funcionando{error}</div>) : (
         <div className="App">
           <br /><br /><br />
-          <button className="btn btn-success"
+            <Button variant="contained" color="primary" >
+            <div
             action='/uploads'
             method='POST'
             encType='multipart/form-data'
             onClick={() => {
               setForm({ tipoModal: 'insertar' });
               modalInsert()
-            }}>Agregar Producto</button>
+            }}>Agregar Producto</div>
+           </Button>
           <br /><br />
           <table className="table ">
             <thead>
