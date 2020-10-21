@@ -7,6 +7,7 @@ import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteCategory, getCategories, saveCategory, updateCategory } from '../actions/CategoryAction';
+import Button from '@material-ui/core/Button';
 
 
 function CreateCategoryScreen() {
@@ -61,11 +62,13 @@ function CreateCategoryScreen() {
   return (
     <div className="App">
       <br /><br /><br />
-      <button className="btn btn-success"
+      <Button variant="contained" color="primary" >
+        <div
         onClick={() => {
           setForm({ tipoModal: 'insertar' });
           modalInsert()
-        }}>Agregar Categoria</button>
+        }}>Agregar Categoria</div>
+           </Button>
       <br /><br />
       <table className="table ">
         <thead>
