@@ -28,11 +28,7 @@ server.post('/register', [
 
   req.body.password = bcrypt.hashSync(req.body.password, 10);
   const user = await User.create(req.body);
-  // Cartorder.create({
-  //   userId: user.dataValues.id
-  //   // price: 0,
-  //   // quantity: 0
-  // })
+  
   res.send(user);
 });
 
@@ -41,13 +37,22 @@ server.post('/login', async (req, res) => {
   const user = await User.findOne({ where: { email: req.body.email } });
   
   if (user) {
+    console.log('USER', user)
     const iguales = bcrypt.compareSync(req.body.password, user.password);
     console.log('user.password',user.password);
     if (iguales) {
       const cookieToken = createToken(user);
       console.log('cookieToken=', cookieToken);
       res.cookie('cookieHash', cookieToken, { expires: new Date(Date.now() + 900000), httpOnly: true });
-      res.send({ succes: cookieToken});
+      //  res.status(200).send({ succes: cookieToken});
+
+      if (user.role === 'admin') {
+        res.status(200).send({ succes: cookieToken});
+      }
+      else{
+        res.status(202).send({ succes: cookieToken});
+      }
+      
 
     } else {
       res.send({ error: 'Error en usuario y/o contraseña1' });
@@ -117,7 +122,7 @@ const createToken = (user) => {
     usuarioId: user.id,
     userRole: user.role,
     createdAt: moment().unix(),
-    expiredAt: moment().add(1, 'minutes').unix()
+    expiredAt: moment().add(5, 'minutes').unix()
   }
   return jwt.encode(payload, 'frase_secreta');
 

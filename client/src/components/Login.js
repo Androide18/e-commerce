@@ -47,16 +47,15 @@ export default function Login(props) {
       password: ''
     });
 
-  console.log('form', form)
 
   const handleChange = async e => {
     e.preventDefault();
-    e.persist();
+    
     await setForm({
       ...form,
       [e.target.name]: e.target.value
     })
-    console.log('e', e.target.value)
+   
   }
 
   const enviarDatos = (event) => {
@@ -77,8 +76,12 @@ export default function Login(props) {
     )
       .then(function (response) {
         console.log('axios response', response);
-        console.log('')
-        
+        if (response.status === 200) {
+          props.history.replace({pathname : '/adminlogin'})
+        }
+        else  {
+          props.history.replace({pathname : '/'})
+        }
       })
       .catch(function (error) {
         console.log('axios error', error);
