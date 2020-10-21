@@ -5,7 +5,7 @@ const moment = require('moment');
 const checkToken = (req, res, next) => {
 
     const userToken = req.cookies.cookieHash
-
+    console.log("userToken",userToken)
     let payload = {};
     console.log('payloadVacio', payload)
 

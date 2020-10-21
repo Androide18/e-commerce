@@ -7,11 +7,12 @@ const moment = require('moment');
 const jwt = require('jwt-simple');
 const { Cartorder } = require('../db.js');
 const { checkToken } = require('./middlewares');
+const { response } = require('../app.js');
 
 
- server.get('/login', function(req, res){
-     res.send('login');
- });
+server.get('/login', function (req, res) {
+  res.send('login');
+});
 
 
 server.post('/register', [
@@ -28,18 +29,19 @@ server.post('/register', [
 
   req.body.password = bcrypt.hashSync(req.body.password, 10);
   const user = await User.create(req.body);
-  
+
   res.send(user);
 });
 
 //AUTENTICACION
 server.post('/login', async (req, res) => {
+
   const user = await User.findOne({ where: { email: req.body.email } });
-  
+
   if (user) {
     console.log('USER', user)
     const iguales = bcrypt.compareSync(req.body.password, user.password);
-    console.log('user.password',user.password);
+    console.log('user.password', user.password);
     if (iguales) {
       const cookieToken = createToken(user);
       console.log('cookieToken=', cookieToken);
@@ -47,12 +49,12 @@ server.post('/login', async (req, res) => {
       //  res.status(200).send({ succes: cookieToken});
 
       if (user.role === 'admin') {
-        res.status(200).send({ succes: cookieToken});
+        res.status(200).send({ succes: cookieToken });
       }
-      else{
-        res.status(202).send({ succes: cookieToken});
+      else {
+        res.status(202).send({ succes: cookieToken });
       }
-      
+
 
     } else {
       res.send({ error: 'Error en usuario y/o contraseña1' });
@@ -64,55 +66,65 @@ server.post('/login', async (req, res) => {
 
 });
 
+server.post('/logout', async (req, res) => {
+  console.log('REQ', req.cookies.cookieHash)
+  const cookieToken = req.cookies.cookieHash;
+  console.log("cookieToken", cookieToken)
+
+  res.cookie('cookieHash', cookieToken, { expires: new Date(Date.now() + 1000), httpOnly: true });
+  res.send("se deslogueo correctamente")
+
+});
+
 server.post('/reset-password', function (req, res) {
   const email = req.body.email
   User
-      .findOne({
-          where: {email: email},//checking if the email address sent by client is present in the db(valid)
-      })
-      .then(function (user) {
-          if (!user) {
-              return res, 'No user found with that email address.'
-          }
-          ResetPassword
-              .findOne({
-                  where: {userId: user.id, status: 0},
-              }).then(function (resetPassword) {
-              if (resetPassword)
-                  resetPassword.destroy({
-                      where: {
-                          id: resetPassword.id
-                      }
-                  })
-              token = bcrypt.randomBytes(32).toString('hex')//creating the token to be sent to the forgot password form (react)
-              bcrypt.hash(token, null, null, function (err, hash) {//hashing the password to store in the db node.js
-                  ResetPassword.create({
-                      userId: user.id,
-                      resetPasswordToken: hash,
-                      expire: moment.utc().add(config.tokenExpiry, 'seconds'),
-                  }).then(function (item) {
-                      if (!item)
-                          return throwFailed(res, 'Oops problem in creating new password record')
-                      let mailOptions = {
-                          from: '"<admin>" admin@admin.com',
-                          to: user.email,
-                          subject: 'Reset your account password',
-                          html: '<h4><b>Reset Password</b></h4>' +
-                          '<p>To reset your password, complete this form:</p>' +
-                          '<a href=' + config.clientUrl + 'reset/' + user.id + '/' + token + '">' + config.clientUrl + 'reset/' + user.id + '/' + token + '</a>' +
-                          '<br><br>' +
-                          '<p>--Team</p>'
-                      }
-                      let mailSent = sendMail(mailOptions)//sending mail to the user where he can reset password.User id and the token generated are sent as params in a link
-                      if (mailSent) {
-                          return res.json({success: true, message: 'Check your mail to reset your password.'})
-                      } else {
-                          return throwFailed(error, 'Unable to send email.');
-                      }
-                  })
-              })
-          });
-      })
+    .findOne({
+      where: { email: email },//checking if the email address sent by client is present in the db(valid)
+    })
+    .then(function (user) {
+      if (!user) {
+        return res, 'No user found with that email address.'
+      }
+      ResetPassword
+        .findOne({
+          where: { userId: user.id, status: 0 },
+        }).then(function (resetPassword) {
+          if (resetPassword)
+            resetPassword.destroy({
+              where: {
+                id: resetPassword.id
+              }
+            })
+          token = bcrypt.randomBytes(32).toString('hex')//creating the token to be sent to the forgot password form (react)
+          bcrypt.hash(token, null, null, function (err, hash) {//hashing the password to store in the db node.js
+            ResetPassword.create({
+              userId: user.id,
+              resetPasswordToken: hash,
+              expire: moment.utc().add(config.tokenExpiry, 'seconds'),
+            }).then(function (item) {
+              if (!item)
+                return throwFailed(res, 'Oops problem in creating new password record')
+              let mailOptions = {
+                from: '"<admin>" admin@admin.com',
+                to: user.email,
+                subject: 'Reset your account password',
+                html: '<h4><b>Reset Password</b></h4>' +
+                  '<p>To reset your password, complete this form:</p>' +
+                  '<a href=' + config.clientUrl + 'reset/' + user.id + '/' + token + '">' + config.clientUrl + 'reset/' + user.id + '/' + token + '</a>' +
+                  '<br><br>' +
+                  '<p>--Team</p>'
+              }
+              let mailSent = sendMail(mailOptions)//sending mail to the user where he can reset password.User id and the token generated are sent as params in a link
+              if (mailSent) {
+                return res.json({ success: true, message: 'Check your mail to reset your password.' })
+              } else {
+                return throwFailed(error, 'Unable to send email.');
+              }
+            })
+          })
+        });
+    })
 })
 
 
@@ -138,13 +150,13 @@ const createToken = (user) => {
 //   res.send({ chk: false, error: true, msj: "Cookies Invalidas" });
 //   } 
 
-server.get('/' , checkToken,  (req, res) => {
+server.get('/', checkToken, (req, res) => {
   console.log("Cookies desde el get /users:  ", req.cookies);
   User.findAll()
     .then(users => {
       res.send(users);
     })
-    .catch();
+    .catch(error => { res.send('inhabilitado') });
 });
 
 
@@ -162,7 +174,7 @@ server.get('/' , checkToken,  (req, res) => {
 //     email: email,
 //     password: password,
 //   }).then(created => {
-    
+
 //     Cartorder.create({
 //       userId: created.dataValues.id
 //     })
