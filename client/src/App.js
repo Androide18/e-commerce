@@ -23,10 +23,7 @@ import adminLogin from './components/adminLogin';
 import { getUsers } from './actions/adminLoginActions';
 import { getProductFromCart } from './actions/cartActions';
 import ProdCategoryScreen from './components/ProdCategoryScreen';
-
-
-
-
+import AwSnap from './components/AwSnap';
 
 function App() {
   const dispatch = useDispatch();
@@ -59,6 +56,7 @@ function App() {
             <Route path='/search' component={SearchResult} />
             <Route path='/adminlogin' component={adminLogin} />
             <Route path='/product/category' component={ProdCategoryScreen}/>
+            <Route path='/error401' component={AwSnap} />
           </div>
         </main>
         <footer className="footer">All right reserved</footer>
