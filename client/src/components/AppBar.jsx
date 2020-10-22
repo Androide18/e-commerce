@@ -13,16 +13,36 @@ import '../index.css';
 import axios from 'axios';
 
 
+// SET NAME LOGGED USER
+global.nameAvatar = 'guest';
+console.log('nameAvatar',global.nameAvatar)
+
+export function setUserName(userName) {
+  
+  global.nameAvatar = userName;
+  console.log('se ejecuto', global.nameAvatar)
+}
+
+
+
 // OCULTAR BOTON
  export function ocultar() {
   document.getElementById('newProdButton').style.display = 'none';
   document.getElementById('newCatButton').style.display = 'none';
+  document.getElementById('adminUsers').style.display = 'none';
+  document.getElementById('loginBtn').style.display = 'none';
+  document.getElementById('registerBtn').style.display = 'none';
+
   
 }
 
  export function mostrar() {
   document.getElementById('newProdButton').style.display = 'block';
   document.getElementById('newCatButton').style.display = 'block';
+  document.getElementById('adminUsers').style.display = 'block';
+  document.getElementById('loginBtn').style.display = 'none';
+  document.getElementById('registerBtn').style.display = 'none';
+  document.getElementById('cartBtn').style.display = 'none';
 }
 
 
@@ -140,16 +160,19 @@ export default function Appbar() {
           <Button id='newCatButton' color='inherit' fontSize="inherit" style={{ fontSize: "12px", display: 'none' }}>
             <Link className='link' to='/category/new'>Nueva Categoria</Link>
           </Button>
-          <Button color='inherit' fontSize="inherit" style={{ fontSize: "12px" }}>
+          <Button id='adminUsers' color='inherit' fontSize="inherit" style={{ fontSize: "12px", display: 'none' }}>
+            <Link className='link' to='/adminlogin'>Usuarios</Link>
+          </Button>
+          <Button id='loginBtn' color='inherit' fontSize="inherit" style={{ fontSize: "12px" }}>
             <Link className='link' to='/login'>Login</Link>
           </Button>
-          <Button color='inherit' fontSize="inherit" style={{ fontSize: "12px" }}>
+          <Button id='registerBtn' color='inherit' fontSize="inherit" style={{ fontSize: "12px" }}>
             <Link className='link' to='/registro'>Registrarse</Link>
           </Button>
           <IconButton onClick={handleAccount} color='inherit' aria-label='account'>
-            <AccountCircle fontSize="inherit" style={{ fontSize: "20px" }} />
+            <AccountCircle fontSize="inherit" style={{ fontSize: "20px" }} /> <span style={{ fontSize: "12px" }}> {global.nameAvatar} </span> 
           </IconButton>
-          <IconButton color='inherit'>
+          <IconButton id='cartBtn' color='inherit'>
             <Link className='link' to='/users/1/cart'>
               {/* el badge es la cantidad de items en el carro */}
               <Badge badgeContent={totalQuantity} color="secondary">
@@ -179,25 +202,10 @@ export default function Appbar() {
                 <h5>Mi Perfil</h5>
                 <Divider />
                 <li>
-                  <Link className='lista'>Configuracion</Link>
-                </li>
-                <li>
                   <Link className='lista' to='/misordenes'>Mis ordenes</Link>
                 </li>
                 <li>
-                  <Link className='lista'>Preguntas</Link>
-                </li>
-                <li>
-                  <Link className='lista'>Reclamos</Link>
-                </li>
-                <li>
-                  <Link className='lista'>Seguridad</Link>
-                </li>
-                <li>
-                  <Link className='lista'>Alerta de búsqueda</Link>
-                </li>
-                <li>
-                  <Link className='lista' onClick={() => { logout() }} >Salir</Link>
+                  <Link className='lista' onClick={() => { logout() }} >Logout</Link>
                 </li>
               </div>
             }
