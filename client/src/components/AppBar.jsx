@@ -7,11 +7,27 @@ import Divider from '@material-ui/core/Divider';
 import { Link } from 'react-router-dom';
 import Badge from '@material-ui/core/Badge';
 import { fade, makeStyles } from "@material-ui/core/styles";
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import fetchProduct from "../actions/searchProduct";
 import '../index.css';
+import axios from 'axios';
 
-function Appbar() {
+
+// OCULTAR BOTON
+ export function ocultar() {
+  document.getElementById('newProdButton').style.display = 'none';
+  document.getElementById('newCatButton').style.display = 'none';
+  
+}
+
+ export function mostrar() {
+  document.getElementById('newProdButton').style.display = 'block';
+  document.getElementById('newCatButton').style.display = 'block';
+}
+
+
+export default function Appbar() {
+
 
   const { totalQuantity } = useSelector(state => state.cart);
   const { categoriesLoaded } = useSelector(state => state.categories)
@@ -39,9 +55,44 @@ function Appbar() {
     document.querySelector('.sidebar').classList.remove('open');
   };
 
+
+  // LOGOUT
+
+  const logout = (event) => {
+    // event.preventDefault();
+    console.log('entra');
+    axios({
+      method: 'post',
+      url: 'http://localhost:3001/users/logout',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      withCredentials: true
+
+    }
+    )
+      .then(function (response) {
+        console.log('axios response', response);
+        if (response.status === 200) {
+          window.location.replace('http://localhost:3000/')
+        }
+        else {
+          console.log('else')
+          window.location.replace('http://localhost:3000/')
+        }
+      })
+      .catch(function (error) {
+        console.log('axios error', error);
+      });
+  }
+
+
+
+
+
   return (
     <div className="espacioBlanco">
-      <AppBar  position='static' >
+      <AppBar position='static' >
         <Toolbar>
           <Typography variant='h4' style={{ flexGrow: 1 }}>
             <div className="brand">
@@ -83,11 +134,10 @@ function Appbar() {
             </Button>
 
           </div>
-
-          <Button color='inherit' fontSize="inherit" style={{ fontSize: "12px" }}>
+          <Button id='newProdButton' color='inherit' fontSize="inherit" style={{ fontSize: "12px", display: 'none' }}>
             <Link className='link' to='/product/new'>Nuevo Producto</Link>
           </Button>
-          <Button color='inherit' fontSize="inherit" style={{ fontSize: "12px" }}>
+          <Button id='newCatButton' color='inherit' fontSize="inherit" style={{ fontSize: "12px", display: 'none' }}>
             <Link className='link' to='/category/new'>Nueva Categoria</Link>
           </Button>
           <Button color='inherit' fontSize="inherit" style={{ fontSize: "12px" }}>
@@ -119,10 +169,10 @@ function Appbar() {
               <div>
                 <h5>Categorias</h5>
                 <Divider />
-                <br/>
+                <br />
                 {categoriesLoaded.map(category => (
                   <li>
-                    <Link style={{color: 'black', textDecoration: 'none'}} to={`/product/category/${category.name}`}>{category.name}</Link>
+                    <Link style={{ color: 'black', textDecoration: 'none' }} to={`/product/category/${category.name}`}>{category.name}</Link>
                   </li>
                 ))}
               </div> : <div>
@@ -147,7 +197,7 @@ function Appbar() {
                   <Link className='lista'>Alerta de búsqueda</Link>
                 </li>
                 <li>
-                  <Link className='lista'>Salir</Link>
+                  <Link className='lista' onClick={() => { logout() }} >Salir</Link>
                 </li>
               </div>
             }
@@ -204,9 +254,3 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-const mapStateToProps = state => ({
-  basketProps: state.basket
-})
-
-export default connect(mapStateToProps)(Appbar);

@@ -16,11 +16,11 @@ import { FacebookLoginButton, GoogleLoginButton, GithubLoginButton, TwitterLogin
 import '../index.css';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import { ocultar, mostrar } from './AppBar';
 
 const responseGoogle = (response) => {
   console.log(response);
 }
- 
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -45,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Login(props) {
 
+  console.log('ocultar', ocultar)
 
   console.log('SOYLASPROPS', props)
 
@@ -78,15 +79,16 @@ export default function Login(props) {
       },
       data: data,
       withCredentials: true
-
     }
     )
       .then(function (response) {
         console.log('axios response', response);
         if (response.status === 200) {
+          mostrar();
           props.history.replace({pathname : '/adminlogin'})
         }
         else  {
+          ocultar();
           props.history.replace({pathname : '/'})
         }
       })

@@ -35,7 +35,10 @@ const BasicTable = () => {
     await dispatch(deleteUsers(id))
     await dispatch(getUsers())
   }
-  // 
+  
+  console.log('loading', loading);
+
+
   return (
     <>
       <br />
