@@ -49,10 +49,10 @@ server.post('/login', async (req, res) => {
       //  res.status(200).send({ succes: cookieToken});
 
       if (user.role === 'admin') {
-        res.status(200).send({ succes: cookieToken });
+        res.status(200).send({ succes: cookieToken, user });
       }
       else {
-        res.status(202).send({ succes: cookieToken });
+        res.status(202).send({ succes: cookieToken, user });
       }
 
 
